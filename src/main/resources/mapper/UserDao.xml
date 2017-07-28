@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.resume.dao.UserDao">
+	
+	<select id="queryByUsername" resultType="UserInfoPo" parameterType="string">
+		select id, username, password, nickname, phone, locked,email 
+		from t_user
+		where username = #{username} or phone=#{username} or email=#{username}
+	</select>
+	
+	<insert id="insertUser" parameterType="UserInfoPo">
+		insert into t_user
+		(username, password, nickname, phone, locked,email)
+		VALUES
+		(#{username},#{password},#{nickname},#{phone},#{locaked},#{email})
+	</insert>
+	
+	<update id="resetPasswordByEmail">
+		update t_user set password=#{password} where email=#{email}
+	</update>
+	
+	
+</mapper>

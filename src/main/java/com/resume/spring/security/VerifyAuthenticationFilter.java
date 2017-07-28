@@ -18,7 +18,9 @@ public class VerifyAuthenticationFilter extends
 
 	public Authentication attemptAuthentication(HttpServletRequest request,
 			HttpServletResponse response) throws AuthenticationException {
-
+		
+		String username = request.getParameter("username");
+		request.getSession().setAttribute("SPRING_SECURITY_LAST_USERNAME", username);
 		String genCode = this.getSessionVerifyCode(request);
 		String inputCode = this.getReqVerifyCode(request);
 		if (genCode == null)

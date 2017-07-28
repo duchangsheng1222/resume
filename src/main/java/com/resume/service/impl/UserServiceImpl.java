@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
 	
+	@Override
 	public UserInfo queryByUsername(String username) {
 		UserInfoPo userInfoPo = userDao.queryByUsername(username);
 		UserInfo userInfo = BeanUtil.createCopy(userInfoPo, UserInfo.class);

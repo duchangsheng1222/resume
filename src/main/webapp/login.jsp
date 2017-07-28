@@ -82,7 +82,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" class="logintable">
 			<tr>
 				<td class="loginttd_l">用户名</td>
-				<td class="loginttd_r"><input id="username" name="username" class="loginttd_r_input" type="text" value="<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}" escapeXml="false"/></c:if>"/></td>
+				<td class="loginttd_r"><input id="username" name="username" class="loginttd_r_input" type="text" value="<c:if test="${not empty param.login_error}"><c:out value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}" escapeXml="false"/></c:if>"/></td>
 			</tr>
 			<tr>
 				<td class="loginttd_l">密&nbsp;&nbsp;&nbsp;&nbsp;码</td>
@@ -107,7 +107,7 @@
 			<tr>
 				<td colspan="2" style="height: 30px;" >	<div class="logincont_center">
 					<c:if test="${not empty param.login_error}">
-				      <font color="red">  ${sessionScope }<br/><br/></font>
+				      <font color="red">  ${sessionScope}<br/><br/></font>
 				    </c:if>
 			</div></td>
 			</tr>

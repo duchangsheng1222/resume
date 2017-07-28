@@ -11,6 +11,7 @@
 
 	<aop:aspectj-autoproxy />
     <mvc:annotation-driven />
+   	<context:property-placeholder location="classpath:*.properties" file-encoding="UTF-8"/>
     <!-- 扫描controller-->
     <context:component-scan base-package="com.resume.**.controller.**" />
     

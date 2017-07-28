@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.resume.common.MailSender;
+import com.resume.response.BaseResponse;
+import com.resume.response.ResponseModel;
 import com.resume.service.UserService;
 import com.resume.service.exception.UserException;
-import com.resume.service.response.BaseResponse;
-import com.resume.service.response.ResponseModel;
 import com.resume.spring.security.StandardPasswordEncoder;
 import com.resume.util.VerifyCodeUtils;
 
@@ -71,10 +71,10 @@ public class UserController {
 			mailSender.sendMail(email, verifyMailTitle, verifyCode);
 		} catch (Exception e) {
 			log.error("发送验证码失败 "+e.getMessage(),e);
-			return new BaseResponse<String>().fail("发送验证码失败");
+			return new BaseResponse().fail("发送验证码失败");
 		}
 		
-		return new BaseResponse<String>().success(BaseResponse.SUCCESS_MESSAGE);
+		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
 	@ResponseBody
@@ -91,9 +91,9 @@ public class UserController {
 			userService.resetPassword(email, encodePassword);
 		} catch (Exception e) {
 			log.error("发送验证码失败 "+e.getMessage(),e);
-			return new BaseResponse<String>().fail("发送验证码失败");
+			return new BaseResponse().fail("发送验证码失败");
 		}
 		
-		return new BaseResponse<String>().success(BaseResponse.SUCCESS_MESSAGE);
+		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);
 	}
 }

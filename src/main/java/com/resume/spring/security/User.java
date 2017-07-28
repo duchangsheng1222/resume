@@ -8,7 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = -1030276914673355966L;
-
+	
+	private long id;
 	private String username;
 	private String password;
 	private String nickname;
@@ -84,6 +85,14 @@ public class User implements UserDetails {
 
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {
 		this.authorities = authorities; 
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 //	public List<MenuItem> getMenus() {

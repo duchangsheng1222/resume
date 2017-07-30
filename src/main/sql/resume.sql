@@ -38,6 +38,12 @@ create TABLE t_resume_file(
   KEY `idx_resume_id_type` (`resume_id`,`type`) USING BTREE 
 );
 
+create TABLE t_interview_flow(
+	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
+	`resume_id`  varchar(255) NULL DEFAULT NULL COMMENT '简历id' ,
+	`step`  int(11) NULL DEFAULT NULL COMMENT '状态' ,
+	PRIMARY KEY (`id`)
+);
 
 
 create TABLE t_comment(

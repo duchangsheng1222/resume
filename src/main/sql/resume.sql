@@ -13,7 +13,8 @@ create TABLE t_resume_info(
 `country`  varchar(500) NULL DEFAULT NULL COMMENT '教育所在国家' ,
 `certification`  varchar(500) NULL DEFAULT NULL COMMENT '证书' ,
 `specialized`  varchar(500) NULL DEFAULT NULL COMMENT '专业技能' ,
-`experience_length`  varchar(500) NULL DEFAULT NULL COMMENT '专业技能' ,
+`experience_length`  varchar(500) NULL DEFAULT NULL COMMENT '工作年限' ,
+`other_positions`  varchar(500) NULL DEFAULT NULL COMMENT '其他职位' ,
 
 `create_time`  date_time NULL DEFAULT NULL COMMENT '创建时间' ,
 `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -23,12 +24,18 @@ PRIMARY KEY (`id`),
 KEY `idx_creator_id` (`creator_id`) USING BTREE 
 );
 
+
+
 create TABLE t_resume_file(
 	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
   `resume_id`  bigint(16) NOT NULL COMMENT '简历id', 
+  `user_id`  bigint(16) NOT NULL COMMENT '用户id', 
   `file_address`  varchar(500)  NULL DEFAULT NULL COMMENT '文件地址' ,
+  `file_type`  varchar(500)  NULL DEFAULT NULL COMMENT '文件类型' ,
+  `type`  int  NULL DEFAULT 0 COMMENT '业务类型 0:简历，1:自荐视频' ,
   `deleted` enum('0','1')  NULL DEFAULT '0' COMMENT '文件地址' ,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `idx_resume_id_type` (`resume_id`,`type`) USING BTREE 
 );
 
 
@@ -49,7 +56,21 @@ CREATE TABLE `t_user` (
   `locked` smallint(6) default NULL,
   `phone` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table t_role(
+ `id` bigint(20) NOT NULL auto_increment,
+  `role` varchar(255) default NULL,
+  `role_name` varchar(255) default NULL,
+   PRIMARY KEY  (`id`)
+)
+
+create table t_user_role(
+	`id` bigint(20) NOT NULL auto_increment,
+	`user_id` bigint(20) NOT NULL ,
+	`role_id` bigint(20) NOT NULL ,
+	 PRIMARY KEY  (`id`)
+ )
 
 
 

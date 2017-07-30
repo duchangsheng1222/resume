@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.resume.dao.ResumeInfoDao">
+	
+	<insert id="insertResumeInfo" parameterType="ResumeInfoPo">
+		insert into t_resume_info 
+		(name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
+experience_length,other_positions,create_time,creator_id,updater_id)
+		VALUES
+		(#{name},#{age},#{gender},#{position},#{phone},#{citizenship},
+		#{education},#{major},#{country},#{certification},#{specialized},#{experienceLength},
+		＃{otherPositions},#{createTime},#{creatorId},
+		＃{updaterId})
+	</insert>
+	
+
+	
+	
+</mapper>

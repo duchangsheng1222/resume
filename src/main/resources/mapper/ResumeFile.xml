@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.resume.dao.ResumeFileDao">
+	
+	<select id="queryByResumeIdAndType" resultType="ResumeFilePo">
+		select id, resume_id,user_id, file_address, file_type, type, deleted
+		from t_resume_file
+		where resume_id = #{resumeId} and type=#{type} and deleted='0'
+	</select>
+	
+	<insert id="insertResumeFile" parameterType="ResumeFilePo">
+		insert into t_resume_file
+		(resume_id,user_id, file_address, file_type, type, deleted)
+		VALUES
+		(#{resumeId},#{userId},#{fileAddress},#{fileType},#{type},#{deleted})
+	</insert>
+	
+	
+	
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- 为Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.resume.dao.InterviewFlowDao">
+	
+	<insert id="insertInterviewFlow" parameterType="InterviewFlowPo">
+		insert into t_interview_flow  
+		(resume_id,step,create_time,creator_id,updater_id)
+		VALUES
+		(#{resumeId},#{step},#{createTime},#{creatorId},#{updaterId})
+	</insert>
+	
+	<update id="updateFlowStatus">
+		update t_interview_flow set step=#{step},updaterId=#{updaterId} where id=#{id}		
+	</update>
+	
+	<select id="queryById" >
+		select id,resume_id,step
+		from t_interview_flow
+		where id=#{id}
+	</select>
+
+	<select id="queryAllInPage" >
+		select id,resume_id,step
+		from t_interview_flow
+		order by create_time desc
+		limit #{beginIndex},#{size}
+		
+	</select>
+	
+
+	
+	
+</mapper>

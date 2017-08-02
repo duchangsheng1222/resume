@@ -18,8 +18,8 @@ create TABLE t_resume_info(
 
 `create_time`  date_time NULL DEFAULT NULL COMMENT '创建时间' ,
 `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-`creator_id`  varchar(100)  NULL DEFAULT NULL COMMENT '新建用户' ,
-`updater_id`  varchar(100)  NULL DEFAULT NULL COMMENT '更新用户' ,
+`creator_id`  bigint(16)  NULL DEFAULT NULL COMMENT '新建用户' ,
+`updater_id`  bigint(16)  NULL DEFAULT NULL COMMENT '更新用户' ,
 PRIMARY KEY (`id`),
 KEY `idx_creator_id` (`creator_id`) USING BTREE 
 );
@@ -40,8 +40,12 @@ create TABLE t_resume_file(
 
 create TABLE t_interview_flow(
 	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
-	`resume_id`  varchar(255) NULL DEFAULT NULL COMMENT '简历id' ,
+	`resume_id` bigint(16) NULL DEFAULT NULL COMMENT '简历id' ,
 	`step`  int(11) NULL DEFAULT NULL COMMENT '状态' ,
+	`create_time`  date_time NULL DEFAULT NULL COMMENT '创建时间' ,
+	`update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	`creator_id`  bigint(16)  NULL DEFAULT NULL COMMENT '新建用户' ,
+	`updater_id`  bigint(16)  NULL DEFAULT NULL COMMENT '更新用户' ,
 	PRIMARY KEY (`id`)
 );
 
@@ -77,7 +81,22 @@ create table t_user_role(
 	`role_id` bigint(20) NOT NULL ,
 	 PRIMARY KEY  (`id`)
  )
-
+ 
+ create table t_resources(
+	`id` bigint(20) NOT NULL auto_increment,
+	`name`  varchar(255)  NOT NULL ,
+	`parent_id` bigint(20) NOT NULL default 0 ,
+	`url`  varchar(255)  default NULL,
+	`res_type`  int(11)  NOT NULL default 0 COMMENT '资源类型 0：菜单 1：事件' ,
+	 PRIMARY KEY  (`id`)
+ )
+ 
+create table t_res_role(
+	`id` bigint(20) NOT NULL auto_increment,
+	`user_id` bigint(20) NOT NULL ,
+	`role_id` bigint(20) NOT NULL ,
+	 PRIMARY KEY  (`id`)
+ )
 
 
 

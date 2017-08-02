@@ -1,8 +1,8 @@
-package com.resume.po;
+package com.resume.dto;
 
 import java.util.Date;
 
-public class ResumeInfoPo {
+public class ResumeInfo {
 	
 	private long id;
 	

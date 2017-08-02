@@ -14,7 +14,7 @@ public class ResumeFile {
 	
 	private int type;
 	
-	private String deleted;
+	private String deleted = "0";
 	
 	private ResumeInfo resumeInfo;
 

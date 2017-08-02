@@ -17,7 +17,12 @@
 		(resume_id,user_id, file_address, file_type, type, deleted)
 		VALUES
 		(#{resumeId},#{userId},#{fileAddress},#{fileType},#{type},#{deleted})
+		<selectKey resultType="long" order="AFTER" keyProperty="id"> <include refid="public_sql.increment_sql" /> </selectKey>
 	</insert>
+	
+	<update id="deleteFile" parameterType="long">
+		update t_resume_file set deleted='1' where id=#{id}
+	</update>
 	
 	
 	

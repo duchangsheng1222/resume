@@ -47,7 +47,7 @@ public class UserController {
 			userService.register(email, encodePassword);
 		} catch (UserException e) {
 			log.error(e.getMessage());
-			return "redirect:/register.jsp";
+			return "redirect:/register.jsp?errorMessage="+ e.getMessage();
 		}
 		return "redirect:/login.jsp";
 		
@@ -85,7 +85,7 @@ public class UserController {
 			HttpSession session = request.getSession();
 			String code = (String)session.getAttribute("emailVerifyCode");
 			if(!verifyCode.equalsIgnoreCase(code)){
-				
+				return new BaseResponse().fail("验证码错误");
 			}
 			String encodePassword = passwordEncoder.encodePassword(password);
 			userService.resetPassword(email, encodePassword);

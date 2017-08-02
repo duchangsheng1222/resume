@@ -20,5 +20,11 @@ public interface ResumeFileDao {
 	 * 保存简历文件
 	 * @param resumeFilePo
 	 */
-	void insertResumeFile(ResumeFilePo resumeFilePo);
+	Long insertResumeFile(ResumeFilePo resumeFilePo);
+	
+	/**
+	 * 删除文件
+	 * @param id
+	 */
+	void deleteFile(@Param("id")long id);
 }

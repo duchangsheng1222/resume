@@ -18,12 +18,12 @@ public class VerifyController {
 
 	@RequestMapping("/code")
 	public void generateVerifyCode(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		 //鐢熸垚闅忔満瀛椾覆  
+		 //生成验证码  
         String verifyCode = VerifyCodeUtils.generateVerifyCode(4);  
-        //瀛樺叆浼氳瘽session  
+        //获取session  
         HttpSession session = request.getSession(true);  
         session.setAttribute(Constant.SESSION_GENERATED_VERIFY_KEY, verifyCode.toLowerCase());  
-        //鐢熸垚鍥剧墖  
+        //设置图片高度和宽度
         int w = 200, h = 80;  
         VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode);  
 	}

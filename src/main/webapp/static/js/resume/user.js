@@ -6,12 +6,12 @@ var user = {
 		sendVerifyCode : "public/user/sendVerifyCode",
 		resetPwd : "public/user/resetPassword"
 	},
-	register : function(){
+	register : function(email,pwd){
 		$.ajax({
 			URL:user.URL.register,
 			type:"post",
 			dataType:"json",
-			data:{},
+			data:{email:email,password:pwd},
 			success : function(data){
 				
 			},

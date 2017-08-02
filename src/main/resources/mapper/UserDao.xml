@@ -16,7 +16,7 @@
 		insert into t_user
 		(username, password, nickname, phone, locked,email)
 		VALUES
-		(#{username},#{password},#{nickname},#{phone},#{locaked},#{email})
+		(#{username},#{password},#{nickname},#{phone},#{locked},#{email})
 	</insert>
 	
 	<update id="resetPasswordByEmail">

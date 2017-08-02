@@ -5,7 +5,7 @@
   
 <!-- 为Dao接口方法提供sql语句配置 -->
 <mapper namespace="com.resume.dao.ResumeInfoDao">
-	
+
 	<insert id="insertResumeInfo" parameterType="ResumeInfoPo">
 		insert into t_resume_info 
 		(name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
@@ -15,7 +15,35 @@ experience_length,other_positions,create_time,creator_id,updater_id)
 		#{education},#{major},#{country},#{certification},#{specialized},#{experienceLength},
 		＃{otherPositions},#{createTime},#{creatorId},
 		＃{updaterId})
+		<selectKey resultType="long" order="AFTER" keyProperty="id"> <include refid="public_sql.increment_sql" /> </selectKey>
 	</insert>
+	
+	<update id="updateResumeInfo" parameterType="ResumeInfoPo">
+		update t_resume_info
+		set name=#{name},
+		age=#{age},
+		gender=#{gender},
+		position=#{position},
+		phone=#{phone},
+		citizenship=#{citizenship},
+		education=#{education},
+		major=#{major},
+		country=#{country},
+		certification=#{certification},
+		specialized=#{specialized},
+		experience_length=#{experienceLength},
+		other_position=#{otherPosition},
+		updater_id=#{updaterId}
+		where id=#{id}
+	
+	</update>
+	
+	<select id="queryById" parameterType="long">
+		select name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
+experience_length,other_positions,create_time,creator_id,updater_id,update_time
+		from t_resume_info
+		where id=#{id}
+	</select>
 	
 
 	

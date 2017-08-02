@@ -14,6 +14,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<http pattern="/500.jsp*" security="none" />
 	<http pattern="/accessDenied.jsp*" security="none" />
 	<http pattern="/login.jsp" security="none" />
+	<http pattern="/register.jsp" security="none" />
 	<http pattern="/file/*" security="none" />
     <http auto-config="true" create-session="always" 
           use-expressions="true"  disable-url-rewriting="true" entry-point-ref="loginUrlAuthenticationEntryPoint">

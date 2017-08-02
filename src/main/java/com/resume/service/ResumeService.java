@@ -1,5 +1,7 @@
 package com.resume.service;
 
+import java.util.List;
+
 import com.resume.dto.ResumeInfo;
 
 public interface ResumeService {
@@ -10,6 +12,14 @@ public interface ResumeService {
 	 * @return
 	 */
 	ResumeInfo getResumeById(long id);
+	
+	/**
+	 * 请求简历信息
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	List<ResumeInfo> getResumes(int page,int size);
 	
 	/**
 	 * 保存简历信息

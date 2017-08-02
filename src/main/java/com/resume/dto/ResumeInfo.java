@@ -1,9 +1,12 @@
 package com.resume.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ResumeInfo {
+public class ResumeInfo implements Serializable {
 	
+	private static final long serialVersionUID = 2125901466373610912L;
+
 	private long id;
 	
 	/**
@@ -78,6 +81,8 @@ public class ResumeInfo {
 	private Date createTime;
 	
 	private Date updateTime;
+	
+	private ResumeFile resumeFile;
 
 	public long getId() {
 		return id;
@@ -221,6 +226,14 @@ public class ResumeInfo {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public ResumeFile getResumeFile() {
+		return resumeFile;
+	}
+
+	public void setResumeFile(ResumeFile resumeFile) {
+		this.resumeFile = resumeFile;
 	}
 	
 	

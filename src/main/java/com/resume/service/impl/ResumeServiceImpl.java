@@ -1,5 +1,7 @@
 package com.resume.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,13 @@ public class ResumeServiceImpl implements ResumeService {
 	public void deleteResumeInfo(long id) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public List<ResumeInfo> getResumes(int page, int size) {
+		// TODO Auto-generated method stub
+		int beginIndex = (page - 1) * size;
+		return null;
 	}
 
 }

@@ -16,6 +16,8 @@ public interface ResumeFileDao {
 	 */
 	List<ResumeFilePo> queryByResumeIdAndType(@Param("resumeId")long resumeId,@Param("type")int type);
 	
+	List<ResumeFilePo> queryByResumeIdsAndType(@Param("resumeIds")List<Long> resumeIds,@Param("type")int type);
+	
 	/**
 	 * 保存简历文件
 	 * @param resumeFilePo

@@ -4,7 +4,8 @@ var user = {
 	URL : {
 		register : "public/user/register",
 		sendVerifyCode : "public/user/sendVerifyCode",
-		resetPwd : "public/user/resetPassword"
+		resetPwd : "public/user/resetPassword",
+		login : "login.jsp",
 	},
 	register : function(email,pwd){
 		$.ajax({
@@ -13,7 +14,11 @@ var user = {
 			dataType:"json",
 			data:{email:email,password:pwd},
 			success : function(data){
-				
+				if(data.status == 1){
+					window.location.href = user.URL.login;
+				}else{
+					alert(data.message);
+				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
@@ -51,4 +56,4 @@ var user = {
 		});
 	}
 	
-}
+};

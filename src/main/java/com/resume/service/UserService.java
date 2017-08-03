@@ -16,7 +16,7 @@ public interface UserService {
 	 * @param email
 	 * @param password
 	 */
-	void register(String email,String password) throws UserException;
+	void register(String email,String password,String role) throws UserException;
 	
 	/**
 	 * 重置密码

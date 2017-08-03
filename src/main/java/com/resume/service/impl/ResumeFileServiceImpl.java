@@ -23,6 +23,13 @@ public class ResumeFileServiceImpl implements ResumeFileService {
 		List<ResumeFilePo> files = resumeFileDao.queryByResumeIdAndType(resumeId, type);
 		return BeanUtil.createCopyList(files, ResumeFile.class);
 	}
+	
+	@Override
+	public List<ResumeFile> getResumeFileByResumeIdsAndType(List<Long> resumeIds, int type) {
+		
+		List<ResumeFilePo> files = resumeFileDao.queryByResumeIdsAndType(resumeIds, type);
+		return BeanUtil.createCopyList(files, ResumeFile.class);
+	}
 
 	@Override
 	public long saveResumeFile(ResumeFile resumeFile) {

@@ -13,13 +13,14 @@
 	
 	
 	function fun_submit(){
+		var email = $("#email").val() ;
 		var pwd = $("#pwd").val() ;
 		var repwd = $("#repwd").val() ;
 		if(pwd != repwd){
 			return;
 		}
 		
-		document.f.submit();
+		user.register(email, pwd);
 	}
 	function fun_reset(){
 		document.f.reset();

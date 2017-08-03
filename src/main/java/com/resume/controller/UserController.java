@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.resume.common.MailSender;
+import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
 import com.resume.response.ResponseModel;
 import com.resume.service.UserService;
@@ -39,17 +41,22 @@ public class UserController {
 	@Value("${verifyMailTitle}")
 	private String verifyMailTitle;
 
+	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String register(String email,String password){
+	public ResponseModel register(String email,String password,String role){
 		log.info("@ register email:{},password:{}",new Object[]{email,password});
+		BaseResponse resp = new BaseResponse();
 		String encodePassword = passwordEncoder.encodePassword(password);
 		try {
-			userService.register(email, encodePassword);
+			if(StringUtils.isEmpty(role)){
+				role = BaseRoleType.MEMEBER.getCode();
+			}
+			userService.register(email, encodePassword,role);
 		} catch (UserException e) {
 			log.error(e.getMessage());
-			return "redirect:/register.jsp?errorMessage="+ e.getMessage();
+			return resp.fail(e.getMessage());
 		}
-		return "redirect:/login.jsp";
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 		
 	}
 	
@@ -71,7 +78,7 @@ public class UserController {
 			mailSender.sendMail(email, verifyMailTitle, verifyCode);
 		} catch (Exception e) {
 			log.error("发送验证码失败 "+e.getMessage(),e);
-			return new BaseResponse().fail("发送验证码失败");
+			return new BaseResponse().fail("Failed to send verification code");
 		}
 		
 		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);
@@ -85,13 +92,13 @@ public class UserController {
 			HttpSession session = request.getSession();
 			String code = (String)session.getAttribute("emailVerifyCode");
 			if(!verifyCode.equalsIgnoreCase(code)){
-				return new BaseResponse().fail("验证码错误");
+				return new BaseResponse().fail("verification code error");
 			}
 			String encodePassword = passwordEncoder.encodePassword(password);
 			userService.resetPassword(email, encodePassword);
 		} catch (Exception e) {
 			log.error("发送验证码失败 "+e.getMessage(),e);
-			return new BaseResponse().fail("发送验证码失败");
+			return new BaseResponse().fail("Failed to send verification code");
 		}
 		
 		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);

@@ -1,7 +1,11 @@
 package com.resume.dto;
 
-public class ResumeFile {
+import java.io.Serializable;
+
+public class ResumeFile implements Serializable{
 	
+	private static final long serialVersionUID = -877417411135900816L;
+
 	private long id;
 	
 	private String fileAddress;

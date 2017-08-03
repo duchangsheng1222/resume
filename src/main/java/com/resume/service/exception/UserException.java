@@ -41,8 +41,8 @@ public class UserException extends Exception{
 
 	public enum UserExceptionType{
 		
-		USER_NOT_EXISTS(0,"用户不存在"),
-		USER_EXISTS(0,"用户已存在");
+		USER_NOT_EXISTS(0,"User don't exist"),
+		USER_EXISTS(0,"User already exist");
 		
 		private int code;
 		

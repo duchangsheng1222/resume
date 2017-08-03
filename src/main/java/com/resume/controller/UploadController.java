@@ -70,7 +70,7 @@ public class UploadController extends AbstractController{
 
 		} catch (IOException e) {
 			log.error("简历上传失败", e);
-			return resp.fail("简历上传失败");
+			return resp.fail("Resume upload failure");
 		}
 
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
@@ -111,7 +111,7 @@ public class UploadController extends AbstractController{
 
 		} catch (IOException e) {
 			log.error("简历上传失败", e);
-			return resp.fail("简历上传失败");
+			return resp.fail("video upload failure");
 		}
 
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);

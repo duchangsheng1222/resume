@@ -11,6 +11,7 @@
 		(resume_id,step,create_time,creator_id,updater_id)
 		VALUES
 		(#{resumeId},#{step},#{createTime},#{creatorId},#{updaterId})
+		<selectKey resultType="long" order="AFTER" keyProperty="id"> <include refid="public_sql.increment_sql" /> </selectKey>
 	</insert>
 	
 	<update id="updateFlowStatus">
@@ -23,11 +24,10 @@
 		where id=#{id}
 	</select>
 
-	<select id="queryAllInPage" >
+	<select id="queryByResumeId" >
 		select id,resume_id,step
 		from t_interview_flow
-		order by create_time desc
-		limit #{beginIndex},#{size}
+		where resume_id=#{resumeId}
 		
 	</select>
 	

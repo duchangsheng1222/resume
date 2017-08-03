@@ -1,8 +1,11 @@
-package com.resume.po;
+package com.resume.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class InterviewFlowPo {
+public class InterviewFlow implements Serializable{
+
+	private static final long serialVersionUID = 3959018665024075161L;
 
 	private long id;
 	

@@ -16,7 +16,7 @@ create TABLE t_resume_info(
 `experience_length`  varchar(500) NULL DEFAULT NULL COMMENT '工作年限' ,
 `other_positions`  varchar(500) NULL DEFAULT NULL COMMENT '其他职位' ,
 
-`create_time`  date_time NULL DEFAULT NULL COMMENT '创建时间' ,
+`create_time`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
 `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 `creator_id`  bigint(16)  NULL DEFAULT NULL COMMENT '新建用户' ,
 `updater_id`  bigint(16)  NULL DEFAULT NULL COMMENT '更新用户' ,
@@ -38,11 +38,15 @@ create TABLE t_resume_file(
   KEY `idx_resume_id_type` (`resume_id`,`type`) USING BTREE 
 );
 
+drop table if exists t_interview_flow;
 create TABLE t_interview_flow(
 	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
 	`resume_id` bigint(16) NULL DEFAULT NULL COMMENT '简历id' ,
 	`step`  int(11) NULL DEFAULT NULL COMMENT '状态' ,
-	`create_time`  date_time NULL DEFAULT NULL COMMENT '创建时间' ,
+	`received`  enum('0','1')  NULL DEFAULT NULL COMMENT '是否收到offer 0：未收到 1：收到' ,
+	`accepted`  enum('0','1')  NULL DEFAULT NULL COMMENT '是否接受offer 0：不接受 1：接受' ,
+	`arrive_date`  datetime  NULL DEFAULT NULL COMMENT '抵达中国日期' ,
+	`create_time`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
 	`update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	`creator_id`  bigint(16)  NULL DEFAULT NULL COMMENT '新建用户' ,
 	`updater_id`  bigint(16)  NULL DEFAULT NULL COMMENT '更新用户' ,
@@ -66,12 +70,14 @@ CREATE TABLE `t_user` (
   `locked` smallint(6) default NULL,
   `phone` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
+drop table if exists t_role;
 create table t_role(
  `id` bigint(20) NOT NULL auto_increment,
   `role` varchar(255) default NULL,
   `role_name` varchar(255) default NULL,
+  `role_key` varchar(255) default NULL,
    PRIMARY KEY  (`id`)
 )
 
@@ -80,11 +86,11 @@ create table t_user_role(
 	`user_id` bigint(20) NOT NULL ,
 	`role_id` bigint(20) NOT NULL ,
 	 PRIMARY KEY  (`id`)
- )
+ );
  
  create table t_resources(
 	`id` bigint(20) NOT NULL auto_increment,
-	`name`  varchar(255)  NOT NULL ,
+	`name` varchar(255) NULL default null ,
 	`parent_id` bigint(20) NOT NULL default 0 ,
 	`url`  varchar(255)  default NULL,
 	`res_type`  int(11)  NOT NULL default 0 COMMENT '资源类型 0：菜单 1：事件' ,

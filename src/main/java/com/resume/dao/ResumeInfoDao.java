@@ -1,5 +1,9 @@
 package com.resume.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.resume.po.ResumeInfoPo;
 
 public interface ResumeInfoDao {
@@ -23,5 +27,13 @@ public interface ResumeInfoDao {
 	 * @param resumeInfoPo
 	 */
 	void updateResumeInfo(ResumeInfoPo resumeInfoPo);
+	
+	/**
+	 * 分页查询简历信息
+	 * @param beginIndex
+	 * @param size
+	 * @return
+	 */
+	List<ResumeInfoPo> queryList(@Param("beginIndex")int beginIndex,@Param("size")int size);
 
 }

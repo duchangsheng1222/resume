@@ -39,10 +39,21 @@ experience_length,other_positions,create_time,creator_id,updater_id)
 	</update>
 	
 	<select id="queryById" parameterType="long">
-		select name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
+		select id, name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
 experience_length,other_positions,create_time,creator_id,updater_id,update_time
 		from t_resume_info
 		where id=#{id}
+	</select>
+	
+	<select id="queryList">
+		SELECT id,name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
+			experience_length,other_positions,create_time,creator_id,updater_id,update_time
+		FROM 
+			t_resume_info
+		ORDER BY 
+			create_time DESC 
+		LIMIT 
+			#{beginIndex},#{size}
 	</select>
 	
 

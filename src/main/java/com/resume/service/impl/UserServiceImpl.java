@@ -1,5 +1,7 @@
 package com.resume.service.impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void register(String email, String password) throws UserException{
+	@Transactional
+	public void register(String email, String password,String role) throws UserException{
 		UserInfoPo user = userDao.queryByUsername(email);
 		if(null != user){
 			throw new UserException(UserExceptionType.USER_EXISTS);
@@ -39,12 +42,13 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(password);
 		user.setLocked("0");
 		userDao.insertUser(user);
+		
+		
 	}
 
 	@Override
 	public void resetPassword(String email, String password) {
-		// TODO Auto-generated method stub
-		
+		userDao.resetPasswordByEmail(password, email);
 	}
 
 }

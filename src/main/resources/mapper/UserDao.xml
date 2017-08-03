@@ -23,5 +23,10 @@
 		update t_user set password=#{password} where email=#{email}
 	</update>
 	
+	<select id="listUsers" resultType="UserInfoPo" >
+		select id, username, password, nickname, phone, locked,email 
+		from t_user
+	</select>
+	
 	
 </mapper>

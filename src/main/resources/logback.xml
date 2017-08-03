@@ -29,12 +29,12 @@
     <category name="org.springframework.security">
         <priority value="INFO" />
     </category>
-    <category name="com.example.springsecurity">
+    <category name="com.resume.spring.security">
         <priority value="DEBUG" />
     </category>
     
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="console" />
         <appender-ref ref="file" />
     </root>

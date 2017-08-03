@@ -1,5 +1,7 @@
 package com.resume.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void resetPassword(String email, String password) {
 		userDao.resetPasswordByEmail(password, email);
+	}
+	
+	@Override
+	public List<UserInfo> listUsers() {
+
+		return BeanUtil.createCopyList(userDao.listUsers(), UserInfo.class);
 	}
 
 }

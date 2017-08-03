@@ -1,5 +1,7 @@
 package com.resume.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.resume.po.UserInfoPo;
@@ -25,5 +27,8 @@ public interface UserDao {
 	 * @param email
 	 */
 	void resetPasswordByEmail(@Param("password")String password,@Param("email")String email);
+	
+	List<UserInfoPo> listUsers();
+	
 
 }

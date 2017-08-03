@@ -1,5 +1,7 @@
 package com.resume.service;
 
+import java.util.List;
+
 import com.resume.dto.UserInfo;
 import com.resume.service.exception.UserException;
 
@@ -24,5 +26,7 @@ public interface UserService {
 	 * @param password
 	 */
 	void resetPassword(String email,String password);
+	
+	List<UserInfo> listUsers();
 
 }

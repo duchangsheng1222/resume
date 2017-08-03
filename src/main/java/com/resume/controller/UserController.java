@@ -1,5 +1,8 @@
 package com.resume.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.resume.common.MailSender;
+import com.resume.dto.UserInfo;
 import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
 import com.resume.response.ResponseModel;
@@ -40,9 +44,14 @@ public class UserController {
 	
 	@Value("${verifyMailTitle}")
 	private String verifyMailTitle;
+	
+	@RequestMapping(value="/register/page",method=RequestMethod.GET)
+	public String showRegisterPage(){
+		return "/register";
+	}
 
+	@RequestMapping(value="/register",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
 	@ResponseBody
-	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public ResponseModel register(String email,String password,String role){
 		log.info("@ register email:{},password:{}",new Object[]{email,password});
 		BaseResponse resp = new BaseResponse();
@@ -56,6 +65,7 @@ public class UserController {
 			log.error(e.getMessage());
 			return resp.fail(e.getMessage());
 		}
+		resp.setData(new ArrayList<String>());
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 		
 	}
@@ -102,5 +112,15 @@ public class UserController {
 		}
 		
 		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/list")
+	public ResponseModel listUsers(){
+		log.info("@ listUsers");
+		BaseResponse resp = new BaseResponse();
+		List<UserInfo> listUsers = userService.listUsers();
+		resp.setData(listUsers);
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 }

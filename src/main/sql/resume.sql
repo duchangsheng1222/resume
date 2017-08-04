@@ -79,7 +79,7 @@ create table t_role(
   `role_name` varchar(255) default NULL,
   `role_key` varchar(255) default NULL,
    PRIMARY KEY  (`id`)
-)
+);
 
 create table t_user_role(
 	`id` bigint(20) NOT NULL auto_increment,
@@ -95,7 +95,7 @@ create table t_user_role(
 	`url`  varchar(255)  default NULL,
 	`res_type`  int(11)  NOT NULL default 0 COMMENT '资源类型 0：菜单 1：事件' ,
 	 PRIMARY KEY  (`id`)
- )
+ );
  
 create table t_res_role(
 	`id` bigint(20) NOT NULL auto_increment,
@@ -103,6 +103,29 @@ create table t_res_role(
 	`role_id` bigint(20) NOT NULL ,
 	 PRIMARY KEY  (`id`)
  )
+ ;
+ create table t_feedback(
+ 	`id` bigint(20) NOT NULL auto_increment,
+ 	`name` varchar(255) NULL default null ,
+ 	`email` varchar(255) NULL default null ,
+ 	`title` text NULL default null ,
+ 	`message` text NULL default null ,
+ 	`create_time`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
+	 PRIMARY KEY  (`id`)
+ );
+ 
+ drop table if exists t_massage;
+ create table t_message(
+ 	`id` bigint(20) NOT NULL auto_increment,
+ 	`from_user_id` bigint(20) NOT NULL ,
+ 	`to_user_id` bigint(20) NOT NULL ,
+ 	`resume_id` bigint(20) NOT NULL ,
+ 	`title` text NULL default null ,
+ 	`message` text NULL default null ,
+ 	`create_time`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
+ 	
+	 PRIMARY KEY  (`id`)
+ );
 
 
 

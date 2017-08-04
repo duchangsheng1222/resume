@@ -44,7 +44,7 @@ public abstract class BaseFile {
         relativeDir = getModulePath() + calculatePath();
         FileUtils.copyInputStreamToFile(is, new File(PropertyHolder.returnBaseFiles() + relativeDir + fileName));
         absoluteDir = PropertyHolder.returnBaseFiles() + relativeDir;
-        return "/" + PropertyHolder.returnBaseFiles() + relativeDir + fileName;
+        return relativeDir + fileName;
     }
     
     private String calculatePath() {
@@ -128,7 +128,7 @@ public abstract class BaseFile {
             return "";
         }
 
-        return "/" + PropertyHolder.returnBaseFiles() + relativeDir + thumbnailName;
+        return  PropertyHolder.returnBaseFiles() + relativeDir + thumbnailName;
     }
 
     private static final String defaultFormat = "png";

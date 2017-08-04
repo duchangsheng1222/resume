@@ -1,6 +1,7 @@
 package com.resume.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,20 @@ public class UploadController extends AbstractController{
 	
 	@Autowired
 	private ResumeFileService resumeFileService;
+	
+	@RequestMapping("/doc")
+	public String showUploadPage(Model model,Long resumeId){
+		
+		model.addAttribute("resumeId", resumeId);
+		return "/resume/upload_doc";
+	}
+	
+//	@RequestMapping("/Video")
+//	public String showUploadVideoPage(Model model,Long resumeId){
+//		
+//		model.addAttribute("resumeId", resumeId);
+//		return "/resume/upload_doc";
+//	}
 
 	@ResponseBody
 	@RequestMapping("/resume")
@@ -121,10 +136,10 @@ public class UploadController extends AbstractController{
 			throws IOException {
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
-					.getFile("icon");
+					.getFile("resumeFile");
 			if (filedata != null) {
 
-				String fileName = filedata.getOriginalFilename();
+				String fileName = iso2Utf8(filedata.getOriginalFilename());
 				BaseFile resumeDoc = new ResumeFile(fileName);
 				String filePath = resumeDoc.saveFile(filedata
 						.getInputStream());
@@ -139,10 +154,10 @@ public class UploadController extends AbstractController{
 			throws IOException {
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
-					.getFile("icon");
+					.getFile("video");
 			if (filedata != null) {
 
-				String fileName = filedata.getOriginalFilename();
+				String fileName = iso2Utf8(filedata.getOriginalFilename());
 				BaseFile resumeVideo = new IntroductionVideoFile(fileName);
 				String filePath = resumeVideo.saveFile(filedata
 						.getInputStream());
@@ -151,5 +166,16 @@ public class UploadController extends AbstractController{
 			}
 		}
 		return null;
+	}
+	
+	public String iso2Utf8(String str){
+		String utf8Str;
+		try {
+			utf8Str = new String(str.getBytes("ISO8859-1"),"UTF8");
+		} catch (UnsupportedEncodingException e) {
+			log.error("upload file error",e);
+			return str;
+		}
+		return utf8Str;
 	}
 }

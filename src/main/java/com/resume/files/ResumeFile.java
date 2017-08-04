@@ -9,7 +9,7 @@ public class ResumeFile extends BaseFile{
 	@Override
 	protected String getModulePath() {
 		
-		return "/resume/doc";
+		return "/resume/doc/";
 	}
 
 }

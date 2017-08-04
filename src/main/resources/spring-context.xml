@@ -18,6 +18,6 @@
 		<property name="pwd" value="${mailPwd}"></property>
 	</bean>
 	
-
+	<bean id="propertyHolder" class="com.resume.files.BaseFile.PropertyHolder"></bean>
 
 </beans>

@@ -9,6 +9,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<http pattern="/*.ico*" security="none" />
 	<http pattern="/static/**/*" security="none" />
 	<http pattern="/public/**/*" security="none" />
+	<http pattern="/feedback/add" security="none" />
 
 	<http pattern="/400.jsp*" security="none" />
 	<http pattern="/500.jsp*" security="none" />

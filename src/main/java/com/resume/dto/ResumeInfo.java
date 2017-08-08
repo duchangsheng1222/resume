@@ -67,7 +67,7 @@ public class ResumeInfo implements Serializable {
 	/**
 	 * 工作经验年限
 	 */
-	private int experienceLength;
+	private String experienceLength;
 	
 	/**
 	 * 其他职位
@@ -180,11 +180,11 @@ public class ResumeInfo implements Serializable {
 		this.specialized = specialized;
 	}
 
-	public int getExperienceLength() {
+	public String getExperienceLength() {
 		return experienceLength;
 	}
 
-	public void setExperienceLength(int experienceLength) {
+	public void setExperienceLength(String experienceLength) {
 		this.experienceLength = experienceLength;
 	}
 

@@ -1,9 +1,12 @@
 package com.resume.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Feedback {
+public class Feedback implements Serializable{
 	
+	private static final long serialVersionUID = 4857856310200250352L;
+
 	private long id;
 	
 	private String name;

@@ -9,7 +9,7 @@
 	<select id="queryByResumeIdAndType" resultType="ResumeFilePo">
 		select id, resume_id,user_id, file_address, file_type, type, deleted
 		from t_resume_file
-		where resume_id = #{resumeId} and type=#{type} and deleted='0'
+		where resume_id = #{resumeId} and type=#{type} and deleted='0' limit 1;
 	</select>
 	
 	<select id="queryByResumeIdsAndType" resultType="ResumeFilePo">

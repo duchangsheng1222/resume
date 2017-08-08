@@ -11,7 +11,7 @@ public interface ResumeFileService {
 	 * @param id
 	 * @return
 	 */
-	List<ResumeFile> getResumeFileByResumeIdAndType(long resumeId,int type);
+	ResumeFile getResumeFileByResumeIdAndType(long resumeId,int type);
 	
 	/**
 	 * 获取多个简历文件

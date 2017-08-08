@@ -19,6 +19,10 @@ public class InterviewFlow implements Serializable{
 	
 	private Date arrivedDate;
 	
+	private Date visaDate;
+	
+	private String refused;
+	
 	private long creatorId;
 	
 	private long updaterId;
@@ -105,6 +109,22 @@ public class InterviewFlow implements Serializable{
 
 	public void setArrivedDate(Date arrivedDate) {
 		this.arrivedDate = arrivedDate;
+	}
+
+	public String getRefused() {
+		return refused;
+	}
+
+	public void setRefused(String refused) {
+		this.refused = refused;
+	}
+
+	public Date getVisaDate() {
+		return visaDate;
+	}
+
+	public void setVisaDate(Date visaDate) {
+		this.visaDate = visaDate;
 	}
 	
 	

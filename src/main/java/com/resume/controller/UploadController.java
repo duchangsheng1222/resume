@@ -69,24 +69,25 @@ public class UploadController extends AbstractController{
 			
 			return resp.fail("this is not your resume");
 		}
-		try {
-			String iconPath = generateResumeDoc(request);
-			if (iconPath != null) {
-				com.resume.dto.ResumeFile fileDto = new com.resume.dto.ResumeFile();
-				fileDto.setResumeId(resumeId);
-				fileDto.setFileType(iconPath.substring(iconPath.lastIndexOf(".")+1));
-				fileDto.setFileAddress(iconPath);
-				fileDto.setType(FileType.RESUME_DOC.getCode());
-				fileDto.setUserId(user.getId());
-				resumeFileService.saveResumeFile(fileDto);
-			} else {
-				return resp.fail("please choose resmue file");
+		if (request instanceof MultipartHttpServletRequest) {
+			MultipartFile filedata = ((MultipartHttpServletRequest) request)
+					.getFile("resumeFile");
+			try {
+				String filePath = generateResumeFile(filedata,FileType.RESUME_DOC);
+				if (filePath != null) {
+					saveFile(resumeId, user, filePath,FileType.RESUME_DOC);
+				} else {
+					return resp.fail("please choose resmue file");
+				}
+				
+			} catch (IOException e) {
+				log.error("简历上传失败", e);
+				return resp.fail("Resume upload failure");
 			}
-
-		} catch (IOException e) {
-			log.error("简历上传失败", e);
-			return resp.fail("Resume upload failure");
-		}
+		}else{
+			log.error("请求中不包含文件");
+			return resp.fail("please choose resmue file");
+		}	
 
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
@@ -110,58 +111,189 @@ public class UploadController extends AbstractController{
 			
 			return resp.fail("this is not your resume");
 		}
-		try {
-			String iconPath = generateResumeVideo(request);
-			if (iconPath != null) {
-				com.resume.dto.ResumeFile fileDto = new com.resume.dto.ResumeFile();
-				fileDto.setResumeId(resumeId);
-				fileDto.setFileType(iconPath.substring(iconPath.lastIndexOf(".")+1));
-				fileDto.setFileAddress(iconPath);
-				fileDto.setType(FileType.INTRODUCTION_VIDEO.getCode());
-				fileDto.setUserId(user.getId());
-				resumeFileService.saveResumeFile(fileDto);
-			} else {
-				return resp.fail("please choose resmue file");
+		if (request instanceof MultipartHttpServletRequest) {
+			MultipartFile filedata = ((MultipartHttpServletRequest) request)
+					.getFile("video");
+			try {
+				String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
+				if (filePath != null) {
+					saveFile(resumeId, user, filePath,FileType.INTRODUCTION_VIDEO);
+				} else {
+					return resp.fail("please choose video file");
+				}
+				
+			} catch (IOException e) {
+				log.error("简历上传失败", e);
+				return resp.fail("video upload failure");
 			}
-
-		} catch (IOException e) {
-			log.error("简历上传失败", e);
-			return resp.fail("video upload failure");
+		}else{
+			log.error("请求中不包含文件");
+			return resp.fail("please choose video file");
 		}
 
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
-	private String generateResumeDoc(HttpServletRequest request)
-			throws IOException {
+	@ResponseBody
+	@RequestMapping("/photo")
+	public ResponseModel uploadPhoto(Model model, HttpServletRequest request,
+			HttpServletResponse response,Long resumeId) {
+		log.info("@ upload/photo resumeId:{}",new Object[]{resumeId});
+		BaseResponse resp = new BaseResponse();
+		if(null == resumeId){
+			return resp.fail("resumeId is not be null");
+		}
+		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
+		if(null == resumeInfo){
+			return resp.fail("resume not exists");
+		}
+		//获取当前登录用户
+		User user = (User)SecurityContextUtil.getUserDetails();
+		if(user.getId() != resumeInfo.getCreatorId()){
+			
+			return resp.fail("this is not your resume");
+		}
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
-					.getFile("resumeFile");
-			if (filedata != null) {
-
-				String fileName = iso2Utf8(filedata.getOriginalFilename());
-				BaseFile resumeDoc = new ResumeFile(fileName);
-				String filePath = resumeDoc.saveFile(filedata
-						.getInputStream());
-
-				return filePath;
+					.getFile("photo");
+			try {
+				String filePath = generateResumeFile(filedata,FileType.PHOTO);
+				if (filePath != null) {
+					saveFile(resumeId, user, filePath,FileType.PHOTO);
+				} else {
+					return resp.fail("please choose photo file");
+				}
+				
+			} catch (IOException e) {
+				log.error("简历上传失败", e);
+				return resp.fail("photo upload failure");
 			}
+		}else{
+			log.error("请求中不包含文件");
+			return resp.fail("please choose photo file");
 		}
-		return null;
+		
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
-	private String generateResumeVideo(HttpServletRequest request)
-			throws IOException {
+	@ResponseBody
+	@RequestMapping("/certification")
+	public ResponseModel uploadCertification(Model model, HttpServletRequest request,
+			HttpServletResponse response,Long resumeId) {
+		log.info("@ upload/certification resumeId:{}",new Object[]{resumeId});
+		BaseResponse resp = new BaseResponse();
+		if(null == resumeId){
+			return resp.fail("resumeId is not be null");
+		}
+		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
+		if(null == resumeInfo){
+			return resp.fail("resume not exists");
+		}
+		//获取当前登录用户
+		User user = (User)SecurityContextUtil.getUserDetails();
+		if(user.getId() != resumeInfo.getCreatorId()){
+			
+			return resp.fail("this is not your resume");
+		}
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
-					.getFile("video");
-			if (filedata != null) {
+					.getFile("certification");
+			try {
+				String filePath = generateResumeFile(filedata,FileType.CERTIFICATION);
+				if (filePath != null) {
+					saveFile(resumeId, user, filePath,FileType.CERTIFICATION);
+				} else {
+					return resp.fail("please choose certification file");
+				}
+				
+			} catch (IOException e) {
+				log.error("简历上传失败", e);
+				return resp.fail("certification upload failure");
+			}
+		}else{
+			log.error("请求中不包含文件");
+			return resp.fail("please choose certification file");
+		}
+		
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/ticket")
+	public ResponseModel uploadFlightTicket(Model model, HttpServletRequest request,
+			HttpServletResponse response,Long resumeId) {
+		log.info("@ upload/certification resumeId:{}",new Object[]{resumeId});
+		BaseResponse resp = new BaseResponse();
+		if(null == resumeId){
+			return resp.fail("resumeId is not be null");
+		}
+		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
+		if(null == resumeInfo){
+			return resp.fail("resume not exists");
+		}
+		//获取当前登录用户
+		User user = (User)SecurityContextUtil.getUserDetails();
+		if(user.getId() != resumeInfo.getCreatorId()){
+			
+			return resp.fail("this is not your resume");
+		}
+		if (request instanceof MultipartHttpServletRequest) {
+			MultipartFile filedata = ((MultipartHttpServletRequest) request)
+					.getFile("flightTicket");
+			try {
+				String filePath = generateResumeFile(filedata,FileType.FLIGHT_TICKET);
+				if (filePath != null) {
+					saveFile(resumeId, user, filePath,FileType.FLIGHT_TICKET);
+				} else {
+					return resp.fail("please choose flight ticket file");
+				}
+				
+			} catch (IOException e) {
+				log.error("简历上传失败", e);
+				return resp.fail("flight ticket upload failure");
+			}
+		}else{
+			log.error("请求中不包含文件");
+			return resp.fail("please choose flight ticket file");
+		}
+		
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
 
-				String fileName = iso2Utf8(filedata.getOriginalFilename());
-				BaseFile resumeVideo = new IntroductionVideoFile(fileName);
-				String filePath = resumeVideo.saveFile(filedata
+	private void saveFile(Long resumeId, User user, String filePath,FileType fileType) {
+		com.resume.dto.ResumeFile fileDto = new com.resume.dto.ResumeFile();
+		fileDto.setResumeId(resumeId);
+		fileDto.setFileType(filePath.substring(filePath.lastIndexOf(".")+1));
+		fileDto.setFileAddress(filePath);
+		fileDto.setType(fileType.getCode());
+		fileDto.setUserId(user.getId());
+		resumeFileService.saveResumeFile(fileDto);
+	}
+	
+	private String generateResumeFile(MultipartFile filedata,FileType fileType)
+			throws IOException {
+		if (filedata != null) {
+			String fileName = iso2Utf8(filedata.getOriginalFilename());
+			BaseFile resumeFile = null;
+			if(FileType.INTRODUCTION_VIDEO.equals(fileType)){
+				resumeFile = new IntroductionVideoFile(fileName);
+			}else if(FileType.RESUME_DOC.equals(fileType)){
+				resumeFile = new IntroductionVideoFile(fileName);
+				
+			}else if(FileType.PHOTO.equals(fileType)){
+				resumeFile = new IntroductionVideoFile(fileName);
+				
+			}else if(FileType.CERTIFICATION.equals(fileType)){
+				resumeFile = new IntroductionVideoFile(fileName);
+				
+			}else if(FileType.FLIGHT_TICKET.equals(fileType)){
+				resumeFile = new IntroductionVideoFile(fileName);
+				
+			}
+			if(null != resumeFile){
+				String filePath = resumeFile.saveFile(filedata
 						.getInputStream());
-
+				
 				return filePath;
 			}
 		}

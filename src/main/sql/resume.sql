@@ -25,7 +25,7 @@ KEY `idx_creator_id` (`creator_id`) USING BTREE
 );
 
 
-
+drop table if exists t_resume_file;
 create TABLE t_resume_file(
 	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
   `resume_id`  bigint(16) NOT NULL COMMENT '简历id', 
@@ -33,7 +33,8 @@ create TABLE t_resume_file(
   `file_address`  varchar(500)  NULL DEFAULT NULL COMMENT '文件地址' ,
   `file_type`  varchar(500)  NULL DEFAULT NULL COMMENT '文件类型' ,
   `type`  int  NULL DEFAULT 0 COMMENT '业务类型 0:简历，1:自荐视频' ,
-  `deleted` enum('0','1')  NULL DEFAULT '0' COMMENT '文件地址' ,
+  `deleted` enum('0','1')  NULL DEFAULT '0' COMMENT '是否被删除' ,
+  `downloaded` enum('0','1')  NULL DEFAULT '0' COMMENT '是否下载过' ,
   PRIMARY KEY (`id`),
   KEY `idx_resume_id_type` (`resume_id`,`type`) USING BTREE 
 );
@@ -45,7 +46,9 @@ create TABLE t_interview_flow(
 	`step`  int(11) NULL DEFAULT NULL COMMENT '状态' ,
 	`received`  enum('0','1')  NULL DEFAULT NULL COMMENT '是否收到offer 0：未收到 1：收到' ,
 	`accepted`  enum('0','1')  NULL DEFAULT NULL COMMENT '是否接受offer 0：不接受 1：接受' ,
-	`arrive_date`  datetime  NULL DEFAULT NULL COMMENT '抵达中国日期' ,
+	`refused`  enum('0','1')  NULL DEFAULT NULL COMMENT '是否被拒绝 0：没有 1：拒绝' ,
+	`arrived_date`  datetime  NULL DEFAULT NULL COMMENT '抵达中国日期' ,
+	`visa_date`  datetime  NULL DEFAULT NULL COMMENT '签证日期' ,
 	`create_time`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
 	`update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	`creator_id`  bigint(16)  NULL DEFAULT NULL COMMENT '新建用户' ,

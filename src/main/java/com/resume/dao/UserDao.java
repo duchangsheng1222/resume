@@ -30,5 +30,9 @@ public interface UserDao {
 	
 	List<UserInfoPo> listUsers();
 	
+	void updateUserStatus(UserInfoPo userInfoPo);
+	
+	void deleteUser(long id);
+	
 
 }

@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.resume.dto.InterviewFlow;
+import com.resume.dto.ResumeInfo;
+import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
 import com.resume.response.InterviewResponse;
 import com.resume.response.ResponseModel;
 import com.resume.service.InterviewFlowService;
+import com.resume.service.ResumeInfoServiceTest;
+import com.resume.service.ResumeService;
 import com.resume.spring.security.SecurityContextUtil;
 import com.resume.spring.security.User;
 
@@ -21,14 +25,37 @@ public class InterviewFlowController extends AbstractController{
 	
 	@Autowired
 	private InterviewFlowService interviewFlowService;
+	
+	@Autowired
+	private ResumeService resumeService;
 
 	@RequestMapping("/page")
-	public String showInterviewPage(Model model,Long resumeId){
-		log.info("@ interview/page resumeId:{}",new Object[]{resumeId});
-		model.addAttribute("resumeId", resumeId);
+	public String showInterviewPage(Model model){
+		log.info("@ interview/page ");
+		User user = (User)SecurityContextUtil.getUserDetails();
+		
+		if(BaseRoleType.EMPLOYEE.getCode().equals(user.getRole()) ||
+				BaseRoleType.ADMIN.getCode().equals(user.getRole())){
+			
+			return "redirect:/interview/list";
+		}
+		
+		ResumeInfo resume = resumeService.getResumeByUserId(user.getId());
+		if(null == resume){
+			return "redirect:/resume/page/add";
+		}
+		model.addAttribute("resumeId", resume.getId());
 		return "/interview/page";
 		
 	}
+	
+	@RequestMapping("/list")
+	public String showResumeList(){
+		log.info("@ interview/list ");
+		
+		return "/interview/list";
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/{resumeId}/{step}/update",method=RequestMethod.PUT)

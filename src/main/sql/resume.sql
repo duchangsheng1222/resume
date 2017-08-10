@@ -64,6 +64,7 @@ create TABLE t_comment(
 	PRIMARY KEY (`id`)
 );
 
+drop table if exists t_user;
 CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL auto_increment,
   `email` varchar(255) default NULL,
@@ -72,6 +73,7 @@ CREATE TABLE `t_user` (
   `nickname` varchar(255) default NULL,
   `locked` smallint(6) default NULL,
   `phone` varchar(255) default NULL,
+  `role` enum('MEMEBER','EMPLOYEE','ADMIN') default 'MEMEBER',
   PRIMARY KEY  (`id`)
 );
 

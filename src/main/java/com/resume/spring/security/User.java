@@ -15,6 +15,7 @@ public class User implements UserDetails {
 	private String nickname;
 	private String email;
 	private boolean enabled;
+	private String role;
 	private Collection<GrantedAuthority> authorities;
 	
 //	private List<MenuItem> menus ;
@@ -94,6 +95,15 @@ public class User implements UserDetails {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 
 //	public List<MenuItem> getMenus() {
 //		return menus;

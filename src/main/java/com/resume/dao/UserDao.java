@@ -34,5 +34,7 @@ public interface UserDao {
 	
 	void deleteUser(long id);
 	
+	void setEmployee(long id);
+	
 
 }

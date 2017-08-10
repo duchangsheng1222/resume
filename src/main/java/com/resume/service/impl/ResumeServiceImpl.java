@@ -31,6 +31,12 @@ public class ResumeServiceImpl implements ResumeService {
 		ResumeInfoPo resumeInfoPo = resumeInfoDao.queryById(id);
 		return BeanUtil.createCopy(resumeInfoPo, ResumeInfo.class);
 	}
+	
+	@Override
+	public ResumeInfo getResumeByUserId(long userId) {
+		ResumeInfoPo resumeInfoPo = resumeInfoDao.queryByUserId(userId);
+		return BeanUtil.createCopy(resumeInfoPo, ResumeInfo.class);
+	}
 
 	@Override
 	public long saveResumeInfo(ResumeInfo resumeInfo) {

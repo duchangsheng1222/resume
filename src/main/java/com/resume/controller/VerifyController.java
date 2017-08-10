@@ -24,7 +24,7 @@ public class VerifyController {
         HttpSession session = request.getSession(true);  
         session.setAttribute(Constant.SESSION_GENERATED_VERIFY_KEY, verifyCode.toLowerCase());  
         //设置图片高度和宽度
-        int w = 200, h = 80;  
+        int w = 144, h = 56;  
         VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode);  
 	}
 }

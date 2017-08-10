@@ -17,6 +17,13 @@ public interface ResumeInfoDao {
 	ResumeInfoPo queryById(long id);
 	
 	/**
+	 * 根据id查询resume
+	 * @param id
+	 * @return
+	 */
+	ResumeInfoPo queryByUserId(long userId);
+	
+	/**
 	 * 保存个人信息
 	 * @param resumeInfoPo
 	 */

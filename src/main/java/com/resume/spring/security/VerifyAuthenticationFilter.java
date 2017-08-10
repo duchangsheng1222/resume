@@ -18,6 +18,10 @@ public class VerifyAuthenticationFilter extends
 
 	public Authentication attemptAuthentication(HttpServletRequest request,
 			HttpServletResponse response) throws AuthenticationException {
+		String skip = request.getParameter("skip");
+		if("1".equals(skip)){
+			return super.attemptAuthentication(request, response);
+		}
 		
 		String username = request.getParameter("username");
 		request.getSession().setAttribute("SPRING_SECURITY_LAST_USERNAME", username);

@@ -7,7 +7,7 @@
 <mapper namespace="com.resume.dao.UserDao">
 	
 	<select id="queryByUsername" resultType="UserInfoPo" parameterType="string">
-		select id, username, password, nickname, phone, locked,email 
+		select id, username, password, nickname, phone, locked,email,role 
 		from t_user
 		where username = #{username} or phone=#{username} or email=#{username}
 	</select>
@@ -24,7 +24,7 @@
 	</update>
 	
 	<select id="listUsers" resultType="UserInfoPo" >
-		select id, username, password, nickname, phone, locked,email 
+		select id, username, password, nickname, phone, locked,email,role 
 		from t_user
 	</select>
 	
@@ -35,5 +35,9 @@
 	<delete id="deleteUser" parameterType="long">
 		delete from t_user where id=#{id}
 	</delete>
+	
+	<update id="setEmployee" parameterType="long">
+		update t_user set role='EMPLOYEE' where id=#{id}
+	</update>
 	
 </mapper>

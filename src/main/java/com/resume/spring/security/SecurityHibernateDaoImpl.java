@@ -58,6 +58,7 @@ public class SecurityHibernateDaoImpl implements UserDetailsService {
 				userInfo.getNickname(), userInfo.isEnabled());
 		user.setEmail(userInfo.getEmail());
 		user.setId(userInfo.getId());
+		user.setRole(userInfo.getRole());
 		return user;
 	}
 

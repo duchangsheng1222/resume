@@ -1,6 +1,5 @@
 package com.resume.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.resume.common.MailSender;
 import com.resume.dto.UserInfo;
 import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
+import com.resume.response.LoginResponse;
 import com.resume.response.ResponseModel;
 import com.resume.service.UserService;
 import com.resume.service.exception.UserException;
@@ -45,16 +46,21 @@ public class UserController {
 	@Value("${verifyMailTitle}")
 	private String verifyMailTitle;
 	
-	@RequestMapping(value="/register/page",method=RequestMethod.GET)
+	@RequestMapping(value="/reg/page",method=RequestMethod.GET)
 	public String showRegisterPage(){
 		return "/register";
 	}
+	
+	@RequestMapping(value="/forgot/page",method=RequestMethod.GET)
+	public String showForgotPage(){
+		return "/forgot";
+	}
 
-	@RequestMapping(value="/register",method=RequestMethod.POST,produces={"application/json;charset=UTF-8"})
 	@ResponseBody
-	public ResponseModel register(String email,String password,String role){
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	public ResponseModel register(String email,String password,String role,RedirectAttributes attr){
 		log.info("@ register email:{},password:{}",new Object[]{email,password});
-		BaseResponse resp = new BaseResponse();
+		LoginResponse resp = new LoginResponse();
 		String encodePassword = passwordEncoder.encodePassword(password);
 		try {
 			if(StringUtils.isEmpty(role)){
@@ -65,7 +71,9 @@ public class UserController {
 			log.error(e.getMessage());
 			return resp.fail(e.getMessage());
 		}
-		resp.setData(new ArrayList<String>());
+		resp.setUsername(email);
+		resp.setPassword(password);
+		resp.setSkip("1");
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 		
 	}
@@ -92,6 +100,29 @@ public class UserController {
 		}
 		
 		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/checkVerifyCode",method=RequestMethod.POST)
+	public ResponseModel checkVerifyCode(HttpServletRequest request,String email,String emailVerifyCode,String verifyCode){
+		log.info("@ resetPassword email:{},emailVerifyCode:{},verifyCode:{}",new Object[]{email,emailVerifyCode,verifyCode});
+		try {
+			HttpSession session = request.getSession();
+			String code = (String)session.getAttribute("emailVerifyCode");
+			if(!emailVerifyCode.equalsIgnoreCase(code)){
+				return new BaseResponse().fail("verification code error");
+			}
+			String sessionVerifyCode = (String)session.getAttribute("verifyCode");
+			if(!verifyCode.equals(sessionVerifyCode)){
+				return new BaseResponse().fail("verification code error");
+			}
+		} catch (Exception e) {
+			log.error("发送验证码失败 "+e.getMessage(),e);
+			return new BaseResponse().fail("Failed to send verification code");
+		}
+		
+		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);
+		
 	}
 	
 	@ResponseBody

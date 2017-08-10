@@ -29,7 +29,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		    authentication-failure-url="/login.jsp?login_error=true"
 		    login-page="login.jsp"
 		    login-processing-url="/login"
-		    default-target-url="/index.jsp"
+		    always-use-default-target="false"
+		    default-target-url="/interview/page"
 		    password-parameter="password"
 		    username-parameter="username"
 		  />

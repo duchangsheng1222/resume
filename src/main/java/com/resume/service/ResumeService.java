@@ -13,6 +13,8 @@ public interface ResumeService {
 	 */
 	ResumeInfo getResumeById(long id);
 	
+	ResumeInfo getResumeByUserId(long userId);
+	
 	/**
 	 * 请求简历信息
 	 * @param page

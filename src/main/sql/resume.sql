@@ -1,9 +1,10 @@
 
-
+drop table if exists t_resume_info;
 create TABLE t_resume_info(
 	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
 `name`  varchar(255) NULL DEFAULT NULL COMMENT '名字' ,
-`age`  int(11)  NULL DEFAULT NULL COMMENT '年龄' ,
+`age`  varchar(255)  NULL DEFAULT NULL COMMENT '年龄' ,
+`birth_date`  varchar(255)  NULL DEFAULT NULL COMMENT '生日' ,
 `gender`  enum('f','m') NULL DEFAULT NULL COMMENT '性别' ,
 `position`  varchar(500)  NULL DEFAULT NULL COMMENT '职位' ,
 `phone`  varchar(100)  NULL DEFAULT NULL COMMENT '手机号' ,
@@ -15,13 +16,15 @@ create TABLE t_resume_info(
 `specialized`  varchar(500) NULL DEFAULT NULL COMMENT '专业技能' ,
 `experience_length`  varchar(500) NULL DEFAULT NULL COMMENT '工作年限' ,
 `other_positions`  varchar(500) NULL DEFAULT NULL COMMENT '其他职位' ,
+`salary`  varchar(500) NULL DEFAULT NULL COMMENT '期望薪资' ,
+`location`  varchar(500) NULL DEFAULT NULL COMMENT '期望地点' ,
 
 `create_time`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
 `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 `creator_id`  bigint(16)  NULL DEFAULT NULL COMMENT '新建用户' ,
 `updater_id`  bigint(16)  NULL DEFAULT NULL COMMENT '更新用户' ,
 PRIMARY KEY (`id`),
-KEY `idx_creator_id` (`creator_id`) USING BTREE 
+KEY `idx_creator_id` (`creator_id`)
 );
 
 

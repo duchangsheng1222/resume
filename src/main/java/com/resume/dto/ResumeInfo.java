@@ -17,7 +17,9 @@ public class ResumeInfo implements Serializable {
 	/**
 	 * 年龄
 	 */
-	private int age;
+	private String age;
+	
+	private String birthDate;
 	
 	/**
 	 * 性别 f,m
@@ -74,6 +76,10 @@ public class ResumeInfo implements Serializable {
 	 */
 	private String otherPositions;
 	
+	private String salary;
+	
+	private String location;
+	
 	private long creatorId;
 	
 	private long updaterId;
@@ -98,14 +104,6 @@ public class ResumeInfo implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
 	}
 
 	public String getGender() {
@@ -234,6 +232,38 @@ public class ResumeInfo implements Serializable {
 
 	public void setResumeFile(ResumeFile resumeFile) {
 		this.resumeFile = resumeFile;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getSalary() {
+		return salary;
+	}
+
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	

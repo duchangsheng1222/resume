@@ -41,11 +41,11 @@ public class InterviewFlowController extends AbstractController{
 		}
 		
 		ResumeInfo resume = resumeService.getResumeByUserId(user.getId());
-		return "redirect:/info/page/add";
-//		if(null == resume){
-//		}
-//		model.addAttribute("resumeId", resume.getId());
-//		return "/interview/page";
+		if(null == resume){
+			return "redirect:/info/page/add";
+		}
+		model.addAttribute("resumeId", resume.getId());
+		return "/interview/page";
 		
 	}
 	

@@ -8,31 +8,31 @@ $(function(){
 		$(this).css({
 			"color":"#61c0e8",
 			"border":"1px solid #61c0e8"
-		})
-	})
+		});
+	});
 	
 	//选年龄段
 	$('.age label').on("click",function(){
 		$('.age label').find('em').css("display",'none');
 		$(this).find('em').css("display","block");
-	})
+	});
 	
 	//增加专业技能
 	$('.addBox').find('span').on('click',function(){
 		var newSpecialInput='<input type="text" name="" id="" value="" />';
 		$('.moreSpecical').append(newSpecialInput);
-	})
+	});
 	
 	//选工作经验
 	$('.xia').on('click',function(){
 		$('.numberSpan').toggleClass('none');
-	})
+	});
 	
 	$('.numberSpan').find('em').on('click',function(){
 		var yearHtml=$(this).html();
 		$('.yearsNumber').val(yearHtml);
 		$('.numberSpan').toggleClass('none');
-	})
+	});
 	
 
 	
@@ -45,7 +45,7 @@ $(function(){
 			,istoday: false
 			,choose: function(datas){
 			end.min = datas; //开始日选好后，重置结束日的最小日期
-			end.start = datas //将结束日的初始值设定为开始日
+			end.start = datas; //将结束日的初始值设定为开始日
 			}
 		};
 		var end = {
@@ -61,6 +61,6 @@ $(function(){
 		$('#birth').on('click',function(){
 			start.elem = this;
 	 		laydate(start);
-		})
-	})
-})
+		});
+	});
+});

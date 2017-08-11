@@ -17,12 +17,12 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="../index.html" class="homeA">Home</a><a href="javascript;">-</a><a href="login.html" class="loginA">Personal information</a>
+				<a href="/index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Personal information</a>
 			</div>
 			<p class="tit">Personal information</p>
 			<!--表单详情-->
 			<div class="formBox">
-				<form action="#" method="post">
+				<form id="infoForm" >
 					<!--==第一行==-->
 					<div class="box1">
 						<!--姓名-->
@@ -33,7 +33,7 @@
 						<!--位置-->
 						<div class="position">
 							<p>Position applied for</p>
-							<input type="text" name="" id="position" value="" />
+							<input type="text" name="position" id="position" value="" />
 						</div>
 					</div>
 					
@@ -42,12 +42,12 @@
 						<!--生日-->
 						<div class="date">
 							<p>Date of Birth</p>
-							<input type="text" name="" id="birth" value="" />
+							<input type="text" name="birthDate" id="birth" value="" />
 						</div>
 						<!--电话-->
 						<div class="contact">
 							<p>Contact number (Skype is preferred)</p>
-							<input type="tel" name="tel" id="tel" value="" />
+							<input type="tel" name="phone" id="tel" value="" />
 						</div>
 					</div>
 					
@@ -56,17 +56,17 @@
 						<!--性别-->
 						<div class="sex">
 							<p>Gender</p>
-							<input type="radio" name="sexman" id="sexman" value="man" />
+							<input type="radio" name="gender" id="sexman" value="man" />
 							<label class="mel active" for="sexman">Male</label>
-							<input type="radio" name="sexman" id="sexwoman" value="woman" />
+							<input type="radio" name="gender" id="sexwoman" value="woman" />
 							<label class="fmel" for="sexwoman">Female</label>
-							<input type="radio" name="sexman" id="sexoths" value="woman" />
+							<input type="radio" name="gender" id="sexoths" value="woman" />
 							<label class="otherMan" for="sexoths">Others</label>
 						</div>
 						<!--国籍-->
 						<div class="citizen">
 							<p>Citizenship</p>
-							<input type="text" name="" id="" value="" />
+							<input type="text" name="citizenship" id="" value="" />
 						</div>
 					</div>
 					
@@ -75,12 +75,12 @@
 						<!--教育背景-->
 						<div class="edu">
 							<p>Education background (degree)</p>
-							<input type="text" name="" id="" value="" />
+							<input type="text" name="education" id="" value="" />
 						</div>
 						<!--主修-->
 						<div class="major">
 							<p>Major</p>
-							<input type="text" name="" id="major" value="" />
+							<input type="text" name="major" id="major" value="" />
 						</div>
 					</div>
 					
@@ -89,12 +89,12 @@
 						<!--xxxx-->
 						<div class="obtain">
 							<p>Country in which education has been obtained</p>
-							<input type="text" name="obtain" id="obtain" value="" />
+							<input type="text" name="country" id="obtain" value="" />
 						</div>
 						<!--学位-->
 						<div class="degree">
 							<p>Degree / Certifications</p>
-							<input type="text" name="" id="degree" value="" />
+							<input type="text" name="certification" id="degree" value="" />
 						</div>
 					</div>
 					
@@ -104,7 +104,7 @@
 						<div class="specical">
 							<p>Specialized skills (if possible)</p>
 							<div class="addBox">
-								<input class="specialInput" type="text" name="" id="" value="" />
+								<input class="specialInput" type="text" name="specialized" id="" value="" />
 								<span></span>
 							</div>
 						</div>
@@ -112,7 +112,7 @@
 						<div class="years">
 							<i class="xia"></i>
 							<p>Length of working experience</p>
-							<input class="yearsNumber" type="text" name="" id="" value="" readonly="readonly"/>
+							<input class="yearsNumber" type="text" name="experienceLength" id="" value="" readonly="readonly"/>
 							<span class="numberSpan">
 								<em>0</em>
 								<em>1</em>
@@ -152,25 +152,25 @@
 					<div class="age">
 						<p>Expected teaching age group of students.(Can be multiple choice)</p>
 						
-						<input type="radio" name="age1" value="" />
+						<input type="radio" name="age" value="0-7" />
 						<label for="age1"><em></em></label><span>0-7</span>
 						
-						<input type="radio" name="age2" value="" />
+						<input type="radio" name="age" value="7-12" />
 						<label for="age2"><em></em></label><span>7-12</span>
 						
-						<input type="radio" name="age3" value="" />
+						<input type="radio" name="age" value="12-18" />
 						<label for="age3"><em></em></label><span>12-18</span>
 						
-						<input type="radio" name="age4" value="" />
+						<input type="radio" name="age" value="adults" />
 						<label for="age4"><em></em></label><span>adults</span>
 					</div>
 					
 					<!--第9行-->
 					<!--建议-->
 					<p class="others">Other positions of consideration</p>
-					<textarea class="messageIt" name="" rows="" cols=""></textarea>
+					<textarea class="messageIt" name="otherPositions" rows="" cols=""></textarea>
 					<div class="btb">
-						<div class="Next">Next</div>
+						<div class="Next">Save&Next</div>
 						<div class="save">Save</div>
 					</div>
 				</form>
@@ -179,5 +179,21 @@
 	</body>
 	<script src="${pageContext.request.contextPath }/static/js/layui/layui.js"></script>
 	<script src="${pageContext.request.contextPath }/static/js/resume/personalInformation.js"></script>
+	<script src="${pageContext.request.contextPath }/static/js/resume/resume-info.js"></script>
+	
+	<script type="text/javascript">
+		resumeInfo.baseUrl = "${pageContext.request.contextPath }";
+		
+		$(".save").on("click",function(){
+			resumeInfo.save(0);
+		});
+		
+		$(".Next").on("click",function(){
+			//resumeInfo.save(1);
+			window.location.href = "${pageContext.request.contextPath }/upload/doc";
+		});
+		
+		
+	</script>
 </html>
 

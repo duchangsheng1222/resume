@@ -20,7 +20,7 @@ public class ResumeInfoServiceTest {
 	@Test
 	public void testSaveResumeInfo(){
 		ResumeInfo resumeInfo = new ResumeInfo();
-		resumeInfo.setAge(10);
+		resumeInfo.setAge("");
 		resumeInfo.setCertification("毕业证，学位证，奖学金证书");
 		resumeInfo.setCitizenship("china");
 		resumeInfo.setCountry("america");

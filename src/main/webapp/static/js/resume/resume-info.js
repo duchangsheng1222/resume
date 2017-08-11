@@ -1,19 +1,28 @@
 
 
 var resumeInfo = {
+	baseUrl : "",	
 	URL : {
-		save : "",
-		update : "",
+		save : "/info/save",
+		update : "/info/update",
 		
 	},
-	save : function(){
+	save : function(type){
 		$.ajax({
-			URL:resumeInfo.URL.save,
+			URL:resumeInfo.baseUrl + resumeInfo.URL.save,
 			type:"post",
 			dataType:"json",
-			data:{},
+			data:$("infoForm").serialize(),
 			success : function(data){
-				
+				if(data.status == 1){
+					if(0 == type){
+						alert("successed");
+					}else{
+						window.location.href="";
+					}
+				}else{
+					alert("error");
+				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
@@ -23,7 +32,7 @@ var resumeInfo = {
 	
 	update : function(){
 		$.ajax({
-			URL:resumeInfo.URL.update,
+			URL:resumeInfo.baseUrl + resumeInfo.URL.update,
 			type:"post",
 			dataType:"json",
 			data:{},

@@ -15,6 +15,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<http pattern="/500.jsp*" security="none" />
 	<http pattern="/accessDenied.jsp*" security="none" />
 	<http pattern="/login.jsp" security="none" />
+	<http pattern="/index.jsp" security="none" />
 	<http pattern="/register.jsp" security="none" />
 	<http pattern="/file/*" security="none" />
     <http auto-config="true" create-session="always" 
@@ -29,6 +30,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		    authentication-failure-url="/login.jsp?login_error=true"
 		    login-page="login.jsp"
 		    login-processing-url="/login"
+		    authentication-success-forward-url="/interview/page"
 		    always-use-default-target="false"
 		    default-target-url="/interview/page"
 		    password-parameter="password"
@@ -42,7 +44,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	    <beans:property name="authenticationManager"  ref="authenticationManager"></beans:property>  
 	    <beans:property name="authenticationSuccessHandler">  
 	        <beans:bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">  
-	            <beans:property name="defaultTargetUrl" value="/index.jsp"></beans:property>  
+	            <beans:property name="defaultTargetUrl" value="/interview/page"></beans:property>  
 	        </beans:bean>  
 	    </beans:property>  
 	    <beans:property name="authenticationFailureHandler">  

@@ -33,7 +33,13 @@
 	}
 	
 	function fun_submit(){
-		
+		if($("#email").val() == ""){
+			$("#errorSpan").html("Please fill in the email");
+			return false;
+		}else if($("#password").val() == ""){
+			$("#errorSpan").html("Please fill in the password");
+			return false;
+		}
 		document.f.submit();
 	}
 	function fun_reset(){
@@ -75,7 +81,11 @@
 						<input type="text" name="verifyCode" id="sureMa" value="" placeholder="Verification code"/>
 						<span id="sureMaImg"> <img id="imgObj" alt="验证码" src="<%= request.getContextPath()%>/public/verify/code" onclick="changeImg();"/></span>
 					</div>
-					<p class="wrong"><span>&nbsp;</span><span>空军海军空军海军航空</span></p>
+					<p class="wrong"><span>&nbsp;</span><span id="errorSpan">
+					<c:if test="${not empty param.login_error}">
+						${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+					</c:if>
+					</span></p>
 					<input type="button" name="" id="sub" value="Sign in" onclick="fun_submit();" />
 					<p class="more"><a class="leftA" href="#">Don't have an account?</a><a class="rightA" href="${pageContext.request.contextPath}/public/user/reg/page">Sign up</a></p>
 				</form>

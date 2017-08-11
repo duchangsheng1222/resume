@@ -19,7 +19,20 @@
 		var email = $("#email").val() ;
 		var pwd = $("#password").val() ;
 		var repwd = $("#passwordAgain").val() ;
+		if(email == ""){
+			$("#errorSpan").html("Please fill in the email");
+			return ;
+		}
+		if(pwd == ""){
+			$("#errorSpan").html("Please fill in the password");
+			return ;
+		}else if(repwd == ""){
+			$("#errorSpan").html("Please confirm the password");
+			return ;
+		}
+		
 		if(pwd != repwd){
+			$("#errorSpan").html("Two passwords are different");
 			return;
 		}
 		
@@ -62,6 +75,7 @@
 					<input type="email" name="" id="email" value="" placeholder="Email address" required="required"/>
 					<input type="password" name="" id="password" value="" placeholder="Enter your Password" required="required"/>
 					<input type="password" name="" id="passwordAgain" value="" placeholder="Enter your Password again" required="required"/>
+					<p class="wrong"><span>&nbsp;</span><span id="errorSpan"></span></p>
 					<input type="button" name="" onclick="fun_submit();" id="sub" value="OK" />
 				</form>
 			</div>

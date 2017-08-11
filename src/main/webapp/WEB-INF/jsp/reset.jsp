@@ -5,7 +5,7 @@
 <head>
 	<%@include file="/WEB-INF/jsp/common/head.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/forgot.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/reset.css"/>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/resume/user.js"></script>
 	<title>sign in</title>
@@ -27,18 +27,25 @@
 	
 	function fun_submit(){
 		
-		var email = $("#email").val() ;
-		var verifyCode = $("#verifyCode").val() ;
-		var emailCode = $("#emailCode").val() ;
-		if(verifyCode == ""){
-			$("#errorSpan").html("Please fill in the verification code");
+		var email = "${email}";
+		var verifyCode = "${verifyCode}";
+		var emailVerifyCode = "${emailVerifyCode}";
+		var pwd = $("#pass").val() ;
+		var repwd = $("#passSure").val() ;
+		if(pwd == ""){
+			$("#errorSpan").html("");
 			return ;
-		}else if(emailCode == ""){
-			$("#errorSpan").html("Please fill in the email verification Code");
+		}else if(repwd == ""){
+			$("#errorSpan").html("");
 			return ;
 		}
 		
-		user.checkVerifyCode(email, verifyCode, emailCode);
+		if(pwd != repwd){
+			$("#errorSpan").html("");
+			return;
+		}
+		
+		user.resetPwd(email, pwd,verifyCode,emailVerifyCode);
 	}
 	function fun_reset(){
 		document.f.reset();
@@ -67,7 +74,7 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="login.jsp" class="loginA">Forgot password</a>
+				<a href="../index.html" class="homeA">Home</a><a href="javascript;">-</a><a href="login.html" class="loginA">Reset password</a>
 			</div>
 			
 			<!--表单前边的导航-->
@@ -86,23 +93,15 @@
 			</div>
 			<!--登录表单-->
 			<div class="loginBox">
-				<p class="title">Verify Email</p>
+				<p class="title">Reset password</p>
 				<form action="#" method="post">
-					<input type="email" name="email" id="email" value="" placeholder="Email address" required="required"/>
-					<div class="sure">
-						<input type="text" name="verifyCode" id="verifyCode" value="" placeholder="Verify not a robot" required="required"/>
-						<span id="sureMaImg"> <img id="imgObj" alt="验证码" src="<%= request.getContextPath()%>/public/verify/code" onclick="changeImg();"/></span>
-					</div> 
-					<div class="sure sure2">
-						<input type="text" name="emailCode" id="emailCode" value="" placeholder="Verification code" required="required"/>
-						<span id="sureMaImg">send</span>
-					</div>
+					<input type="password" name="" id="pass" value="" placeholder="New password" required="required"/>
+					<input type="password" name="" id="passSure" value="" placeholder="Confirm New Password" required="required"/>
 					<p class="wrong"><span>&nbsp;</span><span id="errorSpan"></span></p>
-					<input type="button" onclick="fun_submit();" name="" id="sub" value="Reset Password"  required="required"/>
-					<p class="more"><a class="leftA" href="${pageContext.request.contextPath }/public/user/reg/page">Don't have an account?</a><a class="rightA" href="${pageContext.request.contextPath }/public/user/reg/page">Sign up</a></p>
+					<input type="button" onclick="fun_submit();" name="" id="sub" value="Done" />
+					<p class="more"><a class="leftA" href="#">Don't have an account?</a><a class="rightA" href="#">Sign up</a></p>
 				</form>
 			</div>
 		</div>
 	</body>
 </html>
-

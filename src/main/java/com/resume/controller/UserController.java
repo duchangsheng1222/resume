@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,6 +56,14 @@ public class UserController {
 	public String showForgotPage(){
 		return "/forgot";
 	}
+	
+	@RequestMapping(value="/reset/page",method=RequestMethod.GET)
+	public String showResetPage(Model model,String email,String verifyCode,String emailVerifyCode){
+		model.addAttribute("email", email);
+		model.addAttribute("verifyCode", verifyCode);
+		model.addAttribute("emailVerifyCode", emailVerifyCode);
+		return "/reset";
+	}
 
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
@@ -62,6 +71,12 @@ public class UserController {
 		log.info("@ register email:{},password:{}",new Object[]{email,password});
 		LoginResponse resp = new LoginResponse();
 		String encodePassword = passwordEncoder.encodePassword(password);
+		if(StringUtils.isBlank(email)){
+			return resp.fail("Please fill in the email");
+		}
+		if(StringUtils.isBlank(password)){
+			return resp.fail("Please fill in the password");
+		}
 		try {
 			if(StringUtils.isEmpty(role)){
 				role = BaseRoleType.MEMEBER.getCode();
@@ -110,7 +125,7 @@ public class UserController {
 			HttpSession session = request.getSession();
 			String code = (String)session.getAttribute("emailVerifyCode");
 			if(!emailVerifyCode.equalsIgnoreCase(code)){
-				return new BaseResponse().fail("verification code error");
+				return new BaseResponse().fail("email verification code error");
 			}
 			String sessionVerifyCode = (String)session.getAttribute("verifyCode");
 			if(!verifyCode.equals(sessionVerifyCode)){
@@ -127,22 +142,38 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value="/resetPassword",method=RequestMethod.POST)
-	public ResponseModel resetPassword(HttpServletRequest request,String email,String password,String verifyCode){
-		log.info("@ resetPassword email:{},password:{},verifyCode:{}",new Object[]{email,password,verifyCode});
+	public ResponseModel resetPassword(HttpServletRequest request,String email,String password,String verifyCode,String emailCode){
+		log.info("@ resetPassword email:{},password:{},verifyCode:{},emailCode:{}",new Object[]{email,password,verifyCode,emailCode});
+		LoginResponse resp = new LoginResponse();
+		if(StringUtils.isBlank(email)){
+			return resp.fail("Please fill in the email");
+		}
+		if(StringUtils.isBlank(password)){
+			return resp.fail("Please fill in the password");
+		}
 		try {
 			HttpSession session = request.getSession();
 			String code = (String)session.getAttribute("emailVerifyCode");
-			if(!verifyCode.equalsIgnoreCase(code)){
+			if(!emailCode.equalsIgnoreCase(code)){
+				return resp.fail("email verification code error");
+			}
+			
+			String vcode = (String)session.getAttribute("verifyCode");
+			if(!verifyCode.equalsIgnoreCase(vcode)){
 				return new BaseResponse().fail("verification code error");
 			}
 			String encodePassword = passwordEncoder.encodePassword(password);
 			userService.resetPassword(email, encodePassword);
 		} catch (Exception e) {
 			log.error("发送验证码失败 "+e.getMessage(),e);
-			return new BaseResponse().fail("Failed to send verification code");
+			return resp.fail("Failed to send verification code");
 		}
 		
-		return new BaseResponse().success(BaseResponse.SUCCESS_MESSAGE);
+		resp.setUsername(email);
+		resp.setPassword(password);
+		resp.setSkip("1");
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+		
 	}
 	
 	@ResponseBody

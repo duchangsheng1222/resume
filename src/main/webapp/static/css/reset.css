@@ -54,10 +54,10 @@ body,html{
 	height: 74%;
 	border: 1px solid #abdcd6;
 	margin: 0 auto;
-	/*margin-top: 6.6%;*/	
 	background: #fff;
 	border-radius: 10px;
 	box-shadow: 0px 0px 15px #999;
+	overflow: hidden;
 }
 .loginBox .title{
 	width: 78%;
@@ -66,9 +66,9 @@ body,html{
 	font-size: 24px;
 	margin: 0 auto;
 	margin-top: 13.5%;
-	padding-bottom:38px;
+	padding-bottom:90px;
 }
-.loginBox #email{
+.loginBox #pass,.loginBox #passSure{
 	display: block;
 	width: 75%;
 	outline: none;
@@ -77,6 +77,9 @@ body,html{
 	margin: 0 auto;
 	margin-bottom: 28px;
 	padding-left: 10px;
+}
+.loginBox #passSure{
+	margin-bottom: 50px;
 }
 ::-webkit-input-placeholder{
 	color: #c3c6cd;
@@ -108,34 +111,6 @@ body,html{
 	font-size: 12px;
 	margin-left: 10px;
 }
-.sure{
-	width: 78%;
-	border: 1px solid #e3e7ed;
-	height: 39px;
-	margin: 0 auto;
-	margin-bottom: 28px;
-	overflow: hidden;
-    box-sizing: border-box;
-}
-.sure input{
-	padding-left: 10px;
-	display: block;
-	float: left;
-	height: 100%;
-	border: none;
-	outline: none;
-}
-.sure #sureMaImg{
-	display: block;
-	width: 28%;
-	height: 100%;
-	float: right;
-	background: pink;
-}
-/*下边是forgot独有的*/
-.sure2{
-	margin-bottom: 57px;
-}
 .headBox{
 	width: 100%;
 	height: 20%;
@@ -157,7 +132,7 @@ body,html{
 }
 .centerUp .upL{
 	font-family: "Hei regular";
-	color: #ed6c65;
+	color: #fff;
 	font-weight: 600;
 	float: left;
 	margin-left: 6%;
@@ -177,7 +152,7 @@ body,html{
 .centerUp .upR{
 	font-family: "Hei regular";
 	font-weight: 600;
-	color: #fff;
+	color: #ed6c65;
 	float: right;
 	margin-right: 6%;
 }
@@ -185,32 +160,16 @@ body,html{
 	overflow: hidden;
 }
 .centerDown .downL{
-	color: #ed6c65;
+	color: #fff;
 	font-size: 14px;
 	float: left;
 }
 .centerDown .downR{
-	color: #fff;
+	color: #ed6c65;
 	font-size: 14px;
 	float: right;
 }
-.sure2 #sureMaImg{
-	background: transparent;
-	font-size: 15px;
-	text-align: center;
-	height: 21px;
-	border-left: 1px solid #e3e7ed;
-	line-height: 20px;
-	color: #63d4c8;
-	margin-top: 8px;
-	cursor: pointer;
-}
 
-#sureMaImg #imgObj{
-	display:block;
-	width:100%;
-	height:100%;
-}
 
 /* 错误提示 */
 .wrong{
@@ -220,6 +179,17 @@ body,html{
 	text-align:center;
 	margin: 10px 0;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

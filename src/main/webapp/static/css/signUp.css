@@ -115,6 +115,14 @@ body,html{
 	margin-left: 10px;
 }
 
+/* 错误提示 */
+.wrong{
+	color:red;
+	font-size:14px;
+	width:100%;
+	text-align:center;
+	margin: 10px 0;
+}
 
 
 

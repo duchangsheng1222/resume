@@ -19,7 +19,7 @@ import com.resume.spring.security.SecurityContextUtil;
 import com.resume.spring.security.User;
 
 @Controller
-@RequestMapping("/resume")
+@RequestMapping("/info")
 public class ResumeController extends AbstractController{
 	
 	@Autowired
@@ -27,7 +27,7 @@ public class ResumeController extends AbstractController{
 	
 	@RequestMapping("/page/add")
 	public String showResumeInfo(){
-		return "/resume/add";
+		return "/resume/resume-info";
 	}
 	
 	@RequestMapping("/page/upload")

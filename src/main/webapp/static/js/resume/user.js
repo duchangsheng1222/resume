@@ -49,7 +49,7 @@
 							Post(user.baseUrl + "/login", parames );
 							window.location.href = user.baseUrl + "/interview/page";
 						}else{
-							alert(data.message);
+							$("#errorSpan").html(data.message);
 						}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -80,7 +80,11 @@
 					dataType:"json",
 					data:{email:email,verifyCode:verifyCode,emailVerifyCode:emailCode},
 					success : function(data){
-						
+						if(data.status == 1){
+							window.location.href = user.baseUrl+"/public/user/reset/page";
+						}else{
+							$("#errorSpan").html(data.message);
+						}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
@@ -88,14 +92,24 @@
 				});
 			},
 			
-			resetPwd : function(){
+			resetPwd : function(email,pwd,verifyCode,emailVerifyCode){
 				$.ajax({
 					url: user.baseUrl+user.URL.resetPwd,
 					type:"post",
 					dataType:"json",
-					data:{},
+					data:{email:email,password:pwd,verifyCode:verifyCode,emailCode:emailVerifyCode},
 					success : function(data){
-						
+						if(data.status == 1){
+							  var parames = new Array();
+					          parames.push({ name: "username", value: data.username});
+					          parames.push({ name: "password", value: data.password});
+					          parames.push({ name: "skip", value: data.skip});
+
+							Post(user.baseUrl + "/login", parames );
+							window.location.href = user.baseUrl + "/interview/page";
+						}else{
+							$("#errorSpan").html(data.message);
+						}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
 						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);

@@ -13,8 +13,8 @@ experience_length,other_positions,birth_date,salary,location,create_time,creator
 		VALUES
 		(#{name},#{age},#{gender},#{position},#{phone},#{citizenship},
 		#{education},#{major},#{country},#{certification},#{specialized},#{experienceLength},
-		＃{otherPositions},#{birthDate},#{salary},#{location},#{createTime},#{creatorId},
-		＃{updaterId})
+		#{otherPositions},#{birthDate},#{salary},#{location},#{createTime},#{creatorId},
+		#{updaterId})
 		<selectKey resultType="long" order="AFTER" keyProperty="id"> <include refid="public_sql.increment_sql" /> </selectKey>
 	</insert>
 	
@@ -32,7 +32,7 @@ experience_length,other_positions,birth_date,salary,location,create_time,creator
 		certification=#{certification},
 		specialized=#{specialized},
 		experience_length=#{experienceLength},
-		other_position=#{otherPosition},
+		other_positions=#{otherPositions},
 		birth_date=#{birthDate},
 		salary=#{salary},
 		location=#{location},

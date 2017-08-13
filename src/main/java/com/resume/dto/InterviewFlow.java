@@ -30,6 +30,8 @@ public class InterviewFlow implements Serializable{
 	private Date createTime;
 	
 	private Date updateTime;
+	
+	private ResumeInfo resumeInfo;
 
 	public long getId() {
 		return id;
@@ -125,6 +127,14 @@ public class InterviewFlow implements Serializable{
 
 	public void setVisaDate(Date visaDate) {
 		this.visaDate = visaDate;
+	}
+
+	public ResumeInfo getResumeInfo() {
+		return resumeInfo;
+	}
+
+	public void setResumeInfo(ResumeInfo resumeInfo) {
+		this.resumeInfo = resumeInfo;
 	}
 	
 	

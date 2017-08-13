@@ -9,6 +9,52 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/upload.css"/>
 		<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 		<script src="${pageContext.request.contextPath }/static/js/resume/upload.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			var error = "${error}";
+			if(error && "${error}" != error && "" != error){
+				alert(error);
+			}
+			
+			$('#alone1').change(function(){
+				var filePath=$(this).val();
+				if("" == filePath){
+					return ;
+				}
+		        var arr=filePath.split('\\');
+		        var fileName=arr[arr.length-1];
+				$('#cont1').append('<i><img src="static/img/del.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+fileName+'</i>');
+			});
+			$('#alone2').change(function(){
+				var filePath=$(this).val();
+				if("" == filePath){
+					return ;
+				}
+		        var arr=filePath.split('\\');
+		        var fileName=arr[arr.length-1];
+				$('#cont2').append('<i><img src="static/img/del.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+fileName+'</i>');
+			});
+			
+			$("#upload1").on("click",function(){
+				$("#form1").submit();
+			});
+			
+			$("#upload2").on("click",function(){
+				$("#form2").submit();
+			});
+			
+			//文件删除
+			$('#cont1').on('click','i img',function(){
+				$(this).parent().remove();
+			});
+			$('#cont2').on('click','i img',function(){
+				$(this).parent().remove();
+			});
+			$('#finish').on('click',function(){
+				window.location.href = "${pageContext.request.contextPath }/interview/page";
+			});
+		});
+		</script>
 	</head>
 	<body>
 		<div class="box">
@@ -19,29 +65,35 @@
 			<!--表单详情-->
 			<div class="formBox">
 				<p class="tit">Upload</p>
-				<form action="#" method="post">
+				<form id="form1" action="${pageContext.request.contextPath }/upload/resume" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="resumeId" id="fileResumeId" value="${resumeId}"/>
 					<!--Resume-->
 					<div class="alone">
 						<em>Resume</em>
 						<div class="center">
 							<span id="cont1"></span>
-							<input type="file" name="" id="alone1" value="" />
+							<input type="file" name="resumeFile" id="alone1" required="required"/>
 							<label for="alone1" class="add" id="add1"></label>
 						</div>
 						<span id="upload1">Upload</span>
 					</div>
+					<p class="filecl">&nbsp;</p>
+				</form>
+				<form id="form2" action="${pageContext.request.contextPath }/upload/video" method="post"  enctype="multipart/form-data">	
+					<input type="hidden" name="resumeId" id="videoResumeId" value="${resumeId}"/>
 					<!--Photo-->
 					<div class="alone">
 						<em id="em2">Photo</em>
 						<div class="center">
 							<span id="cont2"></span>
-							<input type="file" name="" id="alone2" value="" />
+							<input type="file" name="videoFile" id="alone2" value=""  required="required"/>
 							<label for="alone2" class="add" id="add2"></label>
 						</div>
 						<span id="upload2">Upload</span>
 					</div>
+					<p class="filecl"><span>xxxx.png</span><span>xxxx.png</span><span>xxxx.png</span></p>
 					<!--finish-->
-					<input type="submit" id="finish" name="" value="Finish" />
+					<input type="button" id="finish" name="" value="Finish" />
 					
 				</form>
 			</div>

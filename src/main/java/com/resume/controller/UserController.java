@@ -1,7 +1,5 @@
 package com.resume.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.resume.common.MailSender;
-import com.resume.dto.UserInfo;
 import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
 import com.resume.response.LoginResponse;
@@ -176,13 +173,5 @@ public class UserController {
 		
 	}
 	
-	@ResponseBody
-	@RequestMapping("/list")
-	public ResponseModel listUsers(){
-		log.info("@ listUsers");
-		BaseResponse resp = new BaseResponse();
-		List<UserInfo> listUsers = userService.listUsers();
-		resp.setData(listUsers);
-		return resp.success(BaseResponse.SUCCESS_MESSAGE);
-	}
+
 }

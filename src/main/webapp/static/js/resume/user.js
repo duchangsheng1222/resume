@@ -3,12 +3,12 @@
 	var user = {
 			baseUrl : "",
 			URL : {
-				register : "public/user/register",
-				sendVerifyCode : "public/user/sendVerifyCode",
-				resetPwd : "public/user/resetPassword",
-				list:"public/user/list",
-				login : "login.jsp",
-				checkVerifyCode : "public/user/checkVerifyCode"
+				register : "/public/user/register",
+				sendVerifyCode : "/public/user/sendVerifyCode",
+				resetPwd : "/public/user/resetPassword",
+				list:"/user/list",
+				login : "/login.jsp",
+				checkVerifyCode : "/public/user/checkVerifyCode"
 			},
 			list : function(fillTable){
 				$.ajax({
@@ -20,7 +20,7 @@
 							var datas = new Array();
 							for (var i = 0; i < data.data.length; i++) {
 								var user = data.data[i];
-								datas[i] = new Array(user.id,user.nickname,user.email,user.password,user.locked);
+								datas[i] = new Array(user.id,checkNull(user.nickname),user.email,user.enabled,"","<a href='javascript:void(0);' onclick='deleteUser("+user.id+");'>delete</a>");
 								
 							}
 							fillTable(datas);
@@ -47,7 +47,7 @@
 					          parames.push({ name: "skip", value: data.skip});
 
 							Post(user.baseUrl + "/login", parames );
-							window.location.href = user.baseUrl + "/interview/page";
+							//window.location.href = user.baseUrl + "/interview/page";
 						}else{
 							$("#errorSpan").html(data.message);
 						}
@@ -115,11 +115,53 @@
 						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
 				    }
 				});
+			},
+			
+			deleteUser : function(userId){
+				$.ajax({
+					url: user.baseUrl+"/user/delete/"+userId,
+					type:"DELETE",
+					dataType:"json",
+					data:{},
+					success : function(data){
+							user.list(fillTable);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+				    }
+				});
+			},
+			setEmp : function(email){
+				$.ajax({
+					url: user.baseUrl+"/user/set/emp",
+					type:"POST",
+					dataType:"json",
+					data:{"email":email},
+					success : function(data){
+							user.list(fillTable);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+				    }
+				});
 			}
 			
 			
 			
 		};
+	
+	function deleteUser(userId){
+		user.deleteUser(userId);
+	}
+	
+	function setEmp(){
+		 var email = $("#empEmail").val();
+		 if("" == email){
+			 alert("email can not be null");
+			 return;
+		 }
+		 user.setEmp(email);
+	}
 	
 	  function ShowReport_Click() {
 
@@ -158,3 +200,10 @@
           //提交数据
           temp_form.submit();
       }
+      
+      function checkNull(val){
+  		if(null == val){
+  			return "";
+  		}
+  		return val;
+  	}

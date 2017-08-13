@@ -1,5 +1,6 @@
 package com.resume.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -56,7 +57,35 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<UserInfo> listUsers() {
 
-		return BeanUtil.createCopyList(userDao.listUsers(), UserInfo.class);
+		List<UserInfo> userInfos = new ArrayList<UserInfo>();
+		List<UserInfoPo> userPos = userDao.listUsers();
+		for (UserInfoPo userInfoPo : userPos) {
+			
+			UserInfo userInfo = BeanUtil.createCopy(userInfoPo, UserInfo.class);
+			userInfo.setEnabled("0".equals(userInfoPo.getLocked()));
+			userInfos.add(userInfo);
+		}
+		
+		return userInfos;
+	}
+
+	@Override
+	public void setEmployee(String email) {
+
+		userDao.setEmployee(email);
+	}
+	
+	@Override
+	public void deleteUser(Long userId){
+		userDao.deleteUser(userId);
+	}
+	
+	@Override
+	public void lockUser(Long userId,String locked){
+		UserInfoPo po = new UserInfoPo();
+		po.setId(userId);
+		po.setLocked(locked);
+		userDao.updateUserStatus(po);
 	}
 
 }

@@ -65,7 +65,7 @@ body,html{
 }
 .alone{
 	overflow: hidden;
-	margin-bottom: 35px;
+	margin-bottom: 15px;
 	height:37px;
 }
 .alone em{
@@ -80,6 +80,13 @@ body,html{
 }
 .alone #em2{
 	margin-right: 30px;
+}
+.filecl{
+	text-align: center;
+	margin-bottom: 15px
+}
+.filecl span{
+	color: red;
 }
 .center{
 	width: 64%;

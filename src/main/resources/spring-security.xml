@@ -31,7 +31,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		    login-page="login.jsp"
 		    login-processing-url="/login"
 		    authentication-success-forward-url="/interview/page"
-		    always-use-default-target="false"
+		    always-use-default-target="true"
 		    default-target-url="/interview/page"
 		    password-parameter="password"
 		    username-parameter="username"
@@ -45,6 +45,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	    <beans:property name="authenticationSuccessHandler">  
 	        <beans:bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">  
 	            <beans:property name="defaultTargetUrl" value="/interview/page"></beans:property>  
+	            <beans:property name="alwaysUseDefaultTargetUrl" value="true"></beans:property>  
 	        </beans:bean>  
 	    </beans:property>  
 	    <beans:property name="authenticationFailureHandler">  

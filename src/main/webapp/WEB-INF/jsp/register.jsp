@@ -15,7 +15,7 @@
 	
 	
 	function fun_submit(){
-		
+		user.baseUrl = "${pageContext.request.contextPath }";
 		var email = $("#email").val() ;
 		var pwd = $("#password").val() ;
 		var repwd = $("#passwordAgain").val() ;

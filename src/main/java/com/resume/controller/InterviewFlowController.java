@@ -1,8 +1,11 @@
 package com.resume.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +17,6 @@ import com.resume.response.BaseResponse;
 import com.resume.response.InterviewResponse;
 import com.resume.response.ResponseModel;
 import com.resume.service.InterviewFlowService;
-import com.resume.service.ResumeInfoServiceTest;
 import com.resume.service.ResumeService;
 import com.resume.spring.security.SecurityContextUtil;
 import com.resume.spring.security.User;
@@ -36,8 +38,10 @@ public class InterviewFlowController extends AbstractController{
 		
 		if(BaseRoleType.EMPLOYEE.getCode().equals(user.getRole()) ||
 				BaseRoleType.ADMIN.getCode().equals(user.getRole())){
-			
-			return "redirect:/interview/list";
+			if(BaseRoleType.ADMIN.getCode().equals(user.getRole())){
+				model.addAttribute("adminUrl", "/user/page");
+			}
+			return "/manage/list";
 		}
 		
 		ResumeInfo resume = resumeService.getResumeByUserId(user.getId());
@@ -45,7 +49,7 @@ public class InterviewFlowController extends AbstractController{
 			return "redirect:/info/page/add";
 		}
 		model.addAttribute("resumeId", resume.getId());
-		return "/interview/page";
+		return "/flow";
 		
 	}
 	
@@ -59,29 +63,29 @@ public class InterviewFlowController extends AbstractController{
 	
 	@ResponseBody
 	@RequestMapping(value="/{resumeId}/{step}/update",method=RequestMethod.PUT)
-	public ResponseModel updateInterview(Integer step,Long id){
-		log.info("@ interview/page id:{}",new Object[]{id});
+	public ResponseModel updateInterview(@PathVariable("step")Integer step,@PathVariable("resumeId")Long resumeId){
+		log.info("@ interview/page id:{}",new Object[]{resumeId});
 		BaseResponse resp = new BaseResponse();
-		if(null == step || null == id){
+		if(null == step || null == resumeId){
 			return resp.fail("Step and id cannot be null");
 		}
-		InterviewFlow flow = interviewFlowService.findById(id);
-		if(flow.getStep() >= step){
-			return resp.fail("You have completed this step");
+		InterviewFlow flow = interviewFlowService.findById(resumeId);
+		if(null == flow){
+			return resp.fail("The resume is not exists");
 		}
 		
 		User user = (User)SecurityContextUtil.getUserDetails();
 		InterviewFlow interviewFlow = new InterviewFlow();
 		interviewFlow.setUpdaterId(user.getId());
 		interviewFlow.setStep(step);
-		interviewFlow.setId(id);
+		interviewFlow.setResumeId(resumeId);
 		interviewFlowService.updateFlowStatus(interviewFlow);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/{resumeId}/status",method=RequestMethod.GET)
-	public ResponseModel interviewStatus(Long resumeId){
+	public ResponseModel interviewStatus(@PathVariable("resumeId")Long resumeId){
 		log.info("@ interview/status resumeId:{}",new Object[]{resumeId});
 		InterviewResponse resp = new InterviewResponse();
 		if(null == resumeId){
@@ -91,6 +95,22 @@ public class InterviewFlowController extends AbstractController{
 		resp.setInterviewFlow(flow);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/flow/list",method=RequestMethod.POST)
+	public ResponseModel listFlow(Long step,String col,String order,Integer page,Integer size){
+		log.info("@ interview/flow/list step:{}",new Object[]{step});
+		BaseResponse resp = new BaseResponse();
+		if(null == step){
+			step = 1L;
+		}
+		List<InterviewFlow> flows = interviewFlowService.list(step, col, order, page, size);
+		resp.setData(flows);
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
+	
 	
 	
 	

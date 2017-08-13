@@ -27,6 +27,8 @@ public class InterviewFlowPo {
 	private Date createTime;
 	
 	private Date updateTime;
+	
+	private ResumeInfoPo resumeInfoPo;
 
 	public long getId() {
 		return id;
@@ -122,6 +124,14 @@ public class InterviewFlowPo {
 
 	public void setVisaDate(Date visaDate) {
 		this.visaDate = visaDate;
+	}
+
+	public ResumeInfoPo getResumeInfoPo() {
+		return resumeInfoPo;
+	}
+
+	public void setResumeInfoPo(ResumeInfoPo resumeInfoPo) {
+		this.resumeInfoPo = resumeInfoPo;
 	}
 	
 	

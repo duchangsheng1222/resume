@@ -52,11 +52,19 @@
 						<div class="up">
 							<img src="${pageContext.request.contextPath}/static/img/logo.png" class="logo"/>
 							<div class="signAndLog">
-								<span id="Login">
+							<c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT}">
+								${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.email}
+								<span id="Login" onclick="window.location.href='${pageContext.request.contextPath}/logout'">
+									Log out
+								</span>
+							</c:if>
+							<c:if test="${empty sessionScope.SPRING_SECURITY_CONTEXT}">
+								<span id="Login" onclick="window.location.href='${pageContext.request.contextPath}/login.jsp'">
 									Log in
 								</span>
+							</c:if>
 								/
-								<span id="Signup">
+								<span id="Signup"  onclick="window.location.href='${pageContext.request.contextPath}/public/user/reg/page'">
 									Sign up
 								</span>
 							</div>

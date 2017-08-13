@@ -1,18 +1,23 @@
 package com.resume.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resume.dao.ResumeInfoDao;
+import com.resume.dto.InterviewFlow;
 import com.resume.dto.ResumeFile;
 import com.resume.dto.ResumeInfo;
 import com.resume.enums.FileType;
 import com.resume.po.ResumeInfoPo;
+import com.resume.service.InterviewFlowService;
 import com.resume.service.ResumeFileService;
 import com.resume.service.ResumeService;
 import com.resume.util.BeanUtil;
@@ -25,6 +30,9 @@ public class ResumeServiceImpl implements ResumeService {
 	
 	@Autowired
 	private ResumeFileService resumeFileService;
+	
+	@Autowired
+	private InterviewFlowService interviewFlowService;
 
 	@Override
 	public ResumeInfo getResumeById(long id) {
@@ -39,12 +47,18 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public long saveResumeInfo(ResumeInfo resumeInfo) {
+	@Transactional
+	public ResumeInfo saveResumeInfo(ResumeInfo resumeInfo) {
 		
 		ResumeInfoPo resumeInfoPo = BeanUtil.createCopy(resumeInfo, ResumeInfoPo.class);
 		resumeInfoDao.insertResumeInfo(resumeInfoPo);
-		
-		return resumeInfoPo.getId();
+		InterviewFlow interviewFlow = new InterviewFlow();
+		interviewFlow.setCreateTime(new Date());
+		interviewFlow.setCreatorId(resumeInfo.getCreatorId());
+		interviewFlow.setStep(1);
+		interviewFlow.setUpdaterId(resumeInfo.getCreatorId());
+		interviewFlowService.insertInterviewFlow(interviewFlow);
+		return BeanUtil.createCopy(resumeInfoPo,ResumeInfo.class);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.resume.service;
 
+import java.util.List;
+
 import com.resume.dto.InterviewFlow;
 
 public interface InterviewFlowService {
@@ -11,5 +13,7 @@ public interface InterviewFlowService {
 	public InterviewFlow findById(long id);
 	
 	public InterviewFlow findByResumeId(long resumeId);
+	
+	public List<InterviewFlow> list(Long step,String col,String order,Integer page,Integer size);
 
 }

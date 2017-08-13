@@ -29,4 +29,10 @@ public interface UserService {
 	
 	List<UserInfo> listUsers();
 
+	void setEmployee(String email);
+	
+	public void deleteUser(Long userId);
+	
+	public void lockUser(Long userId,String locked);
+
 }

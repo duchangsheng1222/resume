@@ -244,6 +244,14 @@ public class ResumeInfoPo {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
 	
 	
 

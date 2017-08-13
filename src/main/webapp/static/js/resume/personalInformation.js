@@ -40,7 +40,7 @@ $(function(){
 	layui.use('laydate', function(){
 		var laydate = layui.laydate;
 		var start = {
-			min: laydate.now()
+			min: '1900-01-01 00:00:00'
 			,max: '2099-06-16 23:59:59'
 			,istoday: false
 			,choose: function(datas){
@@ -49,7 +49,8 @@ $(function(){
 			}
 		};
 		var end = {
-			 min: laydate.now()
+			 min: '1900-01-01 00:00:00'
+				 
 			 ,max: '2099-06-16 23:59:59'
 			 ,istoday: false
 			 ,choose: function(datas){

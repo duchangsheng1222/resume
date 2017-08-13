@@ -1,5 +1,9 @@
 package com.resume.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.resume.po.InterviewFlowPo;
 
 public interface InterviewFlowDao {
@@ -30,6 +34,8 @@ public interface InterviewFlowDao {
 	 * @return
 	 */
 	InterviewFlowPo queryByResumeId(long resumeId);
+	
+	List<InterviewFlowPo> listPos(@Param("step")long step,@Param("col")String col,@Param("order")String order,@Param("beginIndex")Integer beginIndex,@Param("size")Integer size);
 	
 	
 

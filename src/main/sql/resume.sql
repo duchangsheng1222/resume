@@ -1,4 +1,6 @@
 
+set names utf8;
+
 drop table if exists t_resume_info;
 create TABLE t_resume_info(
 	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
@@ -39,7 +41,7 @@ create TABLE t_resume_file(
   `deleted` enum('0','1')  NULL DEFAULT '0' COMMENT '是否被删除' ,
   `downloaded` enum('0','1')  NULL DEFAULT '0' COMMENT '是否下载过' ,
   PRIMARY KEY (`id`),
-  KEY `idx_resume_id_type` (`resume_id`,`type`) USING BTREE 
+  KEY `idx_resume_id_type` (`resume_id`,`type`)
 );
 
 drop table if exists t_interview_flow;
@@ -59,7 +61,7 @@ create TABLE t_interview_flow(
 	PRIMARY KEY (`id`)
 );
 
-
+drop table if exists t_comment;
 create TABLE t_comment(
 	`id`  bigint(16) NOT NULL AUTO_INCREMENT ,
 	`code`  varchar(255) NULL DEFAULT NULL COMMENT '唯一编码' ,
@@ -88,14 +90,14 @@ create table t_role(
   `role_key` varchar(255) default NULL,
    PRIMARY KEY  (`id`)
 );
-
+drop table if exists t_user_role;
 create table t_user_role(
 	`id` bigint(20) NOT NULL auto_increment,
 	`user_id` bigint(20) NOT NULL ,
 	`role_id` bigint(20) NOT NULL ,
 	 PRIMARY KEY  (`id`)
  );
- 
+ drop table if exists t_resources;
  create table t_resources(
 	`id` bigint(20) NOT NULL auto_increment,
 	`name` varchar(255) NULL default null ,
@@ -104,7 +106,7 @@ create table t_user_role(
 	`res_type`  int(11)  NOT NULL default 0 COMMENT '资源类型 0：菜单 1：事件' ,
 	 PRIMARY KEY  (`id`)
  );
- 
+ drop table if exists t_res_role;
 create table t_res_role(
 	`id` bigint(20) NOT NULL auto_increment,
 	`user_id` bigint(20) NOT NULL ,
@@ -112,6 +114,7 @@ create table t_res_role(
 	 PRIMARY KEY  (`id`)
  )
  ;
+  drop table if exists t_feedback;
  create table t_feedback(
  	`id` bigint(20) NOT NULL auto_increment,
  	`name` varchar(255) NULL default null ,
@@ -123,7 +126,7 @@ create table t_res_role(
  );
  
  drop table if exists t_massage;
- create table t_message(
+ create table t_massage(
  	`id` bigint(20) NOT NULL auto_increment,
  	`from_user_id` bigint(20) NOT NULL ,
  	`to_user_id` bigint(20) NOT NULL ,

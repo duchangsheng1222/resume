@@ -15,7 +15,7 @@
 	</insert>
 	
 	<update id="updateFlowStatus">
-		update t_interview_flow set step=#{step},updaterId=#{updaterId}
+		update t_interview_flow set step=#{step},updater_id=#{updaterId}
 		<if test="received != null">
 			,received = #{received}
 		</if>
@@ -31,19 +31,41 @@
 		<if test="visaDate != null">
 			,visa_date = #{visaDate}
 		</if>
-		 where id=#{id}		
+		 where resume_id=#{resumeId}		
 	</update>
 	
-	<select id="queryById" >
+	<select id="queryById" parameterType="long" resultType="InterviewFlowPo">
 		select id,resume_id,step,received,accepted,arrived_date,refused,visa_date
 		from t_interview_flow
 		where id=#{id}
 	</select>
 
-	<select id="queryByResumeId" >
+	<select id="queryByResumeId"  parameterType="long" resultType="InterviewFlowPo">
 		select id,resume_id,step,received,accepted,arrived_date,refused,visa_date
 		from t_interview_flow
 		where resume_id=#{resumeId}
+		
+	</select>
+	<select id="listPos" resultType="InterviewFlowPo">
+		select f.id,f.resume_id,f.step,f.received,f.accepted,f.arrived_date,f.refused,f.visa_date,
+		r.id "resumeInfoPo.id",r.name "resumeInfoPo.name",r.age "resumeInfoPo.age",r.gender "resumeInfoPo.gender",
+		r.position "resumeInfoPo.position",r.phone "resumeInfoPo.phone",r.citizenship "resumeInfoPo.citizenship",
+		r.education "resumeInfoPo.education",r.major "resumeInfoPo.major",r.country "resumeInfoPo.country",
+		r.certification "resumeInfoPo.certification",r.specialized "resumeInfoPo.specialized",
+			r.experience_length "resumeInfoPo.experienceLength",r.other_positions "resumeInfoPo.otherPositions",
+			r.birth_date "resumeInfoPo.birthDate",
+			r.salary "resumeInfoPo.birthDate",r.location "resumeInfoPo.birthDate",r.create_time "resumeInfoPo.createTime"
+		
+		from t_interview_flow f
+		inner join t_resume_info r on f.resume_id = r.id 
+		where step=#{step}
+		<if test="col != null and col != ''">
+			order by #{col} #{order}
+		</if>
+		<if test="beginIndex != null and beginIndex !='' ">
+			limit beginIndex,size
+		</if>
+		
 		
 	</select>
 	

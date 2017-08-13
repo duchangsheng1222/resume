@@ -3,8 +3,10 @@ package com.resume.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +28,10 @@ public class ResumeController extends AbstractController{
 	private ResumeService resumeService;
 	
 	@RequestMapping("/page/add")
-	public String showResumeInfo(){
+	public String showResumeInfo(Model model,Long resumeId){
+		if(null != resumeId){
+			model.addAttribute("resumeId", resumeId);
+		}
 		return "/resume/resume-info";
 	}
 	
@@ -67,18 +72,25 @@ public class ResumeController extends AbstractController{
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public BaseResponse saveResumeInfo(ResumeInfo resumeInfo){
+	public String saveResumeInfo(Model model,ResumeInfo resumeInfo){
 		log.info("@ resume/save resumeInfo:{}",new Object[]{resumeInfo});
-		BaseResponse resp = new BaseResponse();
+		ResumeResponse resp = new ResumeResponse();
+		if(StringUtils.isBlank(resumeInfo.getGender())){
+			resumeInfo.setGender(null);
+		}
 		User user = (User)SecurityContextUtil.getUserDetails();
 		resumeInfo.setCreatorId(user.getId());
 		resumeInfo.setUpdaterId(user.getId());
 		resumeInfo.setCreateTime(new Date());
-		resumeService.saveResumeInfo(resumeInfo);
-		
-		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+		if(0 != resumeInfo.getId()){
+			resumeService.updateResumeInfo(resumeInfo);
+		}else{
+			resumeInfo = resumeService.saveResumeInfo(resumeInfo);
+		}
+		resp.setResumeInfo(resumeInfo);
+		model.addAttribute("resumeId", resumeInfo.getId());
+		return "redirect:/info/page/add";
 		
 	}
 	

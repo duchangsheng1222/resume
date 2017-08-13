@@ -303,12 +303,12 @@ body,html{
 	float: right;
 	margin-right: 6px;
 	margin-top: 6px;
-	background: url(img/add.png) no-repeat center;
+	background: url(../img/add.png) no-repeat center;
 	background-size: 100% 100%;
 	cursor: pointer;
 }
 .years .yearsNumber{
-	background: url(img/down.png) no-repeat;
+	background: url(../img/down.png) no-repeat;
 	background-size: 20px 11px;
 	background-position: 96% 20px;
 }

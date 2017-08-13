@@ -28,7 +28,7 @@ public interface ResumeService {
 	 * @param resumeInfo
 	 * @return 返回简历id
 	 */
-	long saveResumeInfo(ResumeInfo resumeInfo);
+	ResumeInfo saveResumeInfo(ResumeInfo resumeInfo);
 	
 	/**
 	 * 更新简历信息

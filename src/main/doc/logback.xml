@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
        <encoder>  
@@ -10,9 +9,9 @@
     <appender name="file"  
         class="ch.qos.logback.core.rolling.RollingFileAppender">  
         <Encoding>UTF-8</Encoding>  
-        <File>D:/git/resume/resume.log</File>  
+        <File>/home/lishuai2017/Maildir/wawajobs/apache-tomcat-7.0.78/logs/resume.log</File>  
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
-            <FileNamePattern>/home/test-%d{yyyy-MM-dd}.log  
+            <FileNamePattern>resume-%d{yyyy-MM-dd}.log  
             </FileNamePattern>  
             <MaxHistory>10</MaxHistory>  
             <TimeBasedFileNamingAndTriggeringPolicy  

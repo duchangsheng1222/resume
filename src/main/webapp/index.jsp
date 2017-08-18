@@ -5,7 +5,11 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>Max Misdom</title>
+		<title>WawajobsChina</title>
+		<meta name="keywords" content="resume,jobs,,job search,find jobs,recruit,WawajobsChina">
+		<meta http-equiv="Window-target"  content="_top">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/swiper.min.css"/>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css"/>
@@ -63,13 +67,14 @@
 									Log in
 								</span>
 							</c:if>
-								/
+								&nbsp;&nbsp;/&nbsp;&nbsp;
 								<span id="Signup"  onclick="window.location.href='${pageContext.request.contextPath}/public/user/reg/page'">
 									Sign up
 								</span>
+								
 							</div>
 						</div>
-						<ul class="down">
+						<!--<ul class="down">
 							<li class="first">HOME</li>
 							<li>TEACH</li>
 							<li>INTERNS</li>
@@ -78,16 +83,16 @@
 							<li>MEDIA</li>
 							<li>TESTIMONIALS</li>
 							<li>ABOUTUS</li>
-						</ul>
+						</ul>-->
 					</div>
 					
 					<!--banner-->
 					<div class="banner">
-						<img src="${pageContext.request.contextPath}/static/img/banner.jpg"/>
+						<img class="imgBanner" src="${pageContext.request.contextPath}/static/img/banner.jpg"/>
 						<div id="con">
 							<p class="con1">Immerse Yourself Abroad</p>
 							<p class="con2">Get your portfolio up and running no time.</p>
-							<p class="con3"><a href="javascript;">>  Read more</a></p>
+							<p class="con3"><a href="javascript;">  Read more</a></p>
 						</div>
 					</div>
 				</div>
@@ -97,8 +102,8 @@
 					<!--lun2-->
 					<div class="lun2Box">
 						<div class="up">
-							<p class="p1">Who is Max Wisdom?</p>
-							<p class="p2">Hi, we are Max Wisdom Members. Our pleasure to introduce you our programes.We reflect our vision to bridge the gap between China and abroad.</p>
+							<p class="p1">Who is WawajobsChina?</p>
+							<p class="p2">Hi, we are WawajobsChina Members. Our pleasure to introduce you our programes.We reflect our vision to bridge the gap between China and abroad.</p>
 						</div>
 						<div class="down" id="down">
 							<img style="z-index: 1;opacity: 1;" src="${pageContext.request.contextPath}/static/img/lun2-1.png" class="down1"/>
@@ -115,39 +120,47 @@
 				            <div class="swiper-slide slide1">
 				            	<div class="Pbox">
 				            		<p class="title">Teaching</p>
-					            	<p class="con4 conP1">Placement in Chinese schools to experience complete cultural immersion into local society.</p>
-					            	<p class="conP2"><span>--Helped Hundred of people truly experience China</span><em>--High Allowance</em></p>
-					            	<p class="conP1 conP3">--Free Accommodation <span>--Professional VISA Support</span>--See More Benefits</p>
+				            		<div class="teaDown">
+				            			<p class="con4 conP1">Placement in Chinese schools to experience complete cultural immersion into local society.</p>
+						            	<p class="conP2"><span>--Helped Hundred of people truly experience China</span><em>--High Allowance</em></p>
+						            	<p class="conP1 conP3">--Free Accommodation <span>--Professional VISA Support</span>--See More Benefits</p>
+				            		</div>
 				            	</div>
-				            	<img src="${pageContext.request.contextPath}/static/img/lun3-11.png" class="slide1Img"/>
+				            	<img src="${pageContext.request.contextPath}/static/img/lun3-1.png" class="slide1Img"/>
 				            </div>
 				            <div class="swiper-slide slide2">
 				            	<div class="Pbox">
 				            		<p class="title">Internship</p>
-					            	<p class="conP1 con4">Earning aboard cultural skills and building career abundant.</p>
-					            	<p class="conP1 con2"><span>--Have the opportunity to work in a well-known organizations.</span><em>-Free Accommodatoin</em></p>
-					            	<p class="conP1 con3"> <span>--Allowance Support</span>--See More Benefits</p>
-					            	<p class="conP1">-Professional Mandarin and Industry Tranning Before Start Internship.</p>
+				            		<div class="teaDown">
+				            			<p class="conP1 con4">Earning aboard cultural skills and building career abundant.</p>
+						            	<p class="conP1 con2"><span>--Have the opportunity to work in a well-known organizations.</span><em>-Free Accommodatoin</em></p>
+						            	<p class="conP1 con3"> <span>--Allowance Support</span>--See More Benefits</p>
+						            	<p class="conP1">-Professional Mandarin and Industry Tranning Before Start Internship.</p>
+				            		</div>
 				            	</div>
-				            	<img src="${pageContext.request.contextPath}/static/img/lun3-22.png" class="slide2Img"/>
+				            	<img src="${pageContext.request.contextPath}/static/img/lun3-2.png" class="slide2Img"/>
 				            </div>
 				            <div class="swiper-slide slide3">
 				            	<div class="Pbox">
 				            		<p class="title">Home Stay</p>
-					            	<p class="conP1 con4">Stay in a home where there's a host to welcome you and introduce you to the local culture.All our homestays have a host present.</p>
-					            	<p class="conP1 con3">-Free Food and Accommodation<span>-Allowance Support</span>-Real Travel Experience</p>
-					            	<p class="conP1">-See More Benefits</p>
+				            		<div class="teaDown">
+					            		<p class="conP1 con4">Stay in a home where there's a host to welcome you and introduce you to the local culture.All our homestays have a host present.</p>
+						            	<p class="conP1 con3">-Free Food and Accommodation<span>-Allowance Support</span>-Real Travel Experience</p>
+						            	<p class="conP1">-See More Benefits</p>
+				            		</div>
 				            	</div>
-				            	<img src="${pageContext.request.contextPath}/static/img/lun3-33.png" class="slide3Img"/>
+				            	<img src="${pageContext.request.contextPath}/static/img/lun3-3.png" class="slide3Img"/>
 				            </div>
 				            <div class="swiper-slide slide4">
 				            	<div class="Pbox">
 				            		<p class="title">Mandarin</p>
-					            	<p class="conP1 con4">Tailored courses for gourps to complement your curriculum.The program content could be academic,eductional or industry specific in focus.</p>
-					            	<p class="conP1 con3"><span>-Free Accommodation</span>-Faield of study:Mandarin,Arts,Business,History,social sciences</p>
-					            	<p class="conP1"><span>-Programming includes:Company visits,tours,lectures,language instruction</span>-See More Benefits</p>
+				            		<div class="teaDown">
+				            			<p class="conP1 con4">Tailored courses for gourps to complement your curriculum.The program content could be academic,eductional or industry specific in focus.</p>
+						            	<p class="conP1 con3"><span>-Free Accommodation</span>-Faield of study:Mandarin,Arts,Business,History,social sciences</p>
+						            	<p class="conP1"><span>-Programming includes:Company visits,tours,lectures,language instruction</span>-See More Benefits</p>
+				            		</div>
 				            	</div>
-				            	<img src="${pageContext.request.contextPath}/static/img/lun3-44.png" class="slide4Img"/>
+				            	<img src="${pageContext.request.contextPath}/static/img/lun3-4.png" class="slide4Img"/>
 				            </div>
 				        </div>
 				        <!--下边的切换点点-->
@@ -159,7 +172,7 @@
 				<div class="swiper-slide">
 					<!--why choose-->
 					<div class="whyBox">
-						<p class="tit">Why Choose Max Wisdom?</p>
+						<p class="tit">Why Choose WawajobsChina?</p>
 						<p class="con1">We aims to offer its comprehensive educational/work services to its participants at their utmost level of professionalism with an open mind and understanding.</p>
 						<div class="sixBox">
 							<div class="sixBoxBox">
@@ -278,35 +291,37 @@
 									<input type="email" name="Emai" id="emai" value=""placeholder="Email"/>
 								</p>
 								<p><input type="text" name="tex" id="tex" value="" placeholder="Subject"/></p>
-								<textarea name="mess" rows="" cols="" placeholder="Message"></textarea>
+								<div class="textareaBox">
+									<textarea name="mess" rows="" cols="" placeholder="Message"></textarea>
+								</div>
 								<p id="subm"><input type="submit" value="Send Messsge"/></p>
 							</form>
 						</div>
 						
 						<div class="right">
 							<div class="p1">
-								<p class="noneImg">Beijing Max Wisdom Global Ltd</p>
+								<!--<p class="noneImg">Beijing WawajobsChina Global Ltd</p>-->
 							  	<p class="lubiao">
 							  		<img src="${pageContext.request.contextPath}/static/img/contact1.png"/>
-							  		No.86 JinMa Industrial
+							  		<span class="biaocenter">jia05121013</span>
 							  	</p>
-							  	<p class="noneImg">Development Park,</p>
-							  	<p class="noneImg">Shunyi District,Beijing China</p>
+							  	<!--<p class="noneImg">Development Park,</p>
+							  	<p class="noneImg">Shunyi District,Beijing China</p>-->
 							</div>
 							  
 							  <div class="p2">
 							  	<p class="number number1">
 								  	<img src="${pageContext.request.contextPath}/static/img/contact2.png"/>
-								  	+86 13911787863
+								  	<span class="biaocenter">WawajobsChina@gmail.com</span>
 							  	</p>
-							  	<p class="number number2">
+							  	<!--<p class="number number2">
 								  	<img src="${pageContext.request.contextPath}/static/img/contact3.png"/>
 								  	+86 010-8963563
 							 	</p>
 							  	<p class="number number3">
 								  	<img src="${pageContext.request.contextPath}/static/img/contact4.png"/>
 								  	58575737@qq.com
-							  	</p>
+							  	</p>-->
 							  </div>
 							  
 						</div>
@@ -314,27 +329,34 @@
 					<!--last-->
 					<div class="lastBox">
 						<div class="lastBoxCenter">
-							<div>
-								<img class="erma" src="${pageContext.request.contextPath}/static/img/erWeiMa.png"/>
-								<img class="erma" src="${pageContext.request.contextPath}/static/img/erWeiMa.png"/>
-								<img class="erma" src="${pageContext.request.contextPath}/static/img/erWeiMa.png"/>
-								<img class="erma" src="${pageContext.request.contextPath}/static/img/erWeiMa.png"/>
-								<span id="lets">Let's socialize:</span>
+							<div class="chatBox">
+								<div class="left">
+									<img class="erma" src="${pageContext.request.contextPath}/static/img/erWeiMa.png"/>
+									<span>WECHAT</span>
+								</div>
+								<div class="right">
+									<a  title="" href="skype:b6ff88e1c9f5e117?chat ">
+										<img class="aligncenter" src="${pageContext.request.contextPath}/static/img/skype.jpg" alt="Click Me"/>
+									</a>
+									<!--<img src="img/skype.jpg"/>-->
+									<span>SKYPE NUMBER：<br /> WawajobsChina@gmail.com</span>
+								</div>
+								<!--<span id="lets">Let's socialize:</span>-->
 							</div>
 							
 							<div class="top10">
-								<img class="downlogo" src="${pageContext.request.contextPath}/static/img/downLogo.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share9.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share8.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share7.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share6.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share5.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share4.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share3.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share2.png"/>
-								<img class="shareImg" src="${pageContext.request.contextPath}/static/img/share1.png"/>
+								<img class="downlogo" src="${pageContext.request.contextPath}/static/img/logo.png"/>
+								<!--<img class="shareImg" src="img/share9.png"/>
+								<img class="shareImg" src="img/share8.png"/>
+								<img class="shareImg" src="img/share7.png"/>
+								<img class="shareImg" src="img/share6.png"/>
+								<img class="shareImg" src="img/share5.png"/>
+								<img class="shareImg" src="img/share4.png"/>
+								<img class="shareImg" src="img/share3.png"/>
+								<img class="shareImg" src="img/share2.png"/>
+								<img class="shareImg" src="img/share1.png"/>-->
 							</div>
-							<p class="lastP">&copy;Copyright2013<span>TitanicThemes.com/</span></p>
+							<p class="lastP">&copy;Copyright2017<span>&nbsp;&nbsp; WawajobsChina.com/</span></p>
 							
 						</div>
 					</div>

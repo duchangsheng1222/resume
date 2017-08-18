@@ -57,7 +57,7 @@
 						<!--性别-->
 						<div class="sex">
 							<p>Gender</p>
-							<input type="radio" name="gender" id="sexman" value="m" required="required"/>
+							<input type="radio" name="gender" id="sexman" value="m" required="required" checked="checked"/>
 							<label id="sexman-label" class="mel active" for="sexman">Male</label>
 							<input type="radio" name="gender" id="sexwoman" value="f" required="required" />
 							<label id="sexwoman-label" class="fmel" for="sexwoman">Female</label>
@@ -154,16 +154,16 @@
 						<p>Expected teaching age group of students.(Can be multiple choice)</p>
 						
 						<input type="radio" name="age" value="0-7" id="0-7"/>
-						<label id="0-7-lable" for="age1"><em></em></label><span>0-7</span>
+						<label id="0-7-lable" class="0-7" for="0-7"><em></em></label><span>0-7</span>
 						
 						<input type="radio" name="age" value="7-12" id="7-12" />
-						<label id="7-12-lable" for="age2"><em></em></label><span>7-12</span>
+						<label id="7-12-lable" class="7-12" for="7-12"><em></em></label><span>7-12</span>
 						
 						<input type="radio" name="age" value="12-18" id="12-18"/>
-						<label id="12-18-lable" for="age3"><em></em></label><span>12-18</span>
+						<label id="12-18-lable" class="12-18" for="12-18"><em></em></label><span>12-18</span>
 						
-						<input type="radio" name="age" value="adults" id="adults"/>
-						<label id="adults-lable" for="age4"><em></em></label><span>adults</span>
+						<input type="radio" name="age" value="adults" id="adults" checked="checked"/>
+						<label id="adults-lable" class="adults" for="adults"><em></em></label><span>adults</span>
 					</div>
 					
 					<!--第9行-->

@@ -27,7 +27,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		    invalidate-session="true"
 		  />
 		  <csrf disabled="true" />
-		  <custom-filter ref="verifyFilter" position="FORM_LOGIN_FILTER"/>
+		  <custom-filter ref="verifyFilter" before="FORM_LOGIN_FILTER"/>
 	</http>
 	
 	<beans:bean id="verifyFilter" class="com.resume.spring.security.VerifyAuthenticationFilter">  

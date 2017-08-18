@@ -2,6 +2,7 @@ package com.resume.service;
 
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.resume.dto.ResumeInfo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:/spring-context.xml","classpath:/spring-jdbc.xml"})
+@Ignore
 public class ResumeInfoServiceTest {
 
 	@Autowired

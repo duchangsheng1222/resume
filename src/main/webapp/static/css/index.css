@@ -16,7 +16,9 @@ body,html{
 	overflow: hidden;
 	overflow-x: hidden;
 }*/
-
+#Login,#Signup{
+	cursor: pointer;
+}
 /*兼容pc端样式:*/
 @media screen and (min-width: 769px){      
 	/*logo*/
@@ -24,22 +26,27 @@ body,html{
 	width: 100%;
 	height: 122px;
 	background: #fff;
+    overflow: hidden;
+}
+.Pbox{
+	color: #fff;
 }
 .logoBox .up{
 	width: 100%;
 	height: 73px;
 	overflow: hidden;
+    margin-top: 13px;
 }
 .logoBox .up .logo{
-	width: 180px;
-	height: 55px;
+	width: 200px;
+	height: 70px;
 	float: left;
-	margin: 11px 0 0 217px;
+	margin: 11px 0 0 99px;
 }
 .logoBox .up .signAndLog{
 	float: right;
 	font-size: 16px;
-	margin: 21px 39px 0 0;
+	margin: 36px 39px 0 0;
 }
 .logoBox .down{
 	width: 66%;
@@ -172,7 +179,7 @@ form{
 	margin-left: 30%;
 }
 .slide1 .conP1{
-	margin-left: 30%;
+	/*margin-left: 30%;*/
 }
 .slide1 .conP2 span{
 	margin-right: 64px;
@@ -187,13 +194,13 @@ form{
 }
 
 .slide2 .conP1{
-	margin-left: 33%;
+	margin-left: 13%;
 	line-height: 25px;
 }
 .slide2 .title{
+	height: 80px;
+    line-height: 80px;
 	font-size: 32px;
-	height: 55px;
-	line-height: 60px;
 	text-align: center;
 }
 .slide2 .con2 span{
@@ -207,14 +214,14 @@ form{
 	background-size: 100% 100%;
 }
 .slide3 .title{
+	height: 80px;
+    line-height: 80px;
 	font-size: 34px;
-	height: 55px;
-	line-height: 60px;
 	text-align: center;
 }
 .slide3 .conP1{
 	font-size: 12px;
-	margin-left: 33%;
+	margin-left: 11%;
 	line-height: 28px;
 }
 .slide3 .con4{
@@ -228,14 +235,14 @@ form{
 	background-size: 100% 100%;
 }
 .slide4 .title{
+	height: 80px;
+    line-height: 80px;
 	font-size: 34px;
-	height: 55px;
-	line-height: 60px;
 	text-align: center;
 }
 .slide4 .conP1{
-	font-size: 12px;
-	margin-left: 31%;
+	font-size: 15px;
+	margin-left: 4%;
 	line-height: 28px;
 }
 .slide4 .con4{
@@ -244,11 +251,22 @@ form{
 .slide4 .con3 span{
 	margin-right: 90px;
 }
+.teaDown{
+	width: 45%;
+	margin: 0 auto;
+    overflow: hidden;
+    background: #4286c5;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    padding: 20px;
+}
+    
 /*whyChoose*/
 .whyBox{
 	width: 100%;
 	height: 100%;
 	background: #fff;
+	margin-top: 7%;
 }
 .whyBox p{
 	margin-left: 17%;
@@ -362,7 +380,7 @@ form{
 }
 .HowBox .tit{
 	font-size: 32px;
-	margin-top: 50px;
+	margin-top: 10%;
 	margin-bottom: 18px;
 }
 
@@ -413,15 +431,18 @@ form{
 	width: 130%;
 }
 /*contact us*/
-.top10{
-	margin-top: 10px;
-}
 .contactBox{
 	width: 100%;
+	height: 67%;
 	background: #00639b;
 	overflow: hidden;
 	color: #fff;
 }
+.contactBox .left form{
+	font-size: 0.1rem;
+}
+
+
 .contactBox p{
 	margin-left: 17%;
 	font-size: 12px;
@@ -446,7 +467,7 @@ form{
 	float: left;
 	color: #fff;
 	font-size: 12px;
-	margin-top: 42px;
+	margin-top: 74px;
 }
 .left input{
 	width: 100%;
@@ -488,7 +509,8 @@ form{
 	border: 1px solid #0b89c3;
 }
 ::-webkit-input-placeholder { /* WebKit browsers */ 
-	color: #999; 
+	color: #fff; 
+	font-size: 0.05rem;
 } 
 textarea{
 	width: 100%;
@@ -558,23 +580,46 @@ textarea{
 .firstBox{
 	width: 100%;
 }
-.erma{
-	width: 70px;
-	height: 70px;
+.chatBox .left{
 	float: left;
-	margin-top: 48px;
+	width: 100px;
+	margin-top: 30px;
 	margin-right: 40px;
 }
-#lets{
+.chatBox .left img,.chatBox .right img{
+	width: 100px;
+	height: 100px;
+}
+.chatBox .left span{
+	font-size: 0.07rem;
+    float: left;
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+.chatBox .right{
 	float: right;
-	font-size: 10px;	
-	margin-top: 100px;
-	font-weight: 600;
+	margin-top: 30px;
+	width: 30%;
+    text-align: right;
+}
+.chatBox .right span{
+	float: right;
+	font-size: 0.07rem;
+}
+.chatBox .right img{
+	float: right;
+	cursor: pointer;
+}
+.chatBox .right a{
+	display: block;
+	width: 100%;
+	float: right;
 }
 .downlogo{
 	width: 92px;
 	height: 30px;
-	margin-top: 18px;
 	margin-bottom: 9px;
 	float: left;
 }
@@ -647,6 +692,9 @@ textarea{
 	.logoBox .down .first {
 	    border-top: 1px solid #e6e6e6;
 	}
+	.imgBanner{
+		display: none;
+	}
 	.banner {
 		position: absolute;
 		left: 0;
@@ -654,11 +702,40 @@ textarea{
 	    width: 100%;
 	    height: 100%;
 	    overflow: hidden;
+	    background: url(../img/2banner.jpg) no-repeat -0.5rem top;
+	    background-size: cover;
 	}
 	.banner img{
 	    object-fit: cover;
 	    width: 100%;
 	    height: 100%;
+	}
+	.banner #con{
+		font-family: arial;
+		width: 100%;
+		height: 1.08rem;
+		color: #fff;
+		font-size: 0.15rem;
+		overflow: hidden;
+		background: #4286c5;
+		opacity: 0.8;
+		filter: alpha(opacity=80);
+		position: absolute;
+		bottom: 0;
+	    left: 0;
+	}
+	.banner #con p{
+		margin-left: 24px;
+	}
+	.banner #con p a{
+		color: #fff;
+		font-size: 10px;
+	}
+	#con .con1{
+		margin-top: 14px;
+	}
+	#con .con2{
+		margin: 10px 0 10px 0;
 	}
 	/*第二屏*/
 	.lun2Box {
@@ -714,7 +791,7 @@ textarea{
 	.slide1 .title {
 	    text-align: center;
 	    font-size: 0.2rem;
-	    margin-top: 0.8rem;
+	    margin-top: 0.65rem;
 	    margin-bottom: 0.28rem;
 	    text-align: center;
 	}
@@ -833,7 +910,7 @@ textarea{
 		height: 1.95rem;
 		position: absolute;
 		left: 0;
-		bottom: 0.82rem;
+		bottom: 0.96rem;
 	}
 	
 	/*第四屏*/
@@ -927,7 +1004,7 @@ textarea{
 	.HowBox .tit {
 	    font-size: 0.2rem;
 	    text-align: center;
-	    margin-top: 0.78rem;
+	    margin-top: 0.45rem;
 	    margin-bottom: 0.34rem;
 	}
 	.HowBox .con1 {
@@ -982,7 +1059,7 @@ textarea{
 	/*第六屏*/
 	.contactBox {
 	    width: 100%;
-	    height: 6rem;
+	    height: 5.2rem;
 	    background: #00639b;
 	    overflow: hidden;
 	    color: #fff;
@@ -1003,7 +1080,7 @@ textarea{
 	    width: 3.24rem;
 	    margin: 0 auto;
 	    margin-top: 0.73rem;
-	    margin-bottom: 0.5rem;
+	    margin-bottom: 0.25rem;
 	}
 	form {
 	    width: 100%;
@@ -1068,12 +1145,12 @@ textarea{
 	.contactBox .right{
 	    color: #fff;
 	    font-size: 0.1rem;
-	    margin-top: 0.5rem;
 	}
 	.contactBox .right .p1{
 		float: left;
 		margin-left: 0.2rem;
 		overflow: hidden;
+		width: 1rem;
 	}
 	.contactBox .right .p2{
 		overflow: hidden;
@@ -1095,8 +1172,12 @@ textarea{
 	.lubiao img {
 	    width: 0.15rem;
 	    height: 0.15rem;
-	    float: left;
-	    margin-right: 11px;
+        margin-left: 0.45rem;	
+	}
+	.lubiao .biaocenter{
+	    width: 100%;
+	    display: block;
+	    text-align: center;
 	}
 	.right .number {
 	    font-size: 0.1rem;
@@ -1104,8 +1185,7 @@ textarea{
 	.number1 img {
 	    width: 0.13rem;
 	    height: 0.13rem;
-	    float: left;
-	    margin-right: 0.14rem;
+        margin-left: 0.6rem;
 	}
 	.number2 img {
 	    width: 0.15rem;
@@ -1126,7 +1206,7 @@ textarea{
 	    overflow: hidden;
 	}
 	.lastBoxCenter {
-	    width: 2.5rem;
+	    width: 3rem;
 	    height: 100%;
 	    margin: 0 auto;
 	    overflow: hidden;
@@ -1147,8 +1227,8 @@ textarea{
 	    margin-top: 0.28rem;
 	}
 	.downlogo {
-	    width: 0.3rem;
-	    height: 0.1rem;
+	    width: 0.8rem;
+    	height: 0.2rem;
 	    float: left;
 	}
 	.shareImg {
@@ -1161,7 +1241,7 @@ textarea{
 	.lastP {
 	    color: #000;
 	    font-size: 0.1rem;
-	    padding-bottom: 0.14rem;
+        margin-top: 0.05rem;
 	}
 	.lastP span {
 	    color: #9a9397;
@@ -1219,10 +1299,37 @@ textarea{
 	    top: 2rem;
 	}
 	
-	
-	
-	
-	
+	/*底部修改*/
+	.chatBox .left{
+		float: left;
+		width: 0.7rem;
+	}
+	.chatBox .left img,.chatBox .right img{
+		width: 0.7rem;
+		height: 0.7rem;
+	}
+	.chatBox .left span{
+		font-size: 0.07rem;
+	    float: left;
+	    text-align: center;
+	    display: block;
+	    width: 100%;
+	    margin-top: 5px;
+	}
+	.chatBox .right{
+		width: 1.3rem;
+		float: right;
+	}
+	.chatBox .right span{
+		float: right;
+		font-size: 0.07rem;
+	    text-align: right;
+	}
+	.chatBox .right img{
+		float: right;
+		cursor: pointer;
+	    margin-top: 0.1rem;
+	}
 }
 
 

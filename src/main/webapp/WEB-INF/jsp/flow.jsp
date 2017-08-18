@@ -85,10 +85,22 @@
 	        var arr=filePath.split('\\');
 	        var fileName=arr[arr.length-1];
 			$('#up13label').append("&nbsp;&nbsp;&nbsp;"+fileName);
-		})
+		});
+		
+		$('#uploadVideoBtn').click(function(){
+			$("#threeForm").submit();
+		});
+		
+		$('#uploadCerBtn').click(function(){
+			$("#threeForm").submit();
+		});
 		
 		
-	})
+	});
+	
+	function uploadVideo(){
+		
+	}
 	
 	function toInfoPage(resumeId){
 		window.location.href = "${pageContext.request.contextPath }/info/page/add?resumeId="+resumeId;
@@ -149,11 +161,16 @@
 					<div class="icon iconBan"></div>
 					<div class="rightDetail">
 						<div class="gou"></div><span class="num">03<i></i></span>
+						<form id="threeForm" action="${pageContext.request.contextPath }/upload/video" method="post"  enctype="multipart/form-data">
 						<em>
 							<i>Submit introduction video</i>
-							<i class="i2"><i class="i21">Submit introduction video </i><input type="file" name="" id="up1" value="upload" /><label id="up1Label" for="up1"></label><span>upload</span></i>
-							<i class="i2"><i class="i22">Submit certificates</i> <input type="file" name="" id="up2" value="upload" /><label  id="up2Label" for="up2"></label><span>upload</span></i>
+								<i class="i2"><i class="i21">Submit introduction video </i>
+								<input type="hidden" name="resumeId" value="${resumeId }">
+								<input type="file" name="video" id="up1" value="upload" /><label id="up1Label" for="up1"></label><span id="uploadVideoBtn">upload</span></i>
+								
+								<i class="i2"><i class="i22">Submit certificates</i> <input type="file" name="certificates" id="up2" value="upload" /><label  id="up2Label" for="up2"></label><span  id="uploadCerBtn">upload</span></i>
 						</em>
+						</form>
 					</div>
 				</div>
 				

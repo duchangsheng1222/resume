@@ -144,46 +144,82 @@ public class UploadController extends AbstractController{
 		return "redirect:/upload/"+resumeId+"/doc";
 	}
 	
-	@ResponseBody
-	@RequestMapping("/video")
-	public ResponseModel uploadPhoto(Model model, HttpServletRequest request,
+	@RequestMapping(value="/video",method=RequestMethod.POST)
+	public String uploadPhoto(Model model, HttpServletRequest request,
 			HttpServletResponse response,Long resumeId) {
 		log.info("@ upload/video resumeId:{}",new Object[]{resumeId});
-		BaseResponse resp = new BaseResponse();
 		if(null == resumeId){
-			return resp.fail("resumeId is not be null");
+			model.addAttribute("error","resumeId is not be null");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
 		if(null == resumeInfo){
-			return resp.fail("resume not exists");
+			model.addAttribute("error","resume not exists");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		//获取当前登录用户
 		User user = (User)SecurityContextUtil.getUserDetails();
 		if(user.getId() != resumeInfo.getCreatorId()){
 			
-			return resp.fail("this is not your resume");
+			model.addAttribute("error","this is not your resume");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
 					.getFile("video");
-			try {
-				String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
-				if (filePath != null) {
-					saveFile(resumeId, user, filePath,FileType.INTRODUCTION_VIDEO);
-				} else {
-					return resp.fail("please choose video file");
+			MultipartFile certificationFiledata = ((MultipartHttpServletRequest) request)
+					.getFile("certification");
+			if(null != filedata){
+				try {
+					String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
+					if (filePath != null) {
+						saveFile(resumeId, user, filePath,FileType.INTRODUCTION_VIDEO);
+					} else {
+						model.addAttribute("error","please choose video file");
+						model.addAttribute("resumeId", resumeId);
+						return "redirect:/interview/page";
+					}
+					
+				} catch (IOException e) {
+					log.error("简历上传失败", e);
+					model.addAttribute("error","video upload failure");
+					model.addAttribute("resumeId", resumeId);
+					return "redirect:/interview/page";
 				}
-				
-			} catch (IOException e) {
-				log.error("简历上传失败", e);
-				return resp.fail("video upload failure");
+			}else if(null != certificationFiledata){
+				try {
+					String filePath = generateResumeFile(filedata,FileType.CERTIFICATION);
+					if (filePath != null) {
+						saveFile(resumeId, user, filePath,FileType.CERTIFICATION);
+					} else {
+						model.addAttribute("error","please choose certification file");
+						model.addAttribute("resumeId", resumeId);
+						return "redirect:/interview/page";
+					}
+					
+				} catch (IOException e) {
+					log.error("简历上传失败", e);
+					model.addAttribute("error","certification upload failure");
+					model.addAttribute("resumeId", resumeId);
+					return "redirect:/interview/page";
+				}
+			}else{
+				log.error("请求中不包含文件");
+				model.addAttribute("error","please choose a file");
+				model.addAttribute("resumeId", resumeId);
+				return "redirect:/interview/page";
 			}
 		}else{
 			log.error("请求中不包含文件");
-			return resp.fail("please choose video file");
+			model.addAttribute("error","please choose a file");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		
-		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+		return "redirect:/interview/page";
 	}
 	
 	@ResponseBody

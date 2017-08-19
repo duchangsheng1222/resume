@@ -26,7 +26,7 @@ public class StandardPasswordEncoder extends Md5PasswordEncoder implements Passw
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(new StandardPasswordEncoder().encodePassword("qazwsx", SALT));
+		System.out.println(new StandardPasswordEncoder().encodePassword("L0nd0n17", SALT));
 	}
 	
 }

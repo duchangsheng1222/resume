@@ -68,6 +68,14 @@ public class MailUtil {
 	 */
 	public static void send(MailUser fromUser, String[] tos, String[] copyTos, String title, String content,List<MailAffix> affixes) {
 		Properties props = new Properties();
+		
+		//检测是否为smtp.gmail.com  
+		if(fromUser.getHost().indexOf("smtp.gmail.com") >=0 ){  
+			props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");   
+			props.setProperty("mail.smtp.socketFactory.fallback", "false");   
+			props.setProperty("mail.smtp.port", "465");   
+			props.setProperty("mail.smtp.socketFactory.port", "465");  
+		} 
 		props.put("mail.smtp.host", fromUser.getHost());// 设置发送邮件的邮件服务器的属性
 		props.put("mail.smtp.auth", "true");// 需要经过授权，也就是有户名和密码的校验，这样才能通过验证
 

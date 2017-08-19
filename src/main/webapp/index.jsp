@@ -285,16 +285,16 @@
 						<p class="con1">If you have any questions, please do not  hesitate to get in touch with us. We are here to help.</p>
 						
 						<div class="left">
-							<form action="#" method="post">
+							<form id="contactForm">
 								<p class="left1">
-									<input type="text" name="first" id="name" value="" placeholder="Name"/>
-									<input type="email" name="Emai" id="emai" value=""placeholder="Email"/>
+									<input type="text" name="name" id="name" value="" placeholder="Name"/>
+									<input type="email" name="email" id="email" value=""placeholder="Email"/>
 								</p>
-								<p><input type="text" name="tex" id="tex" value="" placeholder="Subject"/></p>
+								<p><input type="text" name="tex" id="title" value="" placeholder="Subject"/></p>
 								<div class="textareaBox">
-									<textarea name="mess" rows="" cols="" placeholder="Message"></textarea>
+									<textarea name="mess" id="message" rows="" cols="" placeholder="Message"></textarea>
 								</div>
-								<p id="subm"><input type="submit" value="Send Messsge"/></p>
+								<p id="subm"><input type="button" onclick="feedback();" value="Send Messsge"/></p>
 							</form>
 						</div>
 						
@@ -372,6 +372,7 @@
 		<script src="${pageContext.request.contextPath}/static/js/resume/move.js"></script>
 		<script src="${pageContext.request.contextPath}/static/js/resume/base.js"></script>
 		<script src="${pageContext.request.contextPath}/static/js/resume/index.js"></script>
+		<script src="${pageContext.request.contextPath}/static/js/resume/feedback.js"></script>
 		<script>
 			var swiper = new Swiper('.swiper-container3', {
 //				pagination: '.swiper-pagination',
@@ -379,6 +380,47 @@
 				mousewheelControl : true,
 				direction: 'vertical'
 			});
+			
+			function feedback(){
+				var name = $("#name").val();
+				var email = $("#email").val();
+				var title = $("#title").val();
+				var message = $("#message").val();
+				
+				if("" == name){
+					alert("please fill in name");
+					return false;
+				}
+				if("" == email){
+					alert("please fill in email");
+					return false;
+				}
+				if("" == title){
+					alert("please fill in title");
+					return false;
+				}
+				if("" == message){
+					alert("please fill in message");
+					return false;
+				}
+				$.ajax({
+					url: "${pageContext.request.contextPath}/feedback/add",
+					type:"post",
+					dataType:"json",
+					data : {name:name,email:email,title:title,message:message},
+					success : function(data){
+						if(data.status == 1){
+							$("#contactForm").reset();
+							alert("thank you for your message");
+						}else{
+							alert(data.message);
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+				    }
+				});
+			}
 		</script>
 	</body>
 

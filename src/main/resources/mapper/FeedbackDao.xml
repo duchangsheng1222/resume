@@ -7,7 +7,7 @@
 <mapper namespace="com.resume.dao.FeedbackDao">
 
 	<insert id="insertFeedback" parameterType="FeedbackPo">
-		insert into t_resume_info 
+		insert into t_feedback 
 		(name,email,title,message,create_time)
 		VALUES
 		(#{name},#{email},#{title},#{message},#{createTime})
@@ -17,7 +17,7 @@
 	<select id="queryList">
 		SELECT id,name,email,title,message,create_time
 		FROM 
-			t_resume_info
+			t_feedback
 		ORDER BY 
 			create_time DESC 
 		<if test="beginIndex !=null and size != null">

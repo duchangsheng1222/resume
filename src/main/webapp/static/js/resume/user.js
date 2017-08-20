@@ -20,7 +20,11 @@
 							var datas = new Array();
 							for (var i = 0; i < data.data.length; i++) {
 								var user = data.data[i];
-								datas[i] = new Array(user.id,checkNull(user.nickname),user.email,user.enabled,"","<a href='javascript:void(0);' onclick='deleteUser("+user.id+");'>delete</a>");
+								var enabled = user.enabled;
+								datas[i] = new Array(user.id,checkNull(user.nickname),user.email,
+										"<a href='javascript:void(0);' onclick='setLocked(0,"+user.id+");'>enabled</a>",
+										"<a href='javascript:void(0);' onclick='setLocked(1,"+user.id+");'>disabled</a>",
+										"<a href='javascript:void(0);' onclick='deleteUser("+user.id+");'>delete</a>");
 								
 							}
 							fillTable(datas);
@@ -144,6 +148,20 @@
 						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
 				    }
 				});
+			},
+			setLocked : function(userId,locked){
+				$.ajax({
+					url: user.baseUrl+"/set/"+userId+"/"+locked+"/status",
+					type:"PUT",
+					dataType:"json",
+					data:{},
+					success : function(data){
+							user.list(fillTable);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+				    }
+				});
 			}
 			
 			
@@ -152,6 +170,10 @@
 	
 	function deleteUser(userId){
 		user.deleteUser(userId);
+	}
+	
+	function setLocked(locked,userId){
+		user.setLocked(locked,userId);
 	}
 	
 	function setEmp(){

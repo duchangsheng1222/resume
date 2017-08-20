@@ -74,7 +74,7 @@
 			<div class="loginBox">
 				<p class="title">Sign in</p>
 				<form  id="login_id" name='f' action='login' method='POST'>
-					<input type="email" name="username" id="email" value="" placeholder="Email address" required="required"/>
+					<input type="email" name="username" id="email" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}" placeholder="Email address" required="required"/>
 					<input type="password" name="password" id="password" value="" placeholder="Password" required="required"/>
 					<p class="forget"><a href="${pageContext.request.contextPath}/public/user/forgot/page">Forget password</a></p>
 					<div class="sure">

@@ -26,6 +26,7 @@
 	<select id="listUsers" resultType="UserInfoPo" >
 		select id, username, password, nickname, phone, locked,email,role 
 		from t_user
+		where role='EMPLOYEE' or role='ADMIN'
 	</select>
 	
 	<update id="updateUserStatus" parameterType="UserInfoPo">

@@ -54,7 +54,7 @@ public class ResumeServiceImpl implements ResumeService {
 		InterviewFlow interviewFlow = new InterviewFlow();
 		interviewFlow.setCreateTime(new Date());
 		interviewFlow.setCreatorId(resumeInfo.getCreatorId());
-		interviewFlow.setResumeId(resumeInfo.getId());
+		interviewFlow.setResumeId(resumeInfoPo.getId());
 		interviewFlow.setStep(1);
 		interviewFlow.setUpdaterId(resumeInfo.getCreatorId());
 		interviewFlowService.insertInterviewFlow(interviewFlow);

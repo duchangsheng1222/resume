@@ -7,13 +7,13 @@
 <mapper namespace="com.resume.dao.ResumeFileDao">
 	
 	<select id="queryByResumeIdAndType" resultType="ResumeFilePo">
-		select id, resume_id,user_id, file_address, file_type, type, deleted
+		select id, resume_id,user_id, file_address,file_name, file_type, type, deleted
 		from t_resume_file
 		where resume_id = #{resumeId} and type=#{type} and deleted='0'
 	</select>
 	
 	<select id="queryByResumeIdsAndType" resultType="ResumeFilePo">
-		select id, resume_id,user_id, file_address, file_type, type, deleted
+		select id, resume_id,user_id, file_address, file_name,file_type, type, deleted
 		from t_resume_file
 		where 
 			resume_id in
@@ -25,9 +25,9 @@
 	
 	<insert id="insertResumeFile" parameterType="ResumeFilePo">
 		insert into t_resume_file
-		(resume_id,user_id, file_address, file_type, type, deleted)
+		(resume_id,user_id, file_address,file_name, file_type, type, deleted)
 		VALUES
-		(#{resumeId},#{userId},#{fileAddress},#{fileType},#{type},#{deleted})
+		(#{resumeId},#{userId},#{fileAddress},#{fileName},#{fileType},#{type},#{deleted})
 		<selectKey resultType="long" order="AFTER" keyProperty="id"> <include refid="public_sql.increment_sql" /> </selectKey>
 	</insert>
 	

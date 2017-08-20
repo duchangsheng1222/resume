@@ -6,6 +6,8 @@ public class ResumeFilePo {
 	
 	private String fileAddress;
 	
+	private String fileName;
+	
 	private long resumeId;
 	
 	private String fileType;
@@ -70,6 +72,14 @@ public class ResumeFilePo {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	
 

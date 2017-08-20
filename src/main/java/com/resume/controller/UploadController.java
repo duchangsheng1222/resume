@@ -2,6 +2,7 @@ package com.resume.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.resume.dto.ResumeFile;
 import com.resume.dto.ResumeInfo;
 import com.resume.enums.FileType;
 import com.resume.files.BaseFile;
@@ -51,6 +53,20 @@ public class UploadController extends AbstractController{
 //		return "/resume/upload_doc";
 //	}
 
+	@ResponseBody
+	@RequestMapping(value="/files/list",method=RequestMethod.POST)
+	public ResponseModel getFiles(Long resumeId){
+		log.info("@ upload/files/list resumeId:{}",new Object[]{resumeId});
+		BaseResponse resp = new BaseResponse();
+		
+		List<ResumeFile> docs = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.RESUME_DOC.getCode());
+		List<ResumeFile> photos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.PHOTO.getCode());
+		
+		docs.addAll(photos);
+		resp.setData(docs);
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+
 	
 	@RequestMapping(value="/resume",method=RequestMethod.POST)
 	public String uploadResume(Model model, HttpServletRequest request,
@@ -77,8 +93,9 @@ public class UploadController extends AbstractController{
 					.getFile("resumeFile");
 			try {
 				String filePath = generateResumeFile(filedata,FileType.RESUME_DOC);
+				String fileName = iso2Utf8(filedata.getOriginalFilename());
 				if (filePath != null) {
-					saveFile(resumeId, user, filePath,FileType.RESUME_DOC);
+					saveFile(resumeId,fileName, user, filePath,FileType.RESUME_DOC);
 				} else {
 					model.addAttribute("error", "please choose resmue file");
 					return "redirect:/upload/"+resumeId+"/doc";
@@ -123,8 +140,9 @@ public class UploadController extends AbstractController{
 					.getFile("photo");
 			try {
 				String filePath = generateResumeFile(filedata,FileType.PHOTO);
+				String fileName = iso2Utf8(filedata.getOriginalFilename());
 				if (filePath != null) {
-					saveFile(resumeId, user, filePath,FileType.PHOTO);
+					saveFile(resumeId,fileName, user, filePath,FileType.PHOTO);
 				} else {
 					model.addAttribute("error", "please choose photo file");
 					return "redirect:/upload/"+resumeId+"/doc";
@@ -175,8 +193,9 @@ public class UploadController extends AbstractController{
 			if(null != filedata){
 				try {
 					String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
+					String fileName = iso2Utf8(filedata.getOriginalFilename());
 					if (filePath != null) {
-						saveFile(resumeId, user, filePath,FileType.INTRODUCTION_VIDEO);
+						saveFile(resumeId,fileName, user, filePath,FileType.INTRODUCTION_VIDEO);
 					} else {
 						model.addAttribute("error","please choose video file");
 						model.addAttribute("resumeId", resumeId);
@@ -192,8 +211,9 @@ public class UploadController extends AbstractController{
 			}else if(null != certificationFiledata){
 				try {
 					String filePath = generateResumeFile(filedata,FileType.CERTIFICATION);
+					String fileName = iso2Utf8(certificationFiledata.getOriginalFilename());
 					if (filePath != null) {
-						saveFile(resumeId, user, filePath,FileType.CERTIFICATION);
+						saveFile(resumeId,fileName, user, filePath,FileType.CERTIFICATION);
 					} else {
 						model.addAttribute("error","please choose certification file");
 						model.addAttribute("resumeId", resumeId);
@@ -246,8 +266,9 @@ public class UploadController extends AbstractController{
 					.getFile("certification");
 			try {
 				String filePath = generateResumeFile(filedata,FileType.CERTIFICATION);
+				String fileName = iso2Utf8(filedata.getOriginalFilename());
 				if (filePath != null) {
-					saveFile(resumeId, user, filePath,FileType.CERTIFICATION);
+					saveFile(resumeId,fileName, user, filePath,FileType.CERTIFICATION);
 				} else {
 					return resp.fail("please choose certification file");
 				}
@@ -288,8 +309,9 @@ public class UploadController extends AbstractController{
 					.getFile("flightTicket");
 			try {
 				String filePath = generateResumeFile(filedata,FileType.FLIGHT_TICKET);
+				String fileName = iso2Utf8(filedata.getOriginalFilename());
 				if (filePath != null) {
-					saveFile(resumeId, user, filePath,FileType.FLIGHT_TICKET);
+					saveFile(resumeId,fileName, user, filePath,FileType.FLIGHT_TICKET);
 				} else {
 					return resp.fail("please choose flight ticket file");
 				}
@@ -306,13 +328,14 @@ public class UploadController extends AbstractController{
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 
-	private void saveFile(Long resumeId, User user, String filePath,FileType fileType) {
+	private void saveFile(Long resumeId, String fileName,User user, String filePath,FileType fileType) {
 		com.resume.dto.ResumeFile fileDto = new com.resume.dto.ResumeFile();
 		fileDto.setResumeId(resumeId);
 		fileDto.setFileType(filePath.substring(filePath.lastIndexOf(".")+1));
 		fileDto.setFileAddress(filePath);
 		fileDto.setType(fileType.getCode());
 		fileDto.setUserId(user.getId());
+		fileDto.setFileName(fileName);
 		resumeFileService.saveResumeFile(fileDto);
 	}
 	

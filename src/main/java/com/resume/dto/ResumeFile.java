@@ -10,6 +10,8 @@ public class ResumeFile implements Serializable{
 	
 	private String fileAddress;
 	
+	private String fileName;
+	
 	private long resumeId;
 	
 	private long userId;
@@ -85,6 +87,16 @@ public class ResumeFile implements Serializable{
 	public void setResumeInfo(ResumeInfo resumeInfo) {
 		this.resumeInfo = resumeInfo;
 	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	
 	
 
 }

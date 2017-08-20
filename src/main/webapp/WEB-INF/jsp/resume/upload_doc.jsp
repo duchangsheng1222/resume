@@ -53,6 +53,29 @@
 			$('#finish').on('click',function(){
 				window.location.href = "${pageContext.request.contextPath }/interview/page";
 			});
+			
+			$.ajax({
+				url : "",
+				type : "POST",
+				dataType : "json",
+				data:{email:email,password:pwd},
+				success : function(data){
+					if(data.status == 1){
+						  var parames = new Array();
+				          parames.push({ name: "username", value: data.username});
+				          parames.push({ name: "password", value: data.password});
+				          parames.push({ name: "skip", value: data.skip});
+
+						Post(user.baseUrl + "/login", parames );
+						//window.location.href = user.baseUrl + "/interview/page";
+					}else{
+						$("#errorSpan").html(data.message);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+			    }
+			});
 		});
 		</script>
 	</head>

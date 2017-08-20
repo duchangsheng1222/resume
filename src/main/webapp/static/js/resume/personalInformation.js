@@ -59,7 +59,7 @@ $(function(){
 		};
 
 		
-		$('#birth').on('click',function(){
+		$('#birth').on('focus',function(){
 			start.elem = this;
 	 		laydate(start);
 		});

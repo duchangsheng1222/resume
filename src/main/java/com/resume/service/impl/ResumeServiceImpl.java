@@ -86,15 +86,27 @@ public class ResumeServiceImpl implements ResumeService {
 		}
 		
 		List<ResumeFile> files = resumeFileService.getResumeFileByResumeIdsAndType(resumeIds, FileType.RESUME_DOC.getCode());
-		Map<Long, ResumeFile> map = new HashMap<Long, ResumeFile>();
+		Map<Long, List<ResumeFile>> map = new HashMap<Long, List<ResumeFile>>();
 		for (ResumeFile resumeFile : files) {
-			map.put(resumeFile.getResumeId(), resumeFile);
+			List<ResumeFile> list = map.get(resumeFile.getResumeId());
+			if(null == list){
+				list = new ArrayList<ResumeFile>();
+			}
+			list.add(resumeFile);
+			map.put(resumeFile.getResumeId(), list);
+		}
+		List<ResumeFile> resumeVideos = resumeFileService.getResumeFileByResumeIdsAndType(resumeIds, FileType.INTRODUCTION_VIDEO.getCode());
+		Map<Long, ResumeFile> videoMap = new HashMap<Long, ResumeFile>();
+		for (ResumeFile resumeFile : resumeVideos) {
+			
+			videoMap.put(resumeFile.getResumeId(), resumeFile);
 		}
 		
 		List<ResumeInfo> resumes = new ArrayList<ResumeInfo>();
 		for (ResumeInfoPo resumeInfoPo : listPo) {
 			ResumeInfo resume = BeanUtil.createCopy(resumeInfoPo, ResumeInfo.class);
-			resume.setResumeFile(map.get(resumeInfoPo.getId()));
+			resume.setResumeFiles(map.get(resumeInfoPo.getId()));
+			resume.setVideo(videoMap.get(resumeInfoPo.getId()));
 			resumes.add(resume);
 		}
 		

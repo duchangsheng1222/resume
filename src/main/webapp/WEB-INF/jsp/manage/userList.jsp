@@ -6,6 +6,7 @@
 	<%@include file="/WEB-INF/jsp/common/head.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/userlist.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/switch.css"/>
 	<link href="${pageContext.request.contextPath }/static/js/table/tableViewer.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/table/tableViewer.js"></script>
@@ -16,7 +17,7 @@ var list=new QueryList("line_list","");
 	
 	$(function(){
 		user.baseUrl = "${pageContext.request.contextPath }/";
-		list.header=new Array("Name","email","enable","disabled","delete");
+		list.header=new Array("Name","email","enable","delete");
 		
 		list.fill=false;
 	    list.getData = function (){

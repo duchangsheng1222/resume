@@ -139,7 +139,7 @@
 							<i>Applications submitted</i>
 							<i class="i2">Waiting for screening</i>
 							<input type="button" name="" onclick="toInfoPage(${resumeId});" id="" value="Update Personal Information" />
-							<input type="button" id="" onclick="toUploadPage(${resumeId});" value="Update Resume and Photo"/>
+							<input type="button" id="resumeFile" onclick="toUploadPage(${resumeId});" value="Update Resume and Photo"/>
 						</em>
 					</div>
 				</div>

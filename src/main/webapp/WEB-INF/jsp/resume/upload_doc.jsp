@@ -55,21 +55,22 @@
 			});
 			
 			$.ajax({
-				url : "",
+				url : "${pageContext.request.contextPath }/upload/files/list",
 				type : "POST",
 				dataType : "json",
-				data:{email:email,password:pwd},
+				data:{resumeId:"${resumeId}"},
 				success : function(data){
 					if(data.status == 1){
-						  var parames = new Array();
-				          parames.push({ name: "username", value: data.username});
-				          parames.push({ name: "password", value: data.password});
-				          parames.push({ name: "skip", value: data.skip});
-
-						Post(user.baseUrl + "/login", parames );
-						//window.location.href = user.baseUrl + "/interview/page";
-					}else{
-						$("#errorSpan").html(data.message);
+						 if(data.data.length > 1){
+							 for (var i = 0; i < data.data.length; i++) {
+								if(0 == data.data[i].type){
+									$("#resumeDoc").append("<span>"+data.data[i].fileName+"</span>");
+								}else if(2 == data.data[i].type){
+									
+									$("#photo").append("<span>"+data.data[i].fileName+"</span>");
+								}
+							}
+						 }
 					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -100,21 +101,21 @@
 						</div>
 						<span id="upload1">Upload</span>
 					</div>
-					<p class="filecl">&nbsp;</p>
+					<p class="filecl" id="resumeDoc">&nbsp;</p>
 				</form>
-				<form id="form2" action="${pageContext.request.contextPath }/upload/video" method="post"  enctype="multipart/form-data">	
+				<form id="form2" action="${pageContext.request.contextPath }/upload/photo" method="post"  enctype="multipart/form-data">	
 					<input type="hidden" name="resumeId" id="videoResumeId" value="${resumeId}"/>
 					<!--Photo-->
 					<div class="alone">
 						<em id="em2">Photo</em>
 						<div class="center">
 							<span id="cont2"></span>
-							<input type="file" name="videoFile" id="alone2" value=""  required="required"/>
+							<input type="file" name="photoFile" id="alone2" value=""  required="required"/>
 							<label for="alone2" class="add" id="add2"></label>
 						</div>
 						<span id="upload2">Upload</span>
 					</div>
-					<p class="filecl"><span>xxxx.png</span><span>xxxx.png</span><span>xxxx.png</span></p>
+					<p class="filecl" id="photo">&nbsp;</p>
 					<!--finish-->
 					<input type="button" id="finish" name="" value="Finish" />
 					

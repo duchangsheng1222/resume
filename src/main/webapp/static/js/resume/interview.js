@@ -49,9 +49,9 @@ var interview = {
 				if(data.status == 1){
 					var flow = data.interviewFlow;
 					var step = flow.step;
-					var nowHeight= 0;
-					for (var i = 0; i < step; i++) {
-						var height = stepHeightArray[i];
+					var nowHeight= stepHeightArray[0];
+					for (var i = 0; i < step && step < stepHeightArray.length; i++) {
+						var height = stepHeightArray[i+1];
 						nowHeight += height;
 					}
 					$('.now').height(nowHeight);

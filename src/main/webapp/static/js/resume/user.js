@@ -22,8 +22,7 @@
 								var user = data.data[i];
 								var enabled = user.enabled;
 								datas[i] = new Array(user.id,checkNull(user.nickname),user.email,
-										"<a href='javascript:void(0);' onclick='setLocked(0,"+user.id+");'>enabled</a>",
-										"<a href='javascript:void(0);' onclick='setLocked(1,"+user.id+");'>disabled</a>",
+										'<div class="container"><div class="bg_con"> <input id="checked_1" type="checkbox" checked="'+enabled+'" class="switch" /> <label for="checked_1"></label></div> </div>',
 										"<a href='javascript:void(0);' onclick='deleteUser("+user.id+");'>delete</a>");
 								
 							}

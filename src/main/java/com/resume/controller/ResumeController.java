@@ -1,5 +1,6 @@
 package com.resume.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.resume.dto.ResumeFile;
 import com.resume.dto.ResumeInfo;
+import com.resume.enums.FileType;
 import com.resume.response.BaseResponse;
 import com.resume.response.ResumeResponse;
+import com.resume.service.ResumeFileService;
 import com.resume.service.ResumeService;
 import com.resume.spring.security.SecurityContextUtil;
 import com.resume.spring.security.User;
@@ -26,6 +30,9 @@ public class ResumeController extends AbstractController{
 	
 	@Autowired
 	private ResumeService resumeService;
+	
+	@Autowired
+	private ResumeFileService resumeFileService;
 	
 	@RequestMapping("/page/add")
 	public String showResumeInfo(Model model,Long resumeId){
@@ -68,6 +75,7 @@ public class ResumeController extends AbstractController{
 			return resp.fail("page and size cannot be null");
 		}
 		List<ResumeInfo> resumes = resumeService.getResumes(page, size);
+		
 		resp.setData(resumes);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}

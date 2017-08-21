@@ -2,6 +2,7 @@ package com.resume.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class ResumeInfo implements Serializable {
 	
@@ -88,7 +89,9 @@ public class ResumeInfo implements Serializable {
 	
 	private Date updateTime;
 	
-	private ResumeFile resumeFile;
+	private List<ResumeFile> resumeFiles;
+	
+	private ResumeFile video;
 
 	public Long getId() {
 		return id;
@@ -226,12 +229,20 @@ public class ResumeInfo implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public ResumeFile getResumeFile() {
-		return resumeFile;
+	public List<ResumeFile> getResumeFiles() {
+		return resumeFiles;
 	}
 
-	public void setResumeFile(ResumeFile resumeFile) {
-		this.resumeFile = resumeFile;
+	public void setResumeFiles(List<ResumeFile> resumeFiles) {
+		this.resumeFiles = resumeFiles;
+	}
+
+	public ResumeFile getVideo() {
+		return video;
+	}
+
+	public void setVideo(ResumeFile video) {
+		this.video = video;
 	}
 
 	public String getAge() {

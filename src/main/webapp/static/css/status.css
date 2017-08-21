@@ -570,5 +570,18 @@ body,html{
 }
 
 
+@-webkit-keyframes twinkling{ /*透明度由0到1*/
+	0%{
+		opacity:0.4; /*透明度为0*/
+	}
+	100%{
+		opacity:1; /*透明度为1*/
+	}
+}
+
+#resumeFile{
+     -webkit-animation: twinkling 2s infinite ease-in-out; 
+}
+
 
 

@@ -1,6 +1,9 @@
 package com.resume.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,51 @@ public class AdminUserController extends AbstractController{
 		}
 		
 		return "redirect:/interview/page";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findMenu")
+	public ResponseModel findMenu(){
+		log.info("@ findMenu");
+		BaseResponse resp = new BaseResponse();
+		User user = (User)SecurityContextUtil.getUserDetails();
+		List<Map<String, String>> menus = new ArrayList<Map<String,String>>();
+		if(BaseRoleType.ADMIN.getCode().equals(user.getRole())){
+			Map<String, String> resumeMenuMap = new HashMap<String, String>();
+			resumeMenuMap.put("name", "Resumes");
+			resumeMenuMap.put("value", "/interview/page");
+			menus.add(resumeMenuMap);
+			Map<String, String> userMenuMap = new HashMap<String, String>();
+			userMenuMap.put("name", "Users");
+			userMenuMap.put("value", "/user/page");
+			menus.add(userMenuMap);
+			Map<String, String> infoMenuMap = new HashMap<String, String>();
+			infoMenuMap.put("name", "Personal");
+			infoMenuMap.put("value", "/info/page/add");
+			menus.add(infoMenuMap);
+			
+			resp.setData(menus);
+			return resp;
+		}else if(BaseRoleType.EMPLOYEE.getCode().equals(user.getRole())){
+			Map<String, String> resumeMenuMap = new HashMap<String, String>();
+			resumeMenuMap.put("name", "Resumes");
+			resumeMenuMap.put("value", "/interview/page");
+			menus.add(resumeMenuMap);
+			Map<String, String> infoMenuMap = new HashMap<String, String>();
+			infoMenuMap.put("name", "Personal");
+			infoMenuMap.put("value", "/info/page/add");
+			menus.add(infoMenuMap);
+		}else{
+			Map<String, String> resumeMenuMap = new HashMap<String, String>();
+			resumeMenuMap.put("name", "Resumes");
+			resumeMenuMap.put("value", "/interview/page");
+			menus.add(resumeMenuMap);
+			Map<String, String> infoMenuMap = new HashMap<String, String>();
+			infoMenuMap.put("name", "Personal");
+			infoMenuMap.put("value", "/info/page/add");
+			menus.add(infoMenuMap);
+		}
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
 	@ResponseBody

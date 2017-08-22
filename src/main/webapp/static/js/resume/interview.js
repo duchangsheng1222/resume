@@ -78,8 +78,33 @@ var interview = {
 						list.header=new Array("Name","<span >Age</span>","Gender","Skype","Email address",
 								"Citizenship","Education","Education country",
 								"Resume","Video","Message","Backward","Forward","");
+						
 						var resumeDown = "<a href='#'>download</a>";
-						var videoDown = "<a href='#'>download</a>";
+						if(null != interview.resumeFiles){
+							for (var i = 0; i < interview.resumeFiles.length; i++) {
+								$("#myDownload").append("<p><a href='#'>download</a></p>");
+							}
+							if(interview.resumeFiles.length > 1){
+								resumeDown = "<a href='#' data-reveal-id='myDownload'>download new</a>";
+							}else{
+								resumeDown = "<a href='#'  data-reveal-id='myDownload'>download</a>";
+							}
+						}
+						
+						var videoDown = "-";
+						if(null != interview.video){
+							if("0" == interview.video.downloaded){
+								
+								videoDown = "<a href='javascript:void(0);' style='color:blue;' onclick='download(\'video_"+interview.resumeId+"\',\'"+
+										interview.video.fileAddress+"\');' id='video_"+interview.resumeId+"'>download new</a>";
+							}else{
+								videoDown = "<a href='javascript:void(0);' onclick='download(\'video_"+interview.resumeId+"\',\'"+interview.video.fileAddress+"\');' id='video_"+interview.resumeId+"'>download</a>";
+							}
+							
+						}
+						
+						
+						
 						var message = "<a href='#'>message</a>";
 						datas[i] = new Array(interview.resumeId,checkNull(interview.resumeInfo.name),
 								checkNull(interview.resumeInfo.age),
@@ -156,6 +181,12 @@ var interview = {
 	
 	
 };
+
+function download(elementId,fileAddress){
+	$("#"+elementId).html("download");
+	$("#"+elementId).css("color","black");
+//	window.open(interview.baseUrl );
+}
 
 function backward(resumeId,step){
 	interview.forward(resumeId, step-1);

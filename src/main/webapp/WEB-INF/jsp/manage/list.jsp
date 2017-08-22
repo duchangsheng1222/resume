@@ -6,10 +6,12 @@
 	<%@include file="/WEB-INF/jsp/common/head.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/manage.css"/>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-reveal/reveal.css"></script>
 	<link href="${pageContext.request.contextPath }/static/js/table/tableViewer.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/table/tableViewer.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/resume/interview.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-reveal/jquery-reveal.js"></script>
 	<title>sign in</title>
 	<script>
 var list=new QueryList("line_list","checkbox");
@@ -80,6 +82,16 @@ var list=new QueryList("line_list","checkbox");
 		</div>
 		<div class="right" id="line_list"></div>
 		</div>
+		</div>
+		
+		<div id="myDownload" class="reveal-modal">
+			
+			<div id="downloadContent">
+				
+			</div>
+			
+			<a class="close-reveal-modal">&#215;</a>
+
 		</div>
 	</body>
 </html>

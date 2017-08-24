@@ -33,7 +33,7 @@ body,html{
 }
 .logoBox .up{
 	width: 100%;
-	height: 73px;
+	height: 83px;
 	overflow: hidden;
     margin-top: 13px;
 }
@@ -1330,6 +1330,22 @@ textarea{
 	    margin-top: 0.1rem;
 	}
 }
+
+.seq{
+	border-left: 2px solid #CCC;
+}
+
+.menu{
+	margin : 0 5px 0 12px;
+}
+
+.head{
+	display:inline;
+	width: 45px;
+    height: 45px;
+    margin: 0px 5px -15px 10px;
+}
+
 
 
 

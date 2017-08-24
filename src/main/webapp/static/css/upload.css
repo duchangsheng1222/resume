@@ -162,6 +162,11 @@ body,html{
 	z-index: 2;
 }
 
+.del{
+	width:15px;
+	height:15px;
+}
+
 
 
 

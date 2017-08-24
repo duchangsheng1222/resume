@@ -17,7 +17,7 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="/index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Personal information</a>
+				<a href="index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Personal information</a>
 			</div>
 			<p class="tit">Personal information</p>
 			<!--表单详情-->
@@ -173,7 +173,7 @@
 					<input type="hidden" id="clickType" value="0" name="clickType" />
 					<input type="submit" style="display:none" id="submit"/>
 					<div class="btb">
-						<div class="Next">Next</div>
+						<div class="Next">Save&Next</div>
 						<div class="save">Save</div>
 					</div>
 				</form>
@@ -200,11 +200,13 @@
 		
 		$(".Next").on("click",function(){
 			//resumeInfo.save(1);
-			if(resumeId && "" != resumeId){
+			$("#clickType").val("1");
+			$("#submit").click();
+			/* if(resumeId && "" != resumeId){
 				window.location.href = "${pageContext.request.contextPath }/upload/"+resumeId+"/doc";
 			}else{
 				alert("please save your information");
-			}
+			} */
 			
 		});
 		

@@ -40,6 +40,14 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 	
 	@Override
+	public List<ResumeInfo> getResumeById(List<Long> ids) {
+		List<ResumeInfoPo> pos = resumeInfoDao.queryByIds(ids);
+		List<ResumeInfo> resumes = proccessResumeInfo(pos);
+		
+		return resumes;
+	}
+	
+	@Override
 	public ResumeInfo getResumeByUserId(long userId) {
 		ResumeInfoPo resumeInfoPo = resumeInfoDao.queryByUserId(userId);
 		return BeanUtil.createCopy(resumeInfoPo, ResumeInfo.class);
@@ -80,6 +88,12 @@ public class ResumeServiceImpl implements ResumeService {
 		int beginIndex = (page - 1) * size;
 		
 		List<ResumeInfoPo> listPo = resumeInfoDao.queryList(beginIndex, size);
+		List<ResumeInfo> resumes = proccessResumeInfo(listPo);
+		
+		return resumes;
+	}
+
+	private List<ResumeInfo> proccessResumeInfo(List<ResumeInfoPo> listPo) {
 		List<Long> resumeIds = new ArrayList<Long>();
 		for (ResumeInfoPo resumeInfoPo : listPo) {
 			resumeIds.add(resumeInfoPo.getId());
@@ -109,7 +123,6 @@ public class ResumeServiceImpl implements ResumeService {
 			resume.setVideo(videoMap.get(resumeInfoPo.getId()));
 			resumes.add(resume);
 		}
-		
 		return resumes;
 	}
 

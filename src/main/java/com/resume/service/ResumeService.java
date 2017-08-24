@@ -13,6 +13,8 @@ public interface ResumeService {
 	 */
 	ResumeInfo getResumeById(long id);
 	
+	List<ResumeInfo> getResumeById(List<Long> ids);
+	
 	ResumeInfo getResumeByUserId(long userId);
 	
 	/**

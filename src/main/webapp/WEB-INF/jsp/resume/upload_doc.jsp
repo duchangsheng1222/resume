@@ -23,7 +23,7 @@
 				}
 		        var arr=filePath.split('\\');
 		        var fileName=arr[arr.length-1];
-				$('#cont1').append('<i><img src="static/img/del.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+fileName+'</i>');
+				$('#cont1').html('<i><img src="static/img/del.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+fileName+'</i>');
 			});
 			$('#alone2').change(function(){
 				var filePath=$(this).val();
@@ -32,7 +32,7 @@
 				}
 		        var arr=filePath.split('\\');
 		        var fileName=arr[arr.length-1];
-				$('#cont2').append('<i><img src="static/img/del.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+fileName+'</i>');
+				$('#cont2').html('<i><img src="static/img/del.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+fileName+'</i>');
 			});
 			
 			$("#upload1").on("click",function(){
@@ -84,7 +84,7 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="/index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Upload</a>
+				<a href="index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Upload</a>
 			</div>
 			<!--表单详情-->
 			<div class="formBox">
@@ -117,6 +117,7 @@
 					</div>
 					<p class="filecl" id="photo">&nbsp;</p>
 					<!--finish-->
+					
 					<input type="button" id="finish" name="" value="Finish" />
 					
 				</form>

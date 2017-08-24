@@ -1,7 +1,9 @@
 package com.resume.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import com.resume.dto.InterviewFlow;
 import com.resume.dto.ResumeInfo;
 import com.resume.po.InterviewFlowPo;
 import com.resume.service.InterviewFlowService;
+import com.resume.service.ResumeService;
 import com.resume.util.BeanUtil;
 
 @Service
@@ -18,6 +21,9 @@ public class InterviewFlowServiceImpl implements InterviewFlowService{
 	
 	@Autowired
 	private InterviewFlowDao interviewFlowDao;
+	
+	@Autowired
+	private ResumeService resumeService;
 	
 	@Override
 	public Long insertInterviewFlow(InterviewFlow interviewFlow){
@@ -51,11 +57,25 @@ public class InterviewFlowServiceImpl implements InterviewFlowService{
 			beginIndex = (page -1 ) * size;
 		}
 		List<InterviewFlowPo> listPos = interviewFlowDao.listPos(step, col, order, beginIndex, size);
+		List<Long> resumeIds = new ArrayList<Long>();
+		for (InterviewFlowPo interviewFlowPo : listPos) {
+			resumeIds.add(interviewFlowPo.getResumeId());
+		}
+		
+		if(resumeIds.isEmpty()){
+			return new ArrayList<InterviewFlow>();
+		}
+		
+		List<ResumeInfo> resumes = resumeService.getResumeById(resumeIds);
+		Map<Long, ResumeInfo> map = new HashMap<Long, ResumeInfo>();
+		for (ResumeInfo resumeInfo : resumes) {
+			map.put(resumeInfo.getId(), resumeInfo);
+		}
+		
 		List<InterviewFlow> dtos = new ArrayList<InterviewFlow>();
 		for (InterviewFlowPo interviewFlowPo : listPos) {
-			ResumeInfo resumeInfo = BeanUtil.createCopy(interviewFlowPo.getResumeInfoPo(), ResumeInfo.class);
 			InterviewFlow flow = BeanUtil.createCopy(interviewFlowPo, InterviewFlow.class);
-			flow.setResumeInfo(resumeInfo);
+			flow.setResumeInfo(map.get(flow.getResumeId()));
 			dtos.add(flow);
 		}
 		

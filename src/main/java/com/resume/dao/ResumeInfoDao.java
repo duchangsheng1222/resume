@@ -21,6 +21,13 @@ public interface ResumeInfoDao {
 	 * @param id
 	 * @return
 	 */
+	List<ResumeInfoPo> queryByIds(@Param("ids")List<Long> ids);
+	
+	/**
+	 * 根据id查询resume
+	 * @param id
+	 * @return
+	 */
 	ResumeInfoPo queryByUserId(long userId);
 	
 	/**

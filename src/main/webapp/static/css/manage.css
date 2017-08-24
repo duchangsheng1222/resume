@@ -101,6 +101,7 @@ body,html{
 	height:26px;
 	color:#FFF;
 	font-size: 12px;
+	padding:5px;
 }
 
 .adminUrl{
@@ -117,3 +118,4 @@ body,html{
     font-size: 20px;
     padding: 5px 5px 5px 5px;
 }
+

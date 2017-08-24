@@ -117,7 +117,7 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="/index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="login.html" class="loginA">Status</a>
+				<a href="index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="login.html" class="loginA">Status</a>
 			</div>
 			<!--右上角 信封-->
 			<div class="messRight">

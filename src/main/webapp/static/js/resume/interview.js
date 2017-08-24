@@ -79,15 +79,16 @@ var interview = {
 								"Citizenship","Education","Education country",
 								"Resume","Video","Message","Backward","Forward","");
 						
-						var resumeDown = "<a href='#'>download</a>";
-						if(null != interview.resumeFiles){
-							for (var i = 0; i < interview.resumeFiles.length; i++) {
-								$("#myDownload").append("<p><a href='#'>download</a></p>");
+						var resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' data-animation='none'>download new</a>";
+						if(null != interview.resumeInfo.resumeFiles){
+							for (var j = 0; j < interview.resumeInfo.resumeFiles.length; j++) {
+								var file = interview.resumeInfo.resumeFiles[j];
+								$("#myDownload").append("<p><a href='#'>"+file.fileName+"</a></p>");
 							}
-							if(interview.resumeFiles.length > 1){
-								resumeDown = "<a href='#' data-reveal-id='myDownload'>download new</a>";
+							if(interview.resumeInfo.resumeFiles.length > 1){
+								resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload'>download new</a>";
 							}else{
-								resumeDown = "<a href='#'  data-reveal-id='myDownload'>download</a>";
+								resumeDown = "<a href='javascript:void(0);'  data-reveal-id='myDownload'>download</a>";
 							}
 						}
 						
@@ -120,10 +121,17 @@ var interview = {
 //								"<input type='checkbox' name='forword' value='"+interview.resumeId+"'/>",
 								"<a class='more' href='javascript:void(0);' onclick='backward("+interview.resumeId+","+interview.step+")' >backward</a>",
 								"<a class='more' href='javascript:void(0);' onclick='forward("+interview.resumeId+","+interview.step+")' >forward</a>",
-								"<a class='more' href='javascript:void(0);' onclick='showMoreInfo("+interview.resumeId+")' >more</a>");
+								"<a class='more' href='javascript:void(0);' onclick='showMoreInfo("+interview.resumeId+","+interview.step+")' >more</a>");
 						
 					}
 					fillTable(datas);
+					
+					$('a[data-reveal-id]').on('click', function(e) {
+						e.preventDefault();
+						var modalLocation = $(this).attr('data-reveal-id');
+						$('#'+modalLocation).reveal($(this).data());
+					});
+
 				}else{
 					alert(data.message);
 				}
@@ -204,7 +212,55 @@ function checkNull(val){
 	return val;
 }
 
-function showMoreInfo(resumeId){
+function showMoreInfo(resumeId,step){
 	//TODO show info
 	
+	$.ajax({
+		url:interview.baseUrl + "/info/"+resumeId +"/info",
+		type:"get",
+		dataType:"json",
+		data:{},
+		success : function(data){
+			if(data.status == 1){
+				var resume = data.resumeInfo;
+				$("#d_name").html(checkNull(resume.name));
+				$("#d_position").html(checkNull(resume.position));
+				$("#d_birthDate").html(checkNull(resume.birthDate));
+				$("#d_phone").html(checkNull(resume.phone));
+				$("#d_citizenship").html(checkNull(resume.citizenship));
+				$("#d_education").html(checkNull(resume.education));
+				$("#d_major").html(checkNull(resume.major));
+				$("#d_county").html(checkNull(resume.country));
+				$("#d_certification").html(checkNull(resume.certification));
+				$("#d_specialized").html(checkNull(resume.specialized));
+				$("#d_experienceLength").html(checkNull(resume.experienceLength));
+				$("#d_salary").html(checkNull(resume.salary));
+				$("#d_location").html(checkNull(resume.location));
+				$("#d_otherPositions").html(checkNull(resume.otherPositions));
+				$("#d_age").html(checkNull(resume.age));
+				if("m" == checkNull(resume.gender)){
+					$("#d_gender").html("Male");
+				}else if("f" == checkNull(resume.gender)){
+					$("#d_gender").html("Fmale");
+				}if("" == checkNull(resume.gender)){
+					$("#d_gender").html("Other");
+				} 
+				
+				$("#pre").on('click',function(){
+					backward(resumeId, step);
+				});
+				$("#clo").on('click',function(){
+					forward(resumeId,step);
+				});
+			}else{
+				alert(data.message);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+	    }
+	});
+	
+	$('#myInfo').reveal();
 }
+

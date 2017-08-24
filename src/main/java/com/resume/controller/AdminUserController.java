@@ -48,23 +48,19 @@ public class AdminUserController extends AbstractController{
 		List<Map<String, String>> menus = new ArrayList<Map<String,String>>();
 		if(BaseRoleType.ADMIN.getCode().equals(user.getRole())){
 			Map<String, String> resumeMenuMap = new HashMap<String, String>();
-			resumeMenuMap.put("name", "Resumes");
+			resumeMenuMap.put("name", "Management");
 			resumeMenuMap.put("value", "/interview/page");
 			menus.add(resumeMenuMap);
 			Map<String, String> userMenuMap = new HashMap<String, String>();
-			userMenuMap.put("name", "Users");
+			userMenuMap.put("name", "Administration");
 			userMenuMap.put("value", "/user/page");
 			menus.add(userMenuMap);
-			Map<String, String> infoMenuMap = new HashMap<String, String>();
-			infoMenuMap.put("name", "Personal");
-			infoMenuMap.put("value", "/info/page/add");
-			menus.add(infoMenuMap);
 			
-			resp.setData(menus);
-			return resp;
+			
+			
 		}else if(BaseRoleType.EMPLOYEE.getCode().equals(user.getRole())){
 			Map<String, String> resumeMenuMap = new HashMap<String, String>();
-			resumeMenuMap.put("name", "Resumes");
+			resumeMenuMap.put("name", "Management");
 			resumeMenuMap.put("value", "/interview/page");
 			menus.add(resumeMenuMap);
 			Map<String, String> infoMenuMap = new HashMap<String, String>();
@@ -73,7 +69,7 @@ public class AdminUserController extends AbstractController{
 			menus.add(infoMenuMap);
 		}else{
 			Map<String, String> resumeMenuMap = new HashMap<String, String>();
-			resumeMenuMap.put("name", "Resumes");
+			resumeMenuMap.put("name", "Resume");
 			resumeMenuMap.put("value", "/interview/page");
 			menus.add(resumeMenuMap);
 			Map<String, String> infoMenuMap = new HashMap<String, String>();
@@ -81,6 +77,7 @@ public class AdminUserController extends AbstractController{
 			infoMenuMap.put("value", "/info/page/add");
 			menus.add(infoMenuMap);
 		}
+		resp.setData(menus);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	

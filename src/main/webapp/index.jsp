@@ -13,6 +13,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/swiper.min.css"/>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css"/>
+		<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 		<!-- Demo styles -->
 		<style>
 			html,body {
@@ -43,6 +44,36 @@
 				align-items: center;*/
 			}
 		</style>
+		
+		<script type="text/javascript">
+			$(function(){
+				var user = "${sessionScope.SPRING_SECURITY_CONTEXT}";
+				if(user){
+					$.ajax({
+						url:"${pageContext.request.contextPath }/user/findMenu",
+						type: "POST",
+						dataType:"json",
+						success : function(data){
+							if(data.status == 1){
+								var menus = data.data;
+								var menuElm = "<i class='seq'></i>";
+								for (var i = 0; i < menus.length; i++) {
+									var menu = menus[i];
+									var name = menu.name;
+									var val = menu.value;
+									menuElm += "<a href='${pageContext.request.contextPath }"+val+"' class='menu'>"+name+"</a><i class='seq'></i>"; 
+								}
+								$(".signAndLog").prepend(menuElm);
+							}
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+					    }
+					});
+				}
+				
+			});
+		</script>
 	</head>
 
 	<body>
@@ -54,11 +85,11 @@
 					<!--logo-->
 					<div class="logoBox">
 						<div class="up">
-							<img src="${pageContext.request.contextPath}/static/img/logo.png" class="logo"/>
+							<img src="${pageContext.request.contextPath}/static/img/diy_42.png" class="logo"/>
 							<div class="signAndLog">
 							<c:if test="${not empty sessionScope.SPRING_SECURITY_CONTEXT}">
-								${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.email}
-								<span id="Login" onclick="window.location.href='${pageContext.request.contextPath}/logout'">
+								<img src="static/img/diy_45.png" class="head"/>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.email}
+								<span id="Login" style="display:none;" onclick="window.location.href='${pageContext.request.contextPath}/logout'">
 									Log out
 								</span>
 							</c:if>
@@ -66,11 +97,11 @@
 								<span id="Login" onclick="window.location.href='${pageContext.request.contextPath}/login.jsp'">
 									Log in
 								</span>
-							</c:if>
 								&nbsp;&nbsp;/&nbsp;&nbsp;
 								<span id="Signup"  onclick="window.location.href='${pageContext.request.contextPath}/public/user/reg/page'">
 									Sign up
 								</span>
+							</c:if>
 								
 							</div>
 						</div>

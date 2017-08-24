@@ -74,6 +74,10 @@ public class InterviewFlowController extends AbstractController{
 			return resp.fail("The resume is not exists");
 		}
 		
+		if(step < 1){
+			return resp.fail("This is the first step");
+		}
+		
 		User user = (User)SecurityContextUtil.getUserDetails();
 		InterviewFlow interviewFlow = new InterviewFlow();
 		interviewFlow.setUpdaterId(user.getId());

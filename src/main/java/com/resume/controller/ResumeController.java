@@ -81,7 +81,7 @@ public class ResumeController extends AbstractController{
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public String saveResumeInfo(Model model,ResumeInfo resumeInfo){
+	public String saveResumeInfo(Model model,ResumeInfo resumeInfo,String clickType){
 		log.info("@ resume/save resumeInfo:{}",new Object[]{resumeInfo});
 		ResumeResponse resp = new ResumeResponse();
 		if(StringUtils.isBlank(resumeInfo.getGender())){
@@ -98,6 +98,9 @@ public class ResumeController extends AbstractController{
 		}
 		resp.setResumeInfo(resumeInfo);
 		model.addAttribute("resumeId", resumeInfo.getId());
+		if("1".equals(clickType)){
+			return "redirect:/upload/"+resumeInfo.getId()+"/doc";
+		}
 		return "redirect:/info/page/add";
 		
 	}

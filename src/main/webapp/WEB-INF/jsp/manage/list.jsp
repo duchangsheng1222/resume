@@ -6,15 +6,16 @@
 	<%@include file="/WEB-INF/jsp/common/head.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/manage.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-reveal/reveal.css"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/reveal.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/messageAlert.css"/>
 	<link href="${pageContext.request.contextPath }/static/js/table/tableViewer.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/table/tableViewer.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/resume/interview.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-reveal/jquery-reveal.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-reveal/jquery.reveal.js"></script>
 	<title>sign in</title>
 	<script>
-var list=new QueryList("line_list","checkbox");
+var list=new QueryList("line_list","");
 	
 	$(function(){
 		interview.baseUrl = "${pageContext.request.contextPath }/";
@@ -49,6 +50,46 @@ var list=new QueryList("line_list","checkbox");
 		
 	
 	</script>
+	
+	<style type="text/css">
+		.kele:before {
+			position: absolute;
+			content: " ";
+			border: transparent 14px solid;
+			border-width: 13px 8px;
+			border-right-color: #CCC;
+			top: 1px;
+			left: -16px;
+			height: 0;
+			width: 0;
+		}
+		
+		.kele {
+			position: relative;
+			width: 40px;
+			height: 28px;
+			background: #EEE;
+			border-radius: 5px;
+			margin: 30px;
+			text-align: center;
+			line-height: 28px;
+			color: #999;
+			font-size: 14px;
+			border: 1px solid #CCC;
+		}
+		
+		.kele:after {
+			position: absolute;
+			content: " ";
+			border: transparent 13px solid;
+			border-width: 12px 8px;
+			border-right-color: #EEE;
+			top: 2px;
+			left: -15px;
+			height: 0;
+			width: 0;
+		}
+</style>
 		
 	</head>
 	<body>
@@ -90,8 +131,88 @@ var list=new QueryList("line_list","checkbox");
 				
 			</div>
 			
-			<a class="close-reveal-modal">&#215;</a>
+			<a class="close-reveal-modal close-reveal">&#215;</a>
 
+		</div>
+		
+		<div  id="myInfo" class="info-reveal-modal">
+			<div class="boxCenter">
+				<p>
+					<span>Name</span><em id="d_name"></em>
+				</p>
+				
+				<p>
+					<span>Email:</span><em id="d_email"></em>
+				</p>
+				<p>
+					<span>D.O.B</span><em id="d_birthDate"></em>
+				</p>
+				<p>
+					<span>Gender:</span><em id="d_gender"></em>
+				</p>
+				<p>
+					<span>Position applied for</span><em id="d_position"></em>
+				</p>
+				<p>
+					<span>Skype number</span><em id="d_phone"></em>
+				</p>
+				<p>
+					<span>Citizenship</span><em id="d_citizenship"></em>
+				</p>
+				<p>
+					<span>Education background/degree</span><em id="d_education"></em>
+				</p>
+				<p>
+					<span>Major</span><em id="d_major"></em>
+				</p>
+				<p>
+					<span>Country in which education has been obtained</span><em id="d_county"></em>
+				</p>
+				<p>
+					<span>Certification</span><em id="d_certification"></em>
+				</p>
+				<p>
+					<span>Specialized skill</span><em id="d_specialized"></em>
+				</p>
+				<p>
+					<span>Length of working experience</span><em id="d_experienceLength"></em>
+				</p>
+				<p>
+					<span>Expected monthly salary in U.S. dollors</span><em id="d_salary"></em>
+				</p>
+				<p>
+					<span>Expected working location in China</span><em id="d_location"></em>
+				</p>
+				<p>
+					<span>Expected teaching age group of students</span><em id="d_age"></em>
+				</p>
+				<p>
+					<span>Other positions of consideration</span><em id="d_otherPositions"></em>
+				</p>
+				<p>
+					<span>Last date to China</span><em id="d_lastDate"></em>
+				</p>
+				<p>
+					<span>Count down</span><em id="d_count_down"></em>
+				</p>
+				<p>
+					<span>Visa received date</span><em id="d_visa_date"></em>
+				</p>
+				<p>
+					<span>Flight ticket image</span><em id="d_ticket"></em>
+				</p>
+				<p>
+					<span>Flight landing place and date</span><em id="d_flight"></em>
+				</p>
+				
+				<!--下边的三个按钮-->
+				<div class="btbBox">
+					<input type="button" name="" onclick="" id="pre" value="Backward"/>
+					<input type="button" name="" onclick="" id="clo" value="Forward"/>
+					<input type="button" name="" onclick="" class="close-reveal" id="nex" value="Close"/>
+				</div>
+			</div>
+			<a class="close-reveal-modal close-reveal">&#215;</a>
 		</div>
 	</body>
 </html>

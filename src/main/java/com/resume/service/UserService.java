@@ -12,6 +12,11 @@ public interface UserService {
 	 * @return
 	 */
 	UserInfo queryByUsername(String username);
+	/**
+	 * @param username
+	 * @return
+	 */
+	List<UserInfo> queryByIds(List<Long> ids);
 	
 	/**
 	 * 注册用户

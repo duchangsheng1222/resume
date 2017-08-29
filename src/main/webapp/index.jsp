@@ -116,14 +116,14 @@
 							<li>ABOUTUS</li>
 						</ul>-->
 					</div>
-					
 					<!--banner-->
 					<div class="banner">
 						<img class="imgBanner" src="${pageContext.request.contextPath}/static/img/banner.jpg"/>
 						<div id="con">
 							<p class="con1">Immerse Yourself Abroad</p>
 							<p class="con2">Get your portfolio up and running no time.</p>
-							<p class="con3"><a href="javascript;">  Read more</a></p>
+							<p class="con2">Who are we?</p>
+							<p class="con3">Wawajobs began in 2012 and has helped over 500 teachers find jobs in China. Our primary objective is to not only provide you with a suitable teaching position in China but also help you have a positive and memorable China teaching experience. Our pleasure to reflect our vision to bridge the gap between China and aboard.</p>
 						</div>
 					</div>
 				</div>
@@ -133,8 +133,8 @@
 					<!--lun2-->
 					<div class="lun2Box">
 						<div class="up">
-							<p class="p1">Who is WawajobsChina?</p>
-							<p class="p2">Hi, we are WawajobsChina Members. Our pleasure to introduce you our programes.We reflect our vision to bridge the gap between China and abroad.</p>
+							<p class="p1">What we provide?</p>
+							<p class="p2">All the cooperative schools are our partners who have been strictly vetted and have worked together for many years. We walk our candidates through every step of the process. At no point will you be left wondering what to do next, as we will be right there with you talking you through it.. We do not leave your side after you arrive either. The entire time you are in China, we will be here to help you address any question or concern. We don’t charge you any fees for our service. It’s completely free!</p>
 						</div>
 						<div class="down" id="down">
 							<img style="z-index: 1;opacity: 1;" src="${pageContext.request.contextPath}/static/img/lun2-1.png" class="down1"/>
@@ -150,11 +150,10 @@
 						<div class="swiper-wrapper">					
 				            <div class="swiper-slide slide1">
 				            	<div class="Pbox">
-				            		<p class="title">Teaching</p>
+				            		<p class="title">3 hot jobs</p>
 				            		<div class="teaDown">
 				            			<p class="con4 conP1">Placement in Chinese schools to experience complete cultural immersion into local society.</p>
-						            	<p class="conP2"><span>--Helped Hundred of people truly experience China</span><em>--High Allowance</em></p>
-						            	<p class="conP1 conP3">--Free Accommodation <span>--Professional VISA Support</span>--See More Benefits</p>
+						            	<p class="conP2"><span>--Public Schools</span><em>--English Language Centers</em><em>--Kindergarten Positions</em></p>
 				            		</div>
 				            	</div>
 				            	<img src="${pageContext.request.contextPath}/static/img/lun3-1.png" class="slide1Img"/>
@@ -212,42 +211,42 @@
 										<img src="${pageContext.request.contextPath}/static/img/left1.png"/>
 									</div>
 									<p class="titl">5+ years of experienceCreate</p>
-									<p class="AloneCont">MaxWisdom has been successfully offering participants from around the world,career and culture opportunities.</p>
+									<p class="AloneCont">wawajobschina has been successfully offering participants from around the world,career and culture opportunities.</p>
 								</div>
 								<div class="boxAlone Alone2">
 									<div class="imgBox">
 										<img src="${pageContext.request.contextPath}/static/img/right1.png"/>
 									</div>
 									<p class="titl">Participants form 50 countries</p>
-									<p class="AloneCont">MaxWisdom has been specializing in creating tailored educational programs to bridge the gap between the East and West.</p>
+									<p class="AloneCont">wawajobschina has been specializing in creating tailored educational programs to bridge the gap between the East and West.</p>
 								</div>
 								<div class="boxAlone Alone3">
 									<div class="imgBox">
 										<img src="${pageContext.request.contextPath}/static/img/left2.png"/>
 									</div>
 									<p class="titl">500+program Participants</p>
-									<p class="AloneCont">MaxWisdom is responsible for bringing thousands of international participants to join our programs.</p>
+									<p class="AloneCont">wawajobschina is responsible for bringing thousands of international participants to join our programs.</p>
 								</div>
 								<div class="boxAlone Alone4">
 									<div class="imgBox">
 										<img src="${pageContext.request.contextPath}/static/img/right2.png"/>
 									</div>
 									<p class="titl">Enriched Allowance Provide</p>
-									<p class="AloneCont">MaxWisdom provides the most competitive allowance for each of participants. Whatever the program you choose.</p>
+									<p class="AloneCont">wawajobschina provides the most competitive allowance for each of participants. Whatever the program you choose.</p>
 								</div>
 								<div class="boxAlone Alone5">
 									<div class="imgBox">
 										<img src="${pageContext.request.contextPath}/static/img/left3.png"/>
 									</div>
 									<p class="titl">Free Accommodation All Your Trip</p>
-									<p class="AloneCont">MaxWisdom has been successfully offering participants from around the world,career and culture opportunities.</p>
+									<p class="AloneCont">wawajobschina has been successfully offering participants from around the world,career and culture opportunities.</p>
 								</div>
 								<div class="boxAlone Alone6">
 									<div class="imgBox">
 										<img src="${pageContext.request.contextPath}/static/img/right3.png"/>
 									</div>
 									<p class="titl">Legal and Safety VISA provide.</p>
-									<p class="AloneCont">MaxWisdom has been successfully offering participants from around the world,career and culture opportunities.</p>
+									<p class="AloneCont">wawajobschina has been successfully offering participants from around the world,career and culture opportunities.</p>
 								</div>
 							</div>
 						</div>
@@ -259,7 +258,7 @@
 					<!--How do-->
 					<div class="HowBox">
 						<p class="tit">How do I sign up?</p>
-						<p class="con1">Create your MaxWisdom menber profile, Choose your desired program, and hand in your application. It's free to join and list your programs.</p>
+						<p class="con1">Create your wawajobschina menber profile, Choose your desired program, and hand in your application. It's free to join and list your programs.</p>
 						
 						<div class="circleBox">
 							<div class="rightBox1">
@@ -346,11 +345,11 @@
 								  	<span class="biaocenter">WawajobsChina@gmail.com</span>
 							  	</p>
 							  	<!--<p class="number number2">
-								  	<img src="${pageContext.request.contextPath}/static/img/contact3.png"/>
+								  	<img src="img/contact3.png"/>
 								  	+86 010-8963563
 							 	</p>
 							  	<p class="number number3">
-								  	<img src="${pageContext.request.contextPath}/static/img/contact4.png"/>
+								  	<img src="img/contact4.png"/>
 								  	58575737@qq.com
 							  	</p>-->
 							  </div>
@@ -397,7 +396,7 @@
 			<!-- Add Pagination -->
 			<div class="swiper-pagination"></div>
 		</div>
-
+					
 		<script src="${pageContext.request.contextPath}/static/js/resume/swiper.min.js"></script>
 		<script src="${pageContext.request.contextPath}/static/js/jquery/jquery-3.2.1.min.js"></script>
 		<script src="${pageContext.request.contextPath}/static/js/resume/move.js"></script>

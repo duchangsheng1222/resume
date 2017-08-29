@@ -31,6 +31,7 @@
 										 parseInt($('.twelve').height()),parseInt($('.thirteen').height()),parseInt($('.fourteen').height())];
 		var resumeId = "${resumeId}";
 		interview.findByResumeId(resumeId, stepHeightArray);
+		checkFile(resumeId);
 		//第12步、13步的日历
 		layui.use('laydate', function(){
 			var laydate = layui.laydate;
@@ -110,6 +111,37 @@
 		window.location.href = "${pageContext.request.contextPath }/upload/"+resumeId+"/doc";
 		
 	}
+	
+	function checkFile(resumeId){
+		$.ajax({
+			url : "${pageContext.request.contextPath }/upload/files/list",
+			type : "POST",
+			dataType : "json",
+			data:{resumeId:resumeId},
+			success : function(data){
+				if(data.status == 1){
+					var hasResume = false;
+					var hasPhoto = false;
+					 if(data.data.length > 1){
+						 for (var i = 0; i < data.data.length; i++) {
+							if(0 == data.data[i].type){
+								hasResume = true;
+							}else if(2 == data.data[i].type){
+								hasPhoto = true;
+							}
+						}
+					 }
+					if(!hasResume || !hasPhoto){
+						$("#resumeFile").addClass("resumeFile");
+					}
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+		    }
+		});
+	}
+
 
 	</script>
 	</head>

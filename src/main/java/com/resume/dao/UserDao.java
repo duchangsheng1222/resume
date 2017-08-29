@@ -15,6 +15,8 @@ public interface UserDao {
 	 */
 	UserInfoPo queryByUsername(String username);
 	
+	List<UserInfoPo> queryByIds(@Param("ids")List<Long> ids);
+	
 	/**
 	 * 注册用户信息
 	 * @param userInfoPo

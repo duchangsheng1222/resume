@@ -31,6 +31,15 @@ public class UserServiceImpl implements UserService{
 		}
 		return null;
 	}
+	
+	@Override
+	public List<UserInfo> queryByIds(List<Long> ids) {
+		if(null == ids || ids.isEmpty()){
+			return null;
+		}
+		List<UserInfoPo> users = userDao.queryByIds(ids);
+		return BeanUtil.createCopyList(users, UserInfo.class);
+	}
 
 	@Override
 	@Transactional

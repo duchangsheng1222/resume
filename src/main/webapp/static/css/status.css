@@ -579,7 +579,7 @@ body,html{
 	}
 }
 
-#resumeFile{
+.resumeFile{
      -webkit-animation: twinkling 2s infinite ease-in-out; 
 }
 

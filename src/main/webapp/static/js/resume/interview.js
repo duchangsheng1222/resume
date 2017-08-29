@@ -55,6 +55,8 @@ var interview = {
 						nowHeight += height;
 					}
 					$('.now').height(nowHeight);
+					
+					
 				}else{
 					alert(data.message);
 				}
@@ -111,7 +113,7 @@ var interview = {
 								checkNull(interview.resumeInfo.age),
 								checkNull(interview.resumeInfo.gender),
 								checkNull(interview.resumeInfo.phone),
-								checkNull(interview.resumeInfo.email),
+								checkNull(interview.resumeInfo.userInfo.email),
 								checkNull(interview.resumeInfo.citizenship),
 								checkNull(interview.resumeInfo.cducation),
 								checkNull(interview.resumeInfo.country),
@@ -263,4 +265,60 @@ function showMoreInfo(resumeId,step){
 	
 	$('#myInfo').reveal();
 }
+
+
+function proccessStatus(step){
+	switch (step) {
+	case 1:
+		
+		;
+	case 2:
+		
+		;
+	case 3:
+		
+		;
+	case 4:
+		
+		;
+	case 5:
+		
+		;
+	case 6:
+		
+		;
+	case 7:
+		
+		;
+	case 8:
+		
+		;
+	case 9:
+		
+		;
+	case 10:
+		
+		;
+	case 11:
+		
+		;
+	case 12:
+		
+		;
+	case 13:
+		
+		;
+	case 14:
+		
+		;
+
+	default:
+		break;
+	}
+}
+
+
+
+
+
 

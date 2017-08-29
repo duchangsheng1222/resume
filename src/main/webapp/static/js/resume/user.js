@@ -20,13 +20,23 @@
 							var datas = new Array();
 							for (var i = 0; i < data.data.length; i++) {
 								var user = data.data[i];
-								var enabled = user.enabled;
+								var enabled = user.enabled ? 'checked="checked"' : "";
 								datas[i] = new Array(user.id,checkNull(user.nickname),user.email,
-										'<div class="container"><div class="bg_con"> <input id="checked_1" type="checkbox" checked="'+enabled+'" class="switch" /> <label for="checked_1"></label></div> </div>',
-										"<a href='javascript:void(0);' onclick='deleteUser("+user.id+");'>delete</a>");
+										'<div class="container"><div class="bg_con"> <input id="checked_'+user.id+'" type="checkbox" '+enabled+' class="switch" /> <label for="checked_'+user.id+'"></label></div> </div>',
+										"<a href='javascript:void(0);' style='color:blue;' onclick='deleteUser("+user.id+");'>delete</a>");
 								
 							}
 							fillTable(datas);
+							$(".switch").on('change',function(){
+								var id = $(this).attr("id").replace('checked_','');
+								if($(this).is(":checked")){
+									
+									setLocked('0', id);
+								}else{
+									setLocked('1', id);
+								}
+							})
+							
 						}else{
 							alert(data.message);
 						}
@@ -148,9 +158,9 @@
 				    }
 				});
 			},
-			setLocked : function(userId,locked){
+			setLocked : function(locked,userId){
 				$.ajax({
-					url: user.baseUrl+"/set/"+userId+"/"+locked+"/status",
+					url: user.baseUrl+"/user/set/"+userId+"/"+locked+"/status",
 					type:"PUT",
 					dataType:"json",
 					data:{},

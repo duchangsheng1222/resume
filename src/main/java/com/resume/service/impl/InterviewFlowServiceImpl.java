@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.resume.dao.InterviewFlowDao;
 import com.resume.dto.InterviewFlow;
 import com.resume.dto.ResumeInfo;
+import com.resume.dto.UserInfo;
 import com.resume.po.InterviewFlowPo;
 import com.resume.service.InterviewFlowService;
 import com.resume.service.ResumeService;
+import com.resume.service.UserService;
 import com.resume.util.BeanUtil;
 
 @Service
@@ -24,6 +26,9 @@ public class InterviewFlowServiceImpl implements InterviewFlowService{
 	
 	@Autowired
 	private ResumeService resumeService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	public Long insertInterviewFlow(InterviewFlow interviewFlow){
@@ -68,8 +73,24 @@ public class InterviewFlowServiceImpl implements InterviewFlowService{
 		
 		List<ResumeInfo> resumes = resumeService.getResumeById(resumeIds);
 		Map<Long, ResumeInfo> map = new HashMap<Long, ResumeInfo>();
+		List<Long> userIds = new ArrayList<Long>();
 		for (ResumeInfo resumeInfo : resumes) {
 			map.put(resumeInfo.getId(), resumeInfo);
+			userIds.add(resumeInfo.getCreatorId());
+		}
+		
+		List<UserInfo> userInfos = userService.queryByIds(userIds);
+		Map<Long, UserInfo> userMap = new HashMap<Long, UserInfo>();
+		if(null != userInfos){
+			for (UserInfo userInfo : userInfos) {
+				userMap.put(userInfo.getId(), userInfo);
+			}
+		}
+		if(!userMap.isEmpty()){
+			
+			for (ResumeInfo resumeInfo : resumes) {
+				resumeInfo.setUserInfo(userMap.get(resumeInfo.getCreatorId()));
+			}
 		}
 		
 		List<InterviewFlow> dtos = new ArrayList<InterviewFlow>();

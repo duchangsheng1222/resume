@@ -92,6 +92,8 @@ public class ResumeInfo implements Serializable {
 	private List<ResumeFile> resumeFiles;
 	
 	private ResumeFile video;
+	
+	private UserInfo userInfo;
 
 	public Long getId() {
 		return id;
@@ -275,6 +277,14 @@ public class ResumeInfo implements Serializable {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 	
 	

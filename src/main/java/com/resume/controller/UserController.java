@@ -21,9 +21,12 @@ import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
 import com.resume.response.LoginResponse;
 import com.resume.response.ResponseModel;
+import com.resume.response.UserResponse;
 import com.resume.service.UserService;
 import com.resume.service.exception.UserException;
+import com.resume.spring.security.SecurityContextUtil;
 import com.resume.spring.security.StandardPasswordEncoder;
+import com.resume.spring.security.User;
 import com.resume.util.VerifyCodeUtils;
 
 @Controller
@@ -61,7 +64,7 @@ public class UserController {
 		model.addAttribute("emailVerifyCode", emailVerifyCode);
 		return "/reset";
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public ResponseModel register(String email,String password,String role,RedirectAttributes attr){
@@ -174,4 +177,6 @@ public class UserController {
 	}
 	
 
+	
+	
 }

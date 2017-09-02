@@ -169,12 +169,16 @@ var interview = {
 		    }
 		});
 	},
-	forward : function(resumeId,step){
+	forward : function(resumeId,step,decline){
+		var data = {};
+		if(decline){
+			data.prototype.decline = decline;
+		}
 		$.ajax({
 			url:interview.baseUrl + "/interview/"+ resumeId +"/"+step+"/update",
 			type:"PUT",
 			dataType:"json",
-			data:{},
+			data:data,
 			success : function(data){
 				if(data.status == 1){
 					interview.list(fillTable);
@@ -205,6 +209,10 @@ function backward(resumeId,step){
 function forward(resumeId,step){
 	interview.forward(resumeId, step+1);
 	
+}
+
+function accepted(decline,resumeId){
+	forward()
 }
 
 function checkNull(val){

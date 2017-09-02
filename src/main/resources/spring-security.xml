@@ -18,6 +18,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<http pattern="/index.jsp" security="none" />
 	<http pattern="/register.jsp" security="none" />
 	<http pattern="/file/*" security="none" />
+	
+	<http pattern="/view/index.html" security="none" />
+	
     <http create-session="always" 
           use-expressions="true"  disable-url-rewriting="true" entry-point-ref="loginUrlAuthenticationEntryPoint">
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />

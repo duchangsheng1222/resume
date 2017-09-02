@@ -266,7 +266,7 @@
 						<em>
 							<i>Waiting for the job offer</i>
 							<i class="i2">Last expected date of arrival to China 20xx/month/date</i>
-							<input type="button" name="" id="" value="Accept the job offer" /><a href="#">Decline</a>
+							<input type="button" name="" onclick="accepted(0);" id="" value="Accept the job offer" /><a href="javascript:void(0);" onclick="accepted(1);">Decline</a>
 						</em>
 					</div>
 				</div>

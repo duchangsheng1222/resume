@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import com.resume.dto.UserInfo;
 import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
 import com.resume.response.ResponseModel;
+import com.resume.response.UserResponse;
 import com.resume.service.UserService;
 import com.resume.spring.security.SecurityContextUtil;
 import com.resume.spring.security.User;
@@ -112,6 +115,16 @@ public class AdminUserController extends AbstractController{
 	public ResponseModel delete(@PathVariable("userId") Long userId){
 		BaseResponse resp = new BaseResponse();
 		userService.deleteUser(userId);
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/current",method=RequestMethod.GET)
+	public ResponseModel findCurrentUser(HttpServletRequest request){
+		log.info("@ public/user/current ");
+		UserResponse resp = new UserResponse();
+		User user = (User)SecurityContextUtil.getUserDetails();
+		resp.setUser(user);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 

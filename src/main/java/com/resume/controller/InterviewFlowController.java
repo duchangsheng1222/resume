@@ -1,5 +1,6 @@
 package com.resume.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class InterviewFlowController extends AbstractController{
 	
 	@ResponseBody
 	@RequestMapping(value="/{resumeId}/{step}/update",method=RequestMethod.PUT)
-	public ResponseModel updateInterview(@PathVariable("step")Integer step,@PathVariable("resumeId")Long resumeId){
+	public ResponseModel updateInterview(@PathVariable("step")Integer step,@PathVariable("resumeId")Long resumeId,Date arrivedDate,String accepted,Date visaDate,String flightDate){
 		log.info("@ interview/page id:{}",new Object[]{resumeId});
 		BaseResponse resp = new BaseResponse();
 		if(null == step || null == resumeId){
@@ -83,6 +84,9 @@ public class InterviewFlowController extends AbstractController{
 		interviewFlow.setUpdaterId(user.getId());
 		interviewFlow.setStep(step);
 		interviewFlow.setResumeId(resumeId);
+		interviewFlow.setAccepted(accepted);
+		interviewFlow.setArrivedDate(arrivedDate);
+		interviewFlow.setVisaDate(visaDate);
 		interviewFlowService.updateFlowStatus(interviewFlow);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}

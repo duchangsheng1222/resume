@@ -17,7 +17,7 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Personal information</a>
+				<a href="${pageContext.request.contextPath}/view/index.html" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Personal information</a>
 			</div>
 			<p class="tit">Personal information</p>
 			<!--表单详情-->

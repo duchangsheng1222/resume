@@ -74,7 +74,7 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="../index.html" class="homeA">Home</a><a href="javascript;">-</a><a href="login.html" class="loginA">Reset password</a>
+				<a href="${pageContext.request.contextPath}/view/index.html" class="homeA">Home</a><a href="javascript;">-</a><a href="login.html" class="loginA">Reset password</a>
 			</div>
 			
 			<!--表单前边的导航-->

@@ -47,6 +47,9 @@
 		
 		<script type="text/javascript">
 			$(function(){
+				
+				window.location.href = "${pageContext.request.contextPath }/view/index.html";
+				
 				var user = "${sessionScope.SPRING_SECURITY_CONTEXT}";
 				if(user){
 					$.ajax({

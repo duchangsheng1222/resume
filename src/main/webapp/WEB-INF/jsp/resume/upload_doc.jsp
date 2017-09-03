@@ -84,7 +84,7 @@
 		<div class="box">
 			<!--导航条-->
 			<div class="nav">
-				<a href="index.jsp" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Upload</a>
+				<a href="${pageContext.request.contextPath}/view/index.html" class="homeA">Home</a><a href="javascript;">-</a><a href="#" class="loginA">Upload</a>
 			</div>
 			<!--表单详情-->
 			<div class="formBox">

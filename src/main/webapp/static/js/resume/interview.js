@@ -227,13 +227,18 @@ function showMoreInfo(resumeId,step){
 	//TODO show info
 	
 	$.ajax({
-		url:interview.baseUrl + "/info/"+resumeId +"/info",
+		url:interview.baseUrl + "/interview/"+resumeId +"/detail",
 		type:"get",
 		dataType:"json",
 		data:{},
 		success : function(data){
 			if(data.status == 1){
-				var resume = data.resumeInfo;
+				var flow = data.interviewFlow;
+				var resume = flow.resumeInfo;
+				var user = resume.userInfo;
+				if(null != user){
+					$("#d_email").html(checkNull(user.email));
+				}
 				$("#d_name").html(checkNull(resume.name));
 				$("#d_position").html(checkNull(resume.position));
 				$("#d_birthDate").html(checkNull(resume.birthDate));
@@ -256,7 +261,7 @@ function showMoreInfo(resumeId,step){
 				}if("" == checkNull(resume.gender)){
 					$("#d_gender").html("Other");
 				} 
-				
+				$("#d_lastDate").val(checkNull(flow.arrivedDate))
 				$("#pre").on('click',function(){
 					backward(resumeId, step);
 					$(".close-reveal").click();

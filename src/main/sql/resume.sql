@@ -20,7 +20,7 @@ create TABLE t_resume_info(
 `other_positions`  varchar(500) NULL DEFAULT NULL COMMENT '其他职位' ,
 `salary`  varchar(500) NULL DEFAULT NULL COMMENT '期望薪资' ,
 `location`  varchar(500) NULL DEFAULT NULL COMMENT '期望地点' ,
-
+`recommended`  varchar(500) NULL DEFAULT NULL COMMENT '推荐人' ,
 `create_time`  datetime NULL DEFAULT NULL COMMENT '创建时间' ,
 `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 `creator_id`  bigint(16)  NULL DEFAULT NULL COMMENT '新建用户' ,
@@ -37,6 +37,7 @@ create TABLE t_resume_file(
   `user_id`  bigint(16) NOT NULL COMMENT '用户id', 
   `file_address`  varchar(500)  NULL DEFAULT NULL COMMENT '文件地址' ,
   `file_type`  varchar(500)  NULL DEFAULT NULL COMMENT '文件类型' ,
+  `file_name`  varchar(500)  NULL DEFAULT NULL COMMENT '文件名称' ,
   `type`  int  NULL DEFAULT 0 COMMENT '业务类型 0:简历，1:自荐视频' ,
   `deleted` enum('0','1')  NULL DEFAULT '0' COMMENT '是否被删除' ,
   `downloaded` enum('0','1')  NULL DEFAULT '0' COMMENT '是否下载过' ,

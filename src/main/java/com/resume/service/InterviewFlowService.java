@@ -15,5 +15,7 @@ public interface InterviewFlowService {
 	public InterviewFlow findByResumeId(long resumeId);
 	
 	public List<InterviewFlow> list(Long step,String col,String order,Integer page,Integer size);
+	
+	public InterviewFlow findByResumeIdWithResume(long resumeId);
 
 }

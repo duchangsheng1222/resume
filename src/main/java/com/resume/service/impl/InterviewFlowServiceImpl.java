@@ -54,6 +54,20 @@ public class InterviewFlowServiceImpl implements InterviewFlowService{
 		InterviewFlowPo interviewFlowPo = interviewFlowDao.queryByResumeId(resumeId);
 		return BeanUtil.createCopy(interviewFlowPo, InterviewFlow.class);
 	}
+	@Override
+	public InterviewFlow findByResumeIdWithResume(long resumeId){
+		InterviewFlowPo interviewFlowPo = interviewFlowDao.queryByResumeId(resumeId);
+		InterviewFlow flow = BeanUtil.createCopy(interviewFlowPo, InterviewFlow.class);
+		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
+		List<Long> userIds = new ArrayList<Long>();
+		userIds.add(resumeInfo.getCreatorId());
+		List<UserInfo> user = userService.queryByIds(userIds);
+		if(null != user && !user.isEmpty()){
+			resumeInfo.setUserInfo(user.get(0));
+		}
+		flow.setResumeInfo(resumeInfo);
+		return flow;
+	}
 
 	@Override
 	public List<InterviewFlow> list(Long step, String col, String order,Integer page,Integer size) {

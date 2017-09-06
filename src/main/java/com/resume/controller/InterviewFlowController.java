@@ -104,6 +104,19 @@ public class InterviewFlowController extends AbstractController{
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/{resumeId}/detail",method=RequestMethod.GET)
+	public ResponseModel resumeDetail(@PathVariable("resumeId")Long resumeId){
+		log.info("@ interview/status resumeId:{}",new Object[]{resumeId});
+		InterviewResponse resp = new InterviewResponse();
+		if(null == resumeId){
+			return resp.fail("resumeId cannot be null");
+		}
+		InterviewFlow flow = interviewFlowService.findByResumeIdWithResume(resumeId);
+		resp.setInterviewFlow(flow);
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/flow/list",method=RequestMethod.POST)

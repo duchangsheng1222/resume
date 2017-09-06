@@ -63,7 +63,7 @@ public class InterviewFlowController extends AbstractController{
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/{resumeId}/{step}/update",method=RequestMethod.PUT)
+	@RequestMapping(value="/{resumeId}/{step}/update",method=RequestMethod.POST)
 	public ResponseModel updateInterview(@PathVariable("step")Integer step,@PathVariable("resumeId")Long resumeId,Date arrivedDate,String accepted,Date visaDate,String flightDate){
 		log.info("@ interview/page id:{}",new Object[]{resumeId});
 		BaseResponse resp = new BaseResponse();

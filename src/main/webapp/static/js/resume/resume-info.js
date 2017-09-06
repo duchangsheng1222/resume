@@ -31,6 +31,7 @@ var resumeInfo = {
 					$("#salary").val(resumeInfo.checkNull(resume.salary));
 					$("#location").val(resumeInfo.checkNull(resume.location));
 					$("#otherPositions").val(resumeInfo.checkNull(resume.otherPositions));
+					$("#recommended").val(resumeInfo.checkNull(resume.recommended));
 					if("0-7" == resumeInfo.checkNull(resume.age)){
 						$("#0-7").attr("checked","checked");
 						$('.age label').find('em').css("display",'none');

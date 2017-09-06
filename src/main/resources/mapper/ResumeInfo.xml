@@ -9,11 +9,11 @@
 	<insert id="insertResumeInfo" parameterType="ResumeInfoPo">
 		insert into t_resume_info 
 		(name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
-experience_length,other_positions,birth_date,salary,location,create_time,creator_id,updater_id)
+experience_length,other_positions,birth_date,salary,location,recommended,create_time,creator_id,updater_id)
 		VALUES
 		(#{name},#{age},#{gender},#{position},#{phone},#{citizenship},
 		#{education},#{major},#{country},#{certification},#{specialized},#{experienceLength},
-		#{otherPositions},#{birthDate},#{salary},#{location},#{createTime},#{creatorId},
+		#{otherPositions},#{birthDate},#{salary},#{location},#{recommended},#{createTime},#{creatorId},
 		#{updaterId})
 		<selectKey resultType="long" order="AFTER" keyProperty="id"> <include refid="public_sql.increment_sql" /> </selectKey>
 	</insert>
@@ -36,6 +36,7 @@ experience_length,other_positions,birth_date,salary,location,create_time,creator
 		birth_date=#{birthDate},
 		salary=#{salary},
 		location=#{location},
+		recommended=#{recommended},
 		updater_id=#{updaterId}
 		where id=#{id}
 	
@@ -43,14 +44,14 @@ experience_length,other_positions,birth_date,salary,location,create_time,creator
 	
 	<select id="queryById" parameterType="long" resultType="ResumeInfoPo">
 		select id, name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
-experience_length,other_positions,birth_date,salary,location,create_time,creator_id,updater_id,update_time
+experience_length,other_positions,birth_date,salary,location,recommended,create_time,creator_id,updater_id,update_time
 		from t_resume_info
 		where id=#{id}
 	</select>
 	
 	<select id="queryByIds" parameterType="list" resultType="ResumeInfoPo">
 		select id, name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
-experience_length,other_positions,birth_date,salary,location,create_time,creator_id,updater_id,update_time
+experience_length,other_positions,birth_date,salary,location,recommended,create_time,creator_id,updater_id,update_time
 		from t_resume_info
 		where id in 
 		<foreach collection="ids" item="id" open="(" separator="," close=")">
@@ -60,14 +61,14 @@ experience_length,other_positions,birth_date,salary,location,create_time,creator
 	
 	<select id="queryByUserId" parameterType="long" resultType="ResumeInfoPo">
 		select id, name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
-experience_length,other_positions,birth_date,salary,location,create_time,creator_id,updater_id,update_time
+experience_length,other_positions,birth_date,salary,location,recommended,create_time,creator_id,updater_id,update_time
 		from t_resume_info
 		where creator_id=#{userId} limit 1
 	</select>
 	
 	<select id="queryList" resultType="ResumeInfoPo">
 		SELECT id,name,age,gender,position,phone,citizenship,education,major,country,certification,specialized,
-			experience_length,other_positions,birth_date,salary,location,create_time,creator_id,updater_id,update_time
+			experience_length,other_positions,birth_date,salary,location,recommended,create_time,creator_id,updater_id,update_time
 		FROM 
 			t_resume_info
 		ORDER BY 

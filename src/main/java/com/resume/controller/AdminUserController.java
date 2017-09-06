@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.resume.dto.ResumeInfo;
 import com.resume.dto.UserInfo;
 import com.resume.enums.BaseRoleType;
 import com.resume.response.BaseResponse;
 import com.resume.response.ResponseModel;
 import com.resume.response.UserResponse;
+import com.resume.service.ResumeService;
 import com.resume.service.UserService;
 import com.resume.spring.security.SecurityContextUtil;
 import com.resume.spring.security.User;
@@ -29,6 +31,9 @@ public class AdminUserController extends AbstractController{
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ResumeService resumeService;
 	
 	@RequestMapping("/page")
 	public String showListUser(){
@@ -62,22 +67,32 @@ public class AdminUserController extends AbstractController{
 			
 			
 		}else if(BaseRoleType.EMPLOYEE.getCode().equals(user.getRole())){
+			ResumeInfo resumeInfo = resumeService.getResumeByUserId(user.getId());
+			String param = "";
+			if(resumeInfo != null){
+				param = "?resumeId=" + resumeInfo.getId();
+			}
 			Map<String, String> resumeMenuMap = new HashMap<String, String>();
 			resumeMenuMap.put("name", "Management");
 			resumeMenuMap.put("value", "/interview/page");
 			menus.add(resumeMenuMap);
 			Map<String, String> infoMenuMap = new HashMap<String, String>();
 			infoMenuMap.put("name", "Personal");
-			infoMenuMap.put("value", "/info/page/add");
+			infoMenuMap.put("value", "/info/page/add" + param);
 			menus.add(infoMenuMap);
 		}else{
+			ResumeInfo resumeInfo = resumeService.getResumeByUserId(user.getId());
+			String param = "";
+			if(resumeInfo != null){
+				param = "?resumeId=" + resumeInfo.getId();
+			}
 			Map<String, String> resumeMenuMap = new HashMap<String, String>();
 			resumeMenuMap.put("name", "Resume");
 			resumeMenuMap.put("value", "/interview/page");
 			menus.add(resumeMenuMap);
 			Map<String, String> infoMenuMap = new HashMap<String, String>();
 			infoMenuMap.put("name", "Personal");
-			infoMenuMap.put("value", "/info/page/add");
+			infoMenuMap.put("value", "/info/page/add" + param);
 			menus.add(infoMenuMap);
 		}
 		resp.setData(menus);

@@ -63,5 +63,9 @@ $(function(){
 			start.elem = this;
 	 		laydate(start);
 		});
+		$('#birth').on('click',function(){
+			start.elem = this;
+	 		laydate(start);
+		});
 	});
 });

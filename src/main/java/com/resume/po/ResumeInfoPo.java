@@ -77,6 +77,8 @@ public class ResumeInfoPo {
 	
 	private String location;
 	
+	private String recommended;
+	
 	private long creatorId;
 	
 	private long updaterId;
@@ -252,7 +254,14 @@ public class ResumeInfoPo {
 	public void setAge(String age) {
 		this.age = age;
 	}
-	
+
+	public String getRecommended() {
+		return recommended;
+	}
+
+	public void setRecommended(String recommended) {
+		this.recommended = recommended;
+	}
 	
 
 }

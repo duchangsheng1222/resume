@@ -11,12 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="../static/css/swiper.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../static/css/index.css"/>
-		<script type="text/javascript" src="../static/js/jquery/jquery-3.0.0.js"></script>
-		<script src="../static/js/resume/swiper.min.js"></script>
-		<script src="../static/js/resume/move.js"></script>
-		<script src="../static/js/resume/base.js"></script>
-		<script src="../static/js/resume/index.js"></script>
-		<script src="../static/js/resume/feedback.js"></script>
+
 		<!-- Demo styles -->
 		<style>
 			html,body {
@@ -48,71 +43,6 @@
 			}
 		</style>
 		
-		<script type="text/javascript">
-			$(function(){
-					$.ajax({
-						url:Base.url + "/user/current",
-						type: "GET",
-						dataType:"json",
-						success : function(data){
-							if(data.status == 1){
-								if(data.user == null){
-									
-									$(".signAndLog").append('<span id="Login" onclick="window.location.href=\'../login.jsp\'">'+
-											'Log in'+
-										'	</span>'+
-										'	&nbsp;&nbsp;/&nbsp;&nbsp;'+
-										'	<span id="Signup"  onclick="window.location.href=\''+Base.url+'/public/user/reg/page\'">'+
-										'		Sign up'+
-										'	</span>');
-								}else{
-									
-									$(".signAndLog").append('<img src="../static/img/diy_45.png" class="head"/>'+data.user.email+'<span id="Login" style="display:none;" onclick="window.location.href=\'../logout\'">'
-											+ 'Log out</span>');
-									findMenu();
-								}
-							}
-							
-						},
-						error: function(XMLHttpRequest, textStatus, errorThrown) {
-							// alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
-							$(".signAndLog").append('<span id="Login" onclick="window.location.href=\'../login.jsp\'">'+
-									'Log in'+
-								'	</span>'+
-								'	&nbsp;&nbsp;/&nbsp;&nbsp;'+
-								'	<span id="Signup"  onclick="window.location.href=\''+Base.url+'/public/user/reg/page\'">'+
-								'		Sign up'+
-								'	</span>');
-					    }
-					});
-				
-			});
-			
-			function findMenu(){
-
-				$.ajax({
-					url:Base.url + "/user/findMenu",
-					type: "POST",
-					dataType:"json",
-					success : function(data){
-						if(data.status == 1){
-							var menus = data.data;
-							var menuElm = "<i class='seq'></i>";
-							for (var i = 0; i < menus.length; i++) {
-								var menu = menus[i];
-								var name = menu.name;
-								var val = menu.value;
-								menuElm += "<a href= '"+Base.url +val+"' class='menu'>"+name+"</a><i class='seq'></i>"; 
-							}
-							$(".signAndLog").prepend(menuElm);
-						}
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
-				    }
-				});
-			}
-		</script>
 	</head>
 
 	<body>
@@ -175,44 +105,126 @@
 						<div class="swiper-wrapper">					
 				            <div class="swiper-slide slide1">
 				            	<div class="Pbox">
-				            		<p class="title">3 hot jobs</p>
-				            		<div class="teaDown">
-				            			<p class="con4 conP1">Placement in Chinese schools to experience complete cultural immersion into local society.</p>
-						            	<p class="conP2"><span>--Public Schools</span><em>--English Language Centers</em><em>--Kindergarten Positions</em></p>
+				            		<p class="title titleSpecial">3 hot jobs</p>
+				            		<div class="teaDownMask">
+						            	<p class="titS">ESL Teachers</p>
+						            	<div class="part1">
+						            		<p class="title">Public Schools</p>
+						            		<div class="partDetail">
+						            			<strong>Locations :</strong> Beijing , Zhejiang & Other cities 
+						            			<p></p>
+												<strong>Salary :</strong> 11,000 - 18,000RMB/month after tax based on experience, qualifications and the available locations;
+												<p></p>
+												<strong>Flight reimbursement :</strong> Provided ! 
+												<p></p>
+												<strong>Teaching hours :</strong> 18-20 teaching periods per week; Weekend break!
+												<p></p>
+												Students’ age: 7 to 18;
+												<p></p>
+												Visa Assistance √
+												<p></p>
+												Airport pickup √
+												<p></p>
+												Free fully-furnished apartment or housing stipend provided √
+												<p></p>
+												Free hotel provided upon arrival √
+												<p></p>
+												Curriculum provided √
+						            		</div>
+						            	</div>
+						            	<div class="part2">
+						            		<p class="title">English Language Centers</p>
+						            		<div class="partDetail">
+						            			<strong>Locations :</strong> Beijing , Shanghai , Guangzhou, Zhejiang and <strong>more than 30 other cities</strong>；
+												<p></p>
+												<strong>Salary :</strong> 12,000 - 25,000 RMB/month based on experience, qualifications and the available locations; 
+												<p></p>
+												<strong>Students’ age :</strong> 3 to 16 and above ;
+												<p></p>
+												<strong>Flight reimbursement :</strong> Provided !
+												<p></p>
+												<strong>Teaching hours :</strong> 18-20 teaching periods per week;
+												<p></p>
+												Visa Assistance √
+												<p></p>
+												Airport pickup √
+												<p></p>
+												Free fully-furnished apartment or housing stipend provided √
+												<p></p>
+												Free hotel provided upon arrival √
+												<p></p>
+												1 week Professional training √
+												<p></p>
+												Chinese classes provided √
+												<p></p>
+												Curriculum provided √
+												<p></p>
+												Medical ( or accident ) insurance provided √
+												<p></p>
+												FREE TEFL course provided & Tickets to China !
+						            		</div>
+						            	</div>
+						            	<div class="part3">
+						            		<p class="title">Kindergarten Positions</p>
+						            		<div class="partDetail">
+						            			<strong>Locations :</strong> Beijing ,Jiangsu, Zhejiang and other cities ; 
+						            			<p></p>
+												<strong>Salary :</strong> 12,000 - 15,000 RMB/month after tax based on experience, qualifications and the location chosen;
+												<p></p>
+												<strong>Teaching hours :</strong> 40hours per week, Weekend break!
+												<p></p>
+												<strong>Flight reimbursement :</strong> Provided !
+												<p></p>
+												Visa Assistance √
+												<p></p>
+												Airport pickup √
+												<p></p>
+												Free fully-furnished apartment or housing stipend provided √
+												<p></p>
+												Training and hotel provided √
+						            		</div>
+						            	</div>
+						            	
 				            		</div>
 				            	</div>
-				            	<img src="../static/img/lun3-1.png" class="slide1Img"/>
+				            	<img src="../static/img/lun3-3.png" class="slide1Img"/>
 				            </div>
 				            <div class="swiper-slide slide2">
 				            	<div class="Pbox">
 				            		<p class="title">Internship</p>
 				            		<div class="teaDown">
 				            			<p class="conP1 con4">Earning aboard cultural skills and building career abundant.</p>
-						            	<p class="conP1 con2"><span>--Have the opportunity to work in a well-known organizations.</span><em>-Free Accommodatoin</em></p>
-						            	<p class="conP1 con3"> <span>--Allowance Support</span>--See More Benefits</p>
-						            	<p class="conP1">-Professional Mandarin and Industry Tranning Before Start Internship.</p>
+						            	<p class="conP1 con2"><span>--Have the opportunity to work in a well-known organizations.</span></p>
+						            	<p class="conP1">--Free Accommodatoin</p>
+						            	<p class="conP1 con3"> <span>--Allowance Support</span></p>
+						            	<p class="conP1">--See More Benefits</p>
+						            	<p class="conP1">--Professional Mandarin and Industry Tranning Before Start Internship.</p>
 				            		</div>
 				            	</div>
-				            	<img src="../static/img/lun3-2.png" class="slide2Img"/>
+				            	<img src="../static/img/lun3-1.png" class="slide2Img"/>
 				            </div>
 				            <div class="swiper-slide slide3">
 				            	<div class="Pbox">
 				            		<p class="title">Home Stay</p>
 				            		<div class="teaDown">
 					            		<p class="conP1 con4">Stay in a home where there's a host to welcome you and introduce you to the local culture.All our homestays have a host present.</p>
-						            	<p class="conP1 con3">-Free Food and Accommodation<span>-Allowance Support</span>-Real Travel Experience</p>
-						            	<p class="conP1">-See More Benefits</p>
+						            	<p class="conP1 con3">--Free Food and Accommodation</p>
+						            	<p class="conP1">--Allowance Support</p>
+						            	<p class="conP1">--Real Travel Experience</p>
+						            	<p class="conP1">--See More Benefits</p>
 				            		</div>
 				            	</div>
-				            	<img src="../static/img/lun3-3.png" class="slide3Img"/>
+				            	<img src="../static/img/lun3-2.png" class="slide3Img"/>
 				            </div>
 				            <div class="swiper-slide slide4">
 				            	<div class="Pbox">
 				            		<p class="title">Mandarin</p>
 				            		<div class="teaDown">
 				            			<p class="conP1 con4">Tailored courses for gourps to complement your curriculum.The program content could be academic,eductional or industry specific in focus.</p>
-						            	<p class="conP1 con3"><span>-Free Accommodation</span>-Faield of study:Mandarin,Arts,Business,History,social sciences</p>
-						            	<p class="conP1"><span>-Programming includes:Company visits,tours,lectures,language instruction</span>-See More Benefits</p>
+						            	<p class="conP1 con3"><span>--Free Accommodation</span></p>
+						            	<p class="conP1">--Failed of study:Mandarin,Arts,Business,History,social sciences</p>
+						            	<p class="conP1"><span>--Programming includes:Company visits,tours,lectures,language instruction</span></p>
+						            	<p class="conP1">--See More Benefits</p>
 				            		</div>
 				            	</div>
 				            	<img src="../static/img/lun3-4.png" class="slide4Img"/>
@@ -283,7 +295,7 @@
 					<!--How do-->
 					<div class="HowBox">
 						<p class="tit">How do I sign up?</p>
-						<p class="con1">Create your wawajobschina menber profile, Choose your desired program, and hand in your application. It's free to join and list your programs.</p>
+						<p class="con1">Create your wawajobschina member profile, Choose your desired program, and hand in your application. It's free to join and list your programs.</p>
 						
 						<div class="circleBox">
 							<div class="rightBox1">
@@ -421,7 +433,12 @@
 			<!-- Add Pagination -->
 			<div class="swiper-pagination"></div>
 		</div>
-					
+		<script type="text/javascript" src="../static/js/jquery/jquery-3.0.0.js"></script>
+		<script src="../static/js/resume/swiper.min.js"></script>
+		<script src="../static/js/resume/move.js"></script>
+		<script src="../static/js/resume/base.js"></script>
+		<script src="../static/js/resume/index.js"></script>
+		<script src="../static/js/resume/feedback.js"></script>
 
 		<script>
 			var swiper = new Swiper('.swiper-container3', {
@@ -471,6 +488,70 @@
 				    }
 				});
 			}
+			
+			$(function(){
+				$.ajax({
+					url:Base.url + "/user/current",
+					type: "GET",
+					dataType:"json",
+					success : function(data){
+						if(data.status == 1){
+							if(data.user == null){
+								
+								$(".signAndLog").append('<span id="Login" onclick="window.location.href=\'../login.jsp\'">'+
+										'Log in'+
+									'	</span>'+
+									'	&nbsp;&nbsp;/&nbsp;&nbsp;'+
+									'	<span id="Signup"  onclick="window.location.href=\''+Base.url+'/public/user/reg/page\'">'+
+									'		Sign up'+
+									'	</span>');
+							}else{
+								
+								$(".signAndLog").append('<img src="../static/img/diy_45.png" class="head"/>'+data.user.email+'<span id="Login" style="display:none;" onclick="window.location.href=\'../logout\'">'
+										+ 'Log out</span>');
+								findMenu();
+							}
+						}
+						
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						// alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+						$(".signAndLog").append('<span id="Login" onclick="window.location.href=\'../login.jsp\'">'+
+								'Log in'+
+							'	</span>'+
+							'	&nbsp;&nbsp;/&nbsp;&nbsp;'+
+							'	<span id="Signup"  onclick="window.location.href=\''+Base.url+'/public/user/reg/page\'">'+
+							'		Sign up'+
+							'	</span>');
+				    }
+				});
+			
+		});
+		
+		function findMenu(){
+
+			$.ajax({
+				url:Base.url + "/user/findMenu",
+				type: "POST",
+				dataType:"json",
+				success : function(data){
+					if(data.status == 1){
+						var menus = data.data;
+						var menuElm = "<i class='seq'></i>";
+						for (var i = 0; i < menus.length; i++) {
+							var menu = menus[i];
+							var name = menu.name;
+							var val = menu.value;
+							menuElm += "<a href= '"+Base.url +val+"' class='menu'>"+name+"</a><i class='seq'></i>"; 
+						}
+						$(".signAndLog").prepend(menuElm);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+			    }
+			});
+		}
 		</script>
 	</body>
 

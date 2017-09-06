@@ -87,17 +87,17 @@ form{
 }
 .banner #con{
 	font-family: arial;
-	width: 400px;
-	height: 108px;
+	width: 40%;
 	color: #fff;
 	font-size: 15px;
 	position: absolute;
-	right: 12%;
+	right: 7%;
 	bottom: 17px;
 	overflow: hidden;
 	background: #4286c5;
 	opacity: 0.8;
 	filter: alpha(opacity=80);
+	padding:20px 10px;
 }
 .banner #con p{
 	margin-left: 24px;
@@ -150,7 +150,6 @@ form{
 	margin-top: 27px;
 }
 .lun2Box .up .p2{
-	width: 72%;
 	margin-bottom: 3%;
 	font-size: 18px;
 	line-height: 24px;
@@ -223,9 +222,6 @@ form{
 	margin-left: 11%;
 	line-height: 28px;
 }
-.slide3 .con4{
-	width: 35%;
-}
 .slide3 .con3 span{
 	margin: 0 95px 0 36px;
 }
@@ -244,13 +240,10 @@ form{
 	margin-left: 4%;
 	line-height: 28px;
 }
-.slide4 .con4{
-	width: 42%;		
-}
 .slide4 .con3 span{
 	margin-right: 90px;
 }
-.teaDown{
+.teaDown, .teaDownMask{
 	width: 45%;
 	margin: 0 auto;
     overflow: hidden;
@@ -493,7 +486,7 @@ form{
 .left1 #name{
 	float: left;
 }
-.left1 #emai{
+.left1 #email{
 	float: right;
 }
 .left #subm input{
@@ -643,6 +636,63 @@ textarea{
 .slide1Img,.slide2Img,.slide3Img,.slide4Img{
 	display: none;
 }
+
+.teaDownMask{
+	font-size: 12px;
+	line-height: 24px;
+	height: 70%;
+    overflow-y: auto;
+    width: 75%;
+}
+.teaDownMask strong{
+	font-size: 14px;
+}
+.teaDownMask .title{
+	text-align: left;
+}
+.Pbox{
+	height: 100%;
+}
+.teaDownMask::-webkit-scrollbar{
+	width: 10px;
+    background: #fff;
+    border-radius: 10px;
+}
+.teaDownMask::-webkit-scrollbar-thumb  {
+    background: deepskyblue;
+    border-radius: 10px;
+}
+.teaDownMask .titS{
+	font-size: 17px;
+}
+.teaDownMask .title{
+	height: 40px;
+	line-height: 40px;
+	font-size: 20px;
+}
+.slide2 .conP1,.slide3 .conP1,.slide4 .conP1,.whyBox p{
+	margin-left: 0;
+}
+.whyBox .tit,.whyBox .con1{
+	text-align: center;
+}
+.whyBox .con1{
+	width: 100%;
+}
+.teaDownMask .part1,.teaDownMask .part2,.teaDownMask .part3{
+	width: 30%;
+}
+.teaDownMask .part1{
+	float: left;
+}
+.teaDownMask .part2{
+	float: left;
+	margin-left: 5%;
+}
+.teaDownMask .part3{
+	float: right;
+}
+
 }
 
 /*兼容移动端样式*/
@@ -701,7 +751,7 @@ textarea{
 	    width: 100%;
 	    height: 100%;
 	    overflow: hidden;
-	    background: url(../img/2banner.jpg) no-repeat -0.5rem top;
+	    background: url(../img/banner.jpg) no-repeat -1rem top;
 	    background-size: cover;
 	}
 	.banner img{
@@ -712,7 +762,6 @@ textarea{
 	.banner #con{
 		font-family: arial;
 		width: 100%;
-		height: 1.08rem;
 		color: #fff;
 		font-size: 0.15rem;
 		overflow: hidden;
@@ -722,6 +771,7 @@ textarea{
 		position: absolute;
 		bottom: 0;
 	    left: 0;
+	    padding-bottom:10px;
 	}
 	.banner #con p{
 		margin-left: 24px;
@@ -769,7 +819,7 @@ textarea{
 	    height: 2.2rem;
 	    position: absolute;
 	    left: 0;
-	    bottom: 1.8rem;
+	    bottom: 1rem;
 	}
 	.lun2Box .down img{
 		width: 100%;
@@ -840,10 +890,11 @@ textarea{
 		display: block;
 	}
 	.slide2Img{
-		width: 100%;
-  	 	height: 2.34rem;
-		position: absolute;
-		left: 0;
+	    width: 100%;
+	    height: 2rem;
+	    position: absolute;
+	    left: 0;
+	    bottom: 0.7rem;
 		bottom: 0.95rem;
 	}
 	.Pbox{
@@ -1097,7 +1148,7 @@ textarea{
 	    float: left;
 	    width: 1.6rem;
 	}
-	.left1 #emai {
+	.left1 #email {
 	    float: right;
 	    width: 1.6rem;
 	}
@@ -1127,7 +1178,7 @@ textarea{
 	    border: 1px solid #00426c;
 	}
 	.left #subm {
-	    width: 0.8rem;
+	    width: 1rem;
 	    height: 0.22rem;
 	    text-align: center;
 	    line-height: 0.22rem;
@@ -1184,7 +1235,7 @@ textarea{
 	.number1 img {
 	    width: 0.13rem;
 	    height: 0.13rem;
-        margin-left: 0.6rem;
+        margin-left: 0.8rem;
 	}
 	.number2 img {
 	    width: 0.15rem;
@@ -1329,6 +1380,71 @@ textarea{
 		cursor: pointer;
 	    margin-top: 0.1rem;
 	}
+	
+	
+	.teaDownMask{
+	font-size: 0.12rem;
+	line-height: 0.24rem;
+    height: 2rem;
+    padding: 0 0.24rem;
+    overflow-y: auto;
+}
+.teaDownMask strong{
+	font-size: 0.14rem;
+}
+.teaDownMask .title{
+	text-align: left;
+}
+.Pbox{
+	height: 100%;
+}
+.teaDownMask::-webkit-scrollbar{
+	width: 0.15rem;
+    background: transparent;
+    border-radius: 0.15rem;
+}
+.teaDownMask::-webkit-scrollbar-thumb  {
+    background: deepskyblue;
+    border-radius: 0.1rem;
+}
+.teaDownMask .titS{
+	font-size: 0.17rem;
+}
+.teaDownMask .title{
+	height: 0.3rem;
+	line-height: 0.4rem;
+	font-size: 0.2rem;
+}
+.slide2 .conP1,.slide3 .conP1,.slide4 .conP1,.whyBox p{
+	margin-left: 0;
+}
+.whyBox .tit,.whyBox .con1{
+	text-align: center;
+}
+.whyBox .con1{
+	width: 94%;
+}
+.slide1 .title{
+	margin-top: 0;
+	margin-bottom: 0;
+}	
+.slide1 p{
+	padding: 0;
+}
+.slide1 .titleSpecial {
+	margin-top: 0.78rem;
+    margin-bottom: 0.14rem;
+}
+
+.teaDownMask::-webkit-scrollbar-button {
+	background-color:#FF7677;
+	border-radius: 0.15rem;
+}
+
+.top10{
+	display:none;
+}
+	
 }
 
 .seq{

@@ -169,14 +169,14 @@ var interview = {
 		    }
 		});
 	},
-	forward : function(resumeId,step,decline){
+	forward : function(resumeId,step,arrivedDate){
 		var data = {};
-		if(decline){
-			data.prototype.decline = decline;
+		if(arrivedDate){
+			data["arrivedDate"] = arrivedDate;
 		}
 		$.ajax({
 			url:interview.baseUrl + "/interview/"+ resumeId +"/"+step+"/update",
-			type:"PUT",
+			type:"POST",
 			dataType:"json",
 			data:data,
 			success : function(data){
@@ -206,13 +206,14 @@ function backward(resumeId,step){
 	interview.forward(resumeId, step-1);
 }
 
-function forward(resumeId,step){
-	interview.forward(resumeId, step+1);
+function forward(resumeId,step,arriveDate){
+	alert(arriveDate);
+	interview.forward(resumeId, step+1,arriveDate);
 	
 }
 
 function accepted(decline,resumeId){
-	forward()
+	forward();
 }
 
 function checkNull(val){
@@ -258,9 +259,11 @@ function showMoreInfo(resumeId,step){
 				
 				$("#pre").on('click',function(){
 					backward(resumeId, step);
+					$(".close-reveal").click();
 				});
 				$("#clo").on('click',function(){
-					forward(resumeId,step);
+					forward(resumeId,step,$("#d_lastDate").val());
+					$(".close-reveal").click();
 				});
 			}else{
 				alert(data.message);

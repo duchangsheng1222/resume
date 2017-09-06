@@ -8,11 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/manage.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/reveal.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/messageAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/js/layui/layui.css"/>
 	<link href="${pageContext.request.contextPath }/static/js/table/tableViewer.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/table/tableViewer.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/resume/interview.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-reveal/jquery.reveal.js"></script>
+	<script src="${pageContext.request.contextPath }/static/js/layui/layui.js"></script>
 	<title>sign in</title>
 	<script>
 var list=new QueryList("line_list","");
@@ -40,6 +42,38 @@ var list=new QueryList("line_list","");
 			interview.list(fillTable);
 		});
 		
+		//生日
+		layui.use('laydate', function(){
+			var laydate = layui.laydate;
+			var start = {
+				min: laydate.now()
+				,max: '2099-06-16 23:59:59'
+				,istoday: false
+				,choose: function(datas){
+				end.min = datas; //开始日选好后，重置结束日的最小日期
+				end.start = datas; //将结束日的初始值设定为开始日
+				}
+			};
+			var end = {
+				 min: laydate.now()
+					 
+				 ,max: '2099-06-16 23:59:59'
+				 ,istoday: false
+				 ,choose: function(datas){
+				  start.max = datas; //结束日选好后，重置开始日的最大日期
+				 }
+			};
+
+			
+			$('#d_lastDate').on('focus',function(){
+				start.elem = this;
+		 		laydate(start);
+			});
+			$('#d_lastDate').on('click',function(){
+				start.elem = this;
+		 		laydate(start);
+			});
+		});
 		
 	});
 	
@@ -190,7 +224,7 @@ var list=new QueryList("line_list","");
 					<span>Other positions of consideration</span><em id="d_otherPositions"></em>
 				</p>
 				<p>
-					<span>Last date to China</span><em id="d_lastDate"></em>
+					<span>Last date to China</span><em><input type="text" id="d_lastDate" placeholder=""></em>
 				</p>
 				<p>
 					<span>Count down</span><em id="d_count_down"></em>

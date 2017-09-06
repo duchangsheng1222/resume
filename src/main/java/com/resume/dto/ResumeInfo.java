@@ -89,6 +89,8 @@ public class ResumeInfo implements Serializable {
 	
 	private Date updateTime;
 	
+	private String recommended;
+	
 	private List<ResumeFile> resumeFiles;
 	
 	private ResumeFile video;
@@ -285,6 +287,14 @@ public class ResumeInfo implements Serializable {
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
+	}
+
+	public String getRecommended() {
+		return recommended;
+	}
+
+	public void setRecommended(String recommended) {
+		this.recommended = recommended;
 	}
 	
 	

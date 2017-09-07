@@ -169,10 +169,13 @@ var interview = {
 		    }
 		});
 	},
-	forward : function(resumeId,step,arrivedDate){
+	forward : function(resumeId,step,arrivedDate,accepted){
 		var data = {};
 		if(arrivedDate){
 			data["arrivedDate"] = arrivedDate;
+		}
+		if(accepted){
+			data["accepted"] = accepted;
 		}
 		$.ajax({
 			url:interview.baseUrl + "/interview/"+ resumeId +"/"+step+"/update",
@@ -182,6 +185,37 @@ var interview = {
 			success : function(data){
 				if(data.status == 1){
 					interview.list(fillTable);
+				}else{
+					alert(data.message);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+		    }
+		});
+	},
+	finishStep : function(resumeId,step,accepted,visaDate,place,flightDate){
+		var data = {};
+		if(accepted != undefined && accepted != null){
+			data["accepted"] = accepted;
+		}
+		if(visaDate != undefined && visaDate != null){
+			data["visaDate"] = visaDate;
+		}
+		if(place != undefined && place != null){
+			data["place"] = place;
+		}
+		if(flightDate != undefined && flightDate != null){
+			data["flightDate"] = flightDate;
+		}
+		$.ajax({
+			url:interview.baseUrl + "/interview/"+ resumeId +"/"+step+"/update",
+			type:"POST",
+			dataType:"json",
+			data:data,
+			success : function(data){
+				if(data.status == 1){
+					window.location.href = interview.baseUrl + "/interview/page";
 				}else{
 					alert(data.message);
 				}
@@ -207,13 +241,23 @@ function backward(resumeId,step){
 }
 
 function forward(resumeId,step,arriveDate){
-	alert(arriveDate);
 	interview.forward(resumeId, step+1,arriveDate);
 	
 }
 
-function accepted(decline,resumeId){
-	forward();
+function accepted(accepted,resumeId){
+	interview.finishStep(resumeId,9,accepted);
+}
+
+function reveiveVisa(resumeId){
+	var visaDate = $("#up12").val();
+	interview.finishStep(resumeId,12,null,visaDate);
+}
+
+function uploadFlight(resumeId){
+	var place = $("#place").val();
+	var flightDate = $("#flightDate").val();
+	interview.finishStep(resumeId,12,null,null,place,flightDate);
 }
 
 function checkNull(val){
@@ -225,6 +269,22 @@ function checkNull(val){
 
 function showMoreInfo(resumeId,step){
 	//TODO show info
+	
+	Date.prototype.Format = function (fmt) { //author: meizz 
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	};
 	
 	$.ajax({
 		url:interview.baseUrl + "/interview/"+resumeId +"/detail",
@@ -257,11 +317,26 @@ function showMoreInfo(resumeId,step){
 				if("m" == checkNull(resume.gender)){
 					$("#d_gender").html("Male");
 				}else if("f" == checkNull(resume.gender)){
-					$("#d_gender").html("Fmale");
+					$("#d_gender").html("Female");
 				}if("" == checkNull(resume.gender)){
 					$("#d_gender").html("Other");
 				} 
-				$("#d_lastDate").val(checkNull(flow.arrivedDate))
+				var lastDate = checkNull(flow.arrivedDate);
+				if("" != lastDate){
+					$("#d_lastDate").val(new Date(lastDate).Format("yyyy-MM-dd"));
+				}
+				
+				var countDown = lastDate - new Date().getTime();
+				if(countDown < 0){
+					$("#d_count_down").html(0 + "days");
+				}else{
+					$("#d_count_down").html(Math.ceil(countDown/24/60/60/1000) + " days");
+				}
+				
+				$("#d_vis_date").html(checkNull(flow.visaDate));
+//				$("#d_vis_date").html(checkNull(flow.visaDate));
+				
+				
 				$("#pre").on('click',function(){
 					backward(resumeId, step);
 					$(".close-reveal").click();

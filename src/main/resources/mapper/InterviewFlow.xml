@@ -31,6 +31,12 @@
 		<if test="visaDate != null">
 			,visa_date = #{visaDate}
 		</if>
+		<if test="place != null">
+			,place = #{place}
+		</if>
+		<if test="flightDate != null">
+			,flight_date = #{flightDate}
+		</if>
 		 where resume_id=#{resumeId}		
 	</update>
 	

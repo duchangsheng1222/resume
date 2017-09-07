@@ -64,7 +64,7 @@ public class InterviewFlowController extends AbstractController{
 	
 	@ResponseBody
 	@RequestMapping(value="/{resumeId}/{step}/update",method=RequestMethod.POST)
-	public ResponseModel updateInterview(@PathVariable("step")Integer step,@PathVariable("resumeId")Long resumeId,Date arrivedDate,String accepted,Date visaDate,String flightDate){
+	public ResponseModel updateInterview(@PathVariable("step")Integer step,@PathVariable("resumeId")Long resumeId,Date arrivedDate,String accepted,Date visaDate,Date flightDate,String place){
 		log.info("@ interview/page id:{}",new Object[]{resumeId});
 		BaseResponse resp = new BaseResponse();
 		if(null == step || null == resumeId){
@@ -87,6 +87,8 @@ public class InterviewFlowController extends AbstractController{
 		interviewFlow.setAccepted(accepted);
 		interviewFlow.setArrivedDate(arrivedDate);
 		interviewFlow.setVisaDate(visaDate);
+		interviewFlow.setFlightDate(flightDate);
+		interviewFlow.setPlace(place);
 		interviewFlowService.updateFlowStatus(interviewFlow);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}

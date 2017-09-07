@@ -23,6 +23,10 @@ public class InterviewFlow implements Serializable{
 	
 	private String refused;
 	
+	private String place;
+	
+	private Date flightDate;
+	
 	private long creatorId;
 	
 	private long updaterId;
@@ -32,6 +36,8 @@ public class InterviewFlow implements Serializable{
 	private Date updateTime;
 	
 	private ResumeInfo resumeInfo;
+	
+	private ResumeFile flightTicket;
 
 	public long getId() {
 		return id;
@@ -135,6 +141,30 @@ public class InterviewFlow implements Serializable{
 
 	public void setResumeInfo(ResumeInfo resumeInfo) {
 		this.resumeInfo = resumeInfo;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public Date getFlightDate() {
+		return flightDate;
+	}
+
+	public void setFlightDate(Date flightDate) {
+		this.flightDate = flightDate;
+	}
+
+	public ResumeFile getFlightTicket() {
+		return flightTicket;
+	}
+
+	public void setFlightTicket(ResumeFile flightTicket) {
+		this.flightTicket = flightTicket;
 	}
 	
 	

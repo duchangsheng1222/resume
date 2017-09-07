@@ -81,7 +81,6 @@
 		
 		//第13步上传文件
 		$('#up13Input').change(function(){
-			console.log(1)
 			var filePath=$(this).val();
 	        var arr=filePath.split('\\');
 	        var fileName=arr[arr.length-1];
@@ -266,7 +265,7 @@
 						<em>
 							<i>Waiting for the job offer</i>
 							<i class="i2">Last expected date of arrival to China 20xx/month/date</i>
-							<input type="button" name="" onclick="accepted(0);" id="" value="Accept the job offer" /><a href="javascript:void(0);" onclick="accepted(1);">Decline</a>
+							<input type="button" name="" onclick="accepted(1,${resumeId});" id="" value="Accept the job offer" /><a href="javascript:void(0);" onclick="accepted(0,${resumeId});">Decline</a>
 						</em>
 					</div>
 				</div>
@@ -309,7 +308,7 @@
 						<div class="gou"></div><span class="num">12<i></i></span>
 						<em>
 							<i>Visa succeed</i>
-							<i class="i2"><i class="i21">Visa received date:</i><input type="text" name="" id="up12" value="" /><span>Received visa</span></i>
+							<i class="i2"><i class="i21">Visa received date:</i><input type="text" name="" id="up12" value="" /><span onclick="reveiveVisa(${resumeId})">Received visa</span></i>
 						</em>
 					</div>
 				</div>

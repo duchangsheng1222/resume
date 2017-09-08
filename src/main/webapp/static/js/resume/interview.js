@@ -1,4 +1,19 @@
 
+Date.prototype.Format = function (fmt) { //author: lishuai 
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	};
 
 var interview = {
 	baseUrl : "",
@@ -55,7 +70,17 @@ var interview = {
 						nowHeight += height;
 					}
 					$('.now').height(nowHeight);
-					
+					var classAry = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen"];
+					for (var i = 0; i < step; i++) {
+						$('.'+classAry[i]+' .num i').css("display",'block');
+					}
+					if(step < 14){
+						$('.'+classAry[step]+' .num').addClass('bigNow');
+						$('.'+classAry[step]+' .num').next('em').addClass('bigNowEm');
+					}
+					if(null != flow.visaDate){
+						$("#up12").val(new Date(flow.visaDate).Format("yyyy-MM-dd"));
+					}
 					
 				}else{
 					alert(data.message);
@@ -74,6 +99,7 @@ var interview = {
 			data:{step:interview.currentStep},
 			success : function(data){
 				if(data.status == 1){
+					var fileMap = new Map();
 					var datas = new Array();
 					for (var i = 0; i < data.data.length; i++) {
 						var interview = data.data[i];
@@ -83,14 +109,16 @@ var interview = {
 						
 						var resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' data-animation='none'>download new</a>";
 						if(null != interview.resumeInfo.resumeFiles){
+							var downloadHtml = "";
 							for (var j = 0; j < interview.resumeInfo.resumeFiles.length; j++) {
 								var file = interview.resumeInfo.resumeFiles[j];
-								$("#myDownload").append("<p><a href='#'>"+file.fileName+"</a></p>");
+								downloadHtml += ("<p><a href='javascript:void(0);' onclick='interview.download(null,"+file.id+")'>"+file.fileName+"</a></p>");
 							}
 							if(interview.resumeInfo.resumeFiles.length > 1){
-								resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload'>download new</a>";
+								fileMap.put(interview.resumeId,downloadHtml);
+								resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' resumeId="+interview.resumeId+">download new</a>";
 							}else{
-								resumeDown = "<a href='javascript:void(0);'  data-reveal-id='myDownload'>download</a>";
+								resumeDown = "<a href='javascript:void(0);'  onclick='interview.download(this,"+interview.resumeInfo.resumeFiles[0].id+")'>download</a>";
 							}
 						}
 						
@@ -131,6 +159,7 @@ var interview = {
 					$('a[data-reveal-id]').on('click', function(e) {
 						e.preventDefault();
 						var modalLocation = $(this).attr('data-reveal-id');
+						$('#downloadContent').html(fileMap.get($(this).attr('resumeId')));
 						$('#'+modalLocation).reveal($(this).data());
 					});
 
@@ -224,17 +253,19 @@ var interview = {
 				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
 		    }
 		});
+	},
+	
+	download : function(element,id){
+		if(null != element){
+			element.innerHTML = "download";
+			element.css("color","black");
+		}
+		window.open(interview.baseUrl + "/upload/" + id +"/download" );
 	}
 	
 	
 	
 };
-
-function download(elementId,fileAddress){
-	$("#"+elementId).html("download");
-	$("#"+elementId).css("color","black");
-//	window.open(interview.baseUrl );
-}
 
 function backward(resumeId,step){
 	interview.forward(resumeId, step-1);
@@ -269,22 +300,6 @@ function checkNull(val){
 
 function showMoreInfo(resumeId,step){
 	//TODO show info
-	
-	Date.prototype.Format = function (fmt) { //author: meizz 
-	    var o = {
-	        "M+": this.getMonth() + 1, //月份 
-	        "d+": this.getDate(), //日 
-	        "h+": this.getHours(), //小时 
-	        "m+": this.getMinutes(), //分 
-	        "s+": this.getSeconds(), //秒 
-	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-	        "S": this.getMilliseconds() //毫秒 
-	    };
-	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-	    for (var k in o)
-	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-	    return fmt;
-	};
 	
 	$.ajax({
 		url:interview.baseUrl + "/interview/"+resumeId +"/detail",

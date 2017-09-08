@@ -29,4 +29,6 @@ public interface ResumeFileDao {
 	 * @param id
 	 */
 	void deleteFile(@Param("id")long id);
+	
+	ResumeFilePo queryById(@Param("id")long id);
 }

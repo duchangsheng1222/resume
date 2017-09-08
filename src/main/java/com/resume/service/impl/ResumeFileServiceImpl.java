@@ -44,5 +44,11 @@ public class ResumeFileServiceImpl implements ResumeFileService {
 	public void deleteFile(long id) {
 		resumeFileDao.deleteFile(id);
 	}
+	
+	@Override
+	public ResumeFile queryById(long id) {
+		ResumeFilePo resumeFilePo = resumeFileDao.queryById(id);
+		return BeanUtil.createCopy(resumeFilePo, ResumeFile.class);
+	}
 
 }

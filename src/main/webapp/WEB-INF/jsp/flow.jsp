@@ -85,7 +85,7 @@
 	        var arr=filePath.split('\\');
 	        var fileName=arr[arr.length-1];
 			$('#up13label').append("&nbsp;&nbsp;&nbsp;"+fileName);
-		});
+		})
 		
 		$('#uploadVideoBtn').click(function(){
 			$("#threeForm").submit();
@@ -156,6 +156,8 @@
 				<p class="down">Message</p>
 			</div>
 			
+			<!--添加禁止操作的蒙版-->
+			<div id="mask"></div>
 			
 			<!--以中间棍为基础-->
 			<div class="lineCenter">
@@ -195,11 +197,15 @@
 						<form id="threeForm" action="${pageContext.request.contextPath }/upload/video" method="post"  enctype="multipart/form-data">
 						<em>
 							<i>Submit introduction video</i>
-								<i class="i2"><i class="i21">Submit introduction video </i>
+								<i class="i2 i8"><i class="i21">Submit introduction video </i>
 								<input type="hidden" name="resumeId" value="${resumeId }">
-								<input type="file" name="video" id="up1" value="upload" /><label id="up1Label" for="up1"></label><span id="uploadVideoBtn">upload</span></i>
+								<span id="uploadVideoBtn">upload</span><input type="file" name="video" id="up1" value="upload" /><label id="up1Label" for="up1"></label></i>
+								<p id="up1P"><i><img src="${pageContext.request.contextPath }/static/img/del.png"/>小电影.avi</i></p>
 								
-								<i class="i2"><i class="i22">Submit certificates</i> <input type="file" name="certificates" id="up2" value="upload" /><label  id="up2Label" for="up2"></label><span  id="uploadCerBtn">upload</span></i>
+								<i class="i2"><i class="i22">Submit certificates</i> 
+								<span  id="uploadCerBtn">upload</span><input type="file" name="certificates" id="up2" value="upload" /><label  id="up2Label" for="up2"></label></i>
+								<p id="up2P">小电影2.avi</p>
+								<input id="btb" type="button" name="" id="finishUpload" value="Finish upload"/>
 						</em>
 						</form>
 					</div>
@@ -264,7 +270,7 @@
 						<div class="gou"></div><span class="num">09<i></i></span>
 						<em>
 							<i>Waiting for the job offer</i>
-							<i class="i2">Last expected date of arrival to China 20xx/month/date</i>
+							<i class="i2">Last expected date of arrival to China 123456</i>
 							<input type="button" name="" onclick="accepted(1,${resumeId});" id="" value="Accept the job offer" /><a href="javascript:void(0);" onclick="accepted(0,${resumeId});">Decline</a>
 						</em>
 					</div>
@@ -279,7 +285,7 @@
 						<div class="gou"></div><span class="num">10<i></i></span>
 						<em>
 							<i>Offer accepted</i>
-							<i>Count down 68 days</i>
+							<i>Count down <i>68</i> days</i>
 							<i class="i2">Preparing visa material</i>
 						</em>
 					</div>
@@ -322,8 +328,10 @@
 						<div class="gou"></div><span class="num">13<i></i></span>
 						<em>
 							<i>Determine China arrival date</i>
-							<i class="i2"><i class="i22">Fight ticket image upload</i> <input type="file" name="" id="up13Input" value="upload" /><label id="up13label" for="up13Input"></label><span>upload</span></i>
-							<i class="i2 i3"><i class="i21">Fight landing place and date</i><input type="text" name="" id="up13" value="" /><span>Submit</span></i>
+							<i class="i2"><i class="i22">Fight ticket image upload</i><span class="inutspanBox"><input type="file" name="" id="up13Input" value="upload" /><label id="up13label" for="up13Input"></label><span>upload</span></span></i>
+							<i class="i2 i3"><i class="i21">Fight landing place</i><span class="inutspanBox"><input type="text" name="" id="up13Place" value="" /></span></i>
+							<i class="i2 i3"><i class="i21">Fight landing date</i><span class="inutspanBox"><input type="text" name="" id="up13" value="" /></span></i>
+							<input id="subt" type="button" onclick="" value="submit"/>
 						</em>
 					</div>
 				</div>

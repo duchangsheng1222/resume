@@ -35,5 +35,7 @@ public interface ResumeFileService {
 	 */
 	void deleteFile(long id);
 
+	ResumeFile queryById(long id);
+
 
 }

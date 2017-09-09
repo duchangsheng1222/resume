@@ -9,7 +9,7 @@ public class IntroductionVideoFile extends BaseFile{
 	@Override
 	protected String getModulePath() {
 		
-		return "/resume/introduction/video/";
+		return "/files/resume/introduction/video/";
 	}
 
 }

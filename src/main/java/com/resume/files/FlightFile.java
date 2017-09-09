@@ -1,15 +1,15 @@
 package com.resume.files;
 
-public class ResumeFile extends BaseFile{
+public class FlightFile extends BaseFile{
 
-	public ResumeFile(String fileName) {
+	public FlightFile(String fileName) {
 		super(fileName);
 	}
 
 	@Override
 	protected String getModulePath() {
 		
-		return "/files/resume/doc/";
+		return "/files/resume/flight/";
 	}
 
 }

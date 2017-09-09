@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/table/tableViewer.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/resume/interview.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/resume/map.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-reveal/jquery.reveal.js"></script>
 	<script src="${pageContext.request.contextPath }/static/js/layui/layui.js"></script>
 	<title>sign in</title>
@@ -81,7 +82,8 @@ var list=new QueryList("line_list","");
 		list.callback(datas);
 		$(".thorder").addClass("ordercol");
 	}
-		
+	
+
 	
 	</script>
 	

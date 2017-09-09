@@ -91,6 +91,12 @@ public class UploadController extends AbstractController{
 			model.addAttribute("error", "this is not your resume");
 			return "redirect:/upload/"+resumeId+"/doc";
 		}
+		
+		List<ResumeFile> docs = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.RESUME_DOC.getCode());
+		if(null != docs && docs.size() >= 3){
+			model.addAttribute("error", "Upload up to three files at most");
+			return "redirect:/upload/"+resumeId+"/doc";
+		}
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
 					.getFile("resumeFile");
@@ -138,9 +144,14 @@ public class UploadController extends AbstractController{
 			model.addAttribute("error", "this is not your resume");
 			return "redirect:/upload/"+resumeId+"/doc";
 		}
+		List<ResumeFile> photos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.PHOTO.getCode());
+		if(null != photos && photos.size() >= 3){
+			model.addAttribute("error", "Upload up to three files at most");
+			return "redirect:/upload/"+resumeId+"/doc";
+		}
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
-					.getFile("photo");
+					.getFile("photoFile");
 			try {
 				String filePath = generateResumeFile(filedata,FileType.PHOTO);
 				String fileName = iso2Utf8(filedata.getOriginalFilename());
@@ -195,6 +206,11 @@ public class UploadController extends AbstractController{
 					.getFile("certification");
 			if(null != filedata){
 				try {
+					List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.INTRODUCTION_VIDEO.getCode());
+					if(null != videos && videos.size() >= 3){
+						model.addAttribute("error", "Upload up to three files at most");
+						return "redirect:/upload/"+resumeId+"/doc";
+					}
 					String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
 					String fileName = iso2Utf8(filedata.getOriginalFilename());
 					if (filePath != null) {
@@ -213,6 +229,11 @@ public class UploadController extends AbstractController{
 				}
 			}else if(null != certificationFiledata){
 				try {
+					List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.CERTIFICATION.getCode());
+					if(null != videos && videos.size() >= 3){
+						model.addAttribute("error", "Upload up to three files at most");
+						return "redirect:/upload/"+resumeId+"/doc";
+					}
 					String filePath = generateResumeFile(filedata,FileType.CERTIFICATION);
 					String fileName = iso2Utf8(certificationFiledata.getOriginalFilename());
 					if (filePath != null) {
@@ -330,6 +351,27 @@ public class UploadController extends AbstractController{
 		
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
+	
+	@RequestMapping("/{id}/download")
+	public String download(Model model,@PathVariable("id")Long id){
+		
+		ResumeFile resumeFile = resumeFileService.queryById(id);
+		if(null == resumeFile){
+			return "";
+		}
+		return "redirect:" + resumeFile.getFileAddress();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/{id}/delete",method=RequestMethod.DELETE)
+	public ResponseModel delete(Model model,@PathVariable("id")Long id){
+		
+		BaseResponse resp = new BaseResponse();
+		resumeFileService.deleteFile(id);
+		
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
 
 	private void saveFile(Long resumeId, String fileName,User user, String filePath,FileType fileType) {
 		com.resume.dto.ResumeFile fileDto = new com.resume.dto.ResumeFile();

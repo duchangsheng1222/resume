@@ -211,7 +211,7 @@ body,html{
 	display: none;
 }
 .three .i2 label{
-	float: left;
+	float: right;
 	width: 190px;
 	height: 20px;
 	background: #fff;
@@ -222,18 +222,12 @@ body,html{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.i21{
-	margin-right: 7px;
-}
-.i22{
-	margin-right: 52px;
-}
 .rightDetail em .i2 span{
 	width: 54px;
 	height: 20px;
 	border-top: 1px solid #7fc0e9;
 	border-bottom:  1px solid #7fc0e9;
-	float: left;
+	float: right;
 	display: block;
 	line-height: 20px;
 	text-align: center;
@@ -569,7 +563,6 @@ body,html{
 	border-radius: 15px;
 }
 
-
 @-webkit-keyframes twinkling{ /*透明度由0到1*/
 	0%{
 		opacity:0.4; /*透明度为0*/
@@ -584,4 +577,106 @@ body,html{
 }
 
 
+/*===========================新版优化=================================*/
+/*正在编辑的步骤放大*/
+.rightDetail .bigNow{
+	width: 101px;
+	height: 101px;
+	font-size: 40px;
+	line-height: 100px;
+	margin-right: 20px;
+	margin-top: -30px;
+}
+.rightDetail .bigNowEm{
+	font-size: 22px;
+}
+.lineCenter{
+	left: 27%;
+}
+.three .i2{
+	width: 420px;
+	overflow: hidden;
+	margin: 0;
+}
+.three .i2 input{
+	float: right;
+}
+.three .rightDetail #btb{
+	width: 100px;
+	height: 22px;
+	border: 0;
+	background: #7fb6df;
+	color: #fff;
+	font-size: 10px;
+	margin-left: 220px;
+}
+.thirteen .rightDetail .i2{
+	overflow: hidden;
+}
+.thirteen .rightDetail .i2 .inutspanBox{
+	float: right;
+	width: 156px;
+}
+.thirteen em .i2 input{
+	width: 100%;
+}
+.thirteen #subt{
+	width: 54px;
+    height: 20px;
+    border-top: 1px solid #7fc0e9;
+    border-bottom: 1px solid #7fc0e9;
+    float: right;
+    display: block;
+    line-height: 20px;
+    color: #fff;
+    background: #7fc0e9;
+    cursor: pointer;
+    margin-top: 10px;
+}
 
+.three .rightDetail #up1P,#up2P{
+	height: 30px;
+	margin-left: 177px;
+	margin-top: 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 485px;
+	font-size: 14px;
+}
+.rightDetail{
+	width: 850px;
+}
+#up1P i,#up2P i{
+	position: relative;
+	display: inline;
+}
+.three .rightDetail em{
+	width: 650px;
+}
+.three .i8{
+	margin-top: 10px;
+}
+#mask{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: transprent;
+	height: 200px;
+	z-index: 10;
+}
+.nine .rightDetail em a{
+	font-size: 14px;
+}
+
+#up1P i img,#up2P i img{
+	position: absolute;
+	display: block;
+	width: 15px;
+	height: 15px;
+	right: -15px;
+	top: 0;
+	cursor: pointer;
+	z-index: 2;
+}

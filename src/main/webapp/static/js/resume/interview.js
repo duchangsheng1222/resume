@@ -1,4 +1,19 @@
 
+Date.prototype.Format = function (fmt) { //author: lishuai 
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	};
 
 var interview = {
 	baseUrl : "",
@@ -55,7 +70,17 @@ var interview = {
 						nowHeight += height;
 					}
 					$('.now').height(nowHeight);
-					
+					var classAry = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen"];
+					for (var i = 0; i < step; i++) {
+						$('.'+classAry[i]+' .num i').css("display",'block');
+					}
+					if(step < 14){
+						$('.'+classAry[step]+' .num').addClass('bigNow');
+						$('.'+classAry[step]+' .num').next('em').addClass('bigNowEm');
+					}
+					if(null != flow.visaDate){
+						$("#up12").val(new Date(flow.visaDate).Format("yyyy-MM-dd"));
+					}
 					
 				}else{
 					alert(data.message);
@@ -74,6 +99,7 @@ var interview = {
 			data:{step:interview.currentStep},
 			success : function(data){
 				if(data.status == 1){
+					var fileMap = new Map();
 					var datas = new Array();
 					for (var i = 0; i < data.data.length; i++) {
 						var interview = data.data[i];
@@ -83,14 +109,16 @@ var interview = {
 						
 						var resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' data-animation='none'>download new</a>";
 						if(null != interview.resumeInfo.resumeFiles){
+							var downloadHtml = "";
 							for (var j = 0; j < interview.resumeInfo.resumeFiles.length; j++) {
 								var file = interview.resumeInfo.resumeFiles[j];
-								$("#myDownload").append("<p><a href='#'>"+file.fileName+"</a></p>");
+								downloadHtml += ("<p><a href='javascript:void(0);' onclick='interview.download(null,"+file.id+")'>"+file.fileName+"</a></p>");
 							}
 							if(interview.resumeInfo.resumeFiles.length > 1){
-								resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload'>download new</a>";
+								fileMap.put(interview.resumeId,downloadHtml);
+								resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' resumeId="+interview.resumeId+">download new</a>";
 							}else{
-								resumeDown = "<a href='javascript:void(0);'  data-reveal-id='myDownload'>download</a>";
+								resumeDown = "<a href='javascript:void(0);'  onclick='interview.download(this,"+interview.resumeInfo.resumeFiles[0].id+")'>download</a>";
 							}
 						}
 						
@@ -131,6 +159,7 @@ var interview = {
 					$('a[data-reveal-id]').on('click', function(e) {
 						e.preventDefault();
 						var modalLocation = $(this).attr('data-reveal-id');
+						$('#downloadContent').html(fileMap.get($(this).attr('resumeId')));
 						$('#'+modalLocation).reveal($(this).data());
 					});
 
@@ -169,10 +198,13 @@ var interview = {
 		    }
 		});
 	},
-	forward : function(resumeId,step,arrivedDate){
+	forward : function(resumeId,step,arrivedDate,accepted){
 		var data = {};
 		if(arrivedDate){
 			data["arrivedDate"] = arrivedDate;
+		}
+		if(accepted){
+			data["accepted"] = accepted;
 		}
 		$.ajax({
 			url:interview.baseUrl + "/interview/"+ resumeId +"/"+step+"/update",
@@ -190,30 +222,73 @@ var interview = {
 				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
 		    }
 		});
+	},
+	finishStep : function(resumeId,step,accepted,visaDate,place,flightDate){
+		var data = {};
+		if(accepted != undefined && accepted != null){
+			data["accepted"] = accepted;
+		}
+		if(visaDate != undefined && visaDate != null){
+			data["visaDate"] = visaDate;
+		}
+		if(place != undefined && place != null){
+			data["place"] = place;
+		}
+		if(flightDate != undefined && flightDate != null){
+			data["flightDate"] = flightDate;
+		}
+		$.ajax({
+			url:interview.baseUrl + "/interview/"+ resumeId +"/"+step+"/update",
+			type:"POST",
+			dataType:"json",
+			data:data,
+			success : function(data){
+				if(data.status == 1){
+					window.location.href = interview.baseUrl + "/interview/page";
+				}else{
+					alert(data.message);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+		    }
+		});
+	},
+	
+	download : function(element,id){
+		if(null != element){
+			element.innerHTML = "download";
+			element.css("color","black");
+		}
+		window.open(interview.baseUrl + "/upload/" + id +"/download" );
 	}
 	
 	
 	
 };
 
-function download(elementId,fileAddress){
-	$("#"+elementId).html("download");
-	$("#"+elementId).css("color","black");
-//	window.open(interview.baseUrl );
-}
-
 function backward(resumeId,step){
 	interview.forward(resumeId, step-1);
 }
 
 function forward(resumeId,step,arriveDate){
-	alert(arriveDate);
 	interview.forward(resumeId, step+1,arriveDate);
 	
 }
 
-function accepted(decline,resumeId){
-	forward();
+function accepted(accepted,resumeId){
+	interview.finishStep(resumeId,9,accepted);
+}
+
+function reveiveVisa(resumeId){
+	var visaDate = $("#up12").val();
+	interview.finishStep(resumeId,12,null,visaDate);
+}
+
+function uploadFlight(resumeId){
+	var place = $("#place").val();
+	var flightDate = $("#flightDate").val();
+	interview.finishStep(resumeId,12,null,null,place,flightDate);
 }
 
 function checkNull(val){
@@ -257,11 +332,26 @@ function showMoreInfo(resumeId,step){
 				if("m" == checkNull(resume.gender)){
 					$("#d_gender").html("Male");
 				}else if("f" == checkNull(resume.gender)){
-					$("#d_gender").html("Fmale");
+					$("#d_gender").html("Female");
 				}if("" == checkNull(resume.gender)){
 					$("#d_gender").html("Other");
 				} 
-				$("#d_lastDate").val(checkNull(flow.arrivedDate))
+				var lastDate = checkNull(flow.arrivedDate);
+				if("" != lastDate){
+					$("#d_lastDate").val(new Date(lastDate).Format("yyyy-MM-dd"));
+				}
+				
+				var countDown = lastDate - new Date().getTime();
+				if(countDown < 0){
+					$("#d_count_down").html(0 + "days");
+				}else{
+					$("#d_count_down").html(Math.ceil(countDown/24/60/60/1000) + " days");
+				}
+				
+				$("#d_vis_date").html(checkNull(flow.visaDate));
+//				$("#d_vis_date").html(checkNull(flow.visaDate));
+				
+				
 				$("#pre").on('click',function(){
 					backward(resumeId, step);
 					$(".close-reveal").click();

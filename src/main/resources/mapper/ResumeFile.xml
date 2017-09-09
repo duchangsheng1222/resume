@@ -35,6 +35,10 @@
 		update t_resume_file set deleted='1' where id=#{id}
 	</update>
 	
-	
+	<select id="queryById" parameterType="long" resultType="ResumeFilePo">
+		select id, resume_id,user_id, file_address,file_name, file_type, type, deleted
+		from t_resume_file
+		where id = #{id}
+	</select>
 	
 </mapper>

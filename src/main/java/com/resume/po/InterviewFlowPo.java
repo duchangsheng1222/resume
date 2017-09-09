@@ -20,6 +20,10 @@ public class InterviewFlowPo {
 	
 	private String refused;
 	
+	private String place;
+	
+	private Date flightDate;
+	
 	private long creatorId;
 	
 	private long updaterId;
@@ -132,6 +136,22 @@ public class InterviewFlowPo {
 
 	public void setResumeInfoPo(ResumeInfoPo resumeInfoPo) {
 		this.resumeInfoPo = resumeInfoPo;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public Date getFlightDate() {
+		return flightDate;
+	}
+
+	public void setFlightDate(Date flightDate) {
+		this.flightDate = flightDate;
 	}
 	
 	

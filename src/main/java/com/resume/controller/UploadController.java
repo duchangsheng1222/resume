@@ -21,7 +21,10 @@ import com.resume.dto.ResumeFile;
 import com.resume.dto.ResumeInfo;
 import com.resume.enums.FileType;
 import com.resume.files.BaseFile;
+import com.resume.files.CertificationFile;
+import com.resume.files.FlightFile;
 import com.resume.files.IntroductionVideoFile;
+import com.resume.files.PhotoFile;
 import com.resume.response.BaseResponse;
 import com.resume.response.ResponseModel;
 import com.resume.service.ResumeFileService;
@@ -347,16 +350,16 @@ public class UploadController extends AbstractController{
 			if(FileType.INTRODUCTION_VIDEO.equals(fileType)){
 				resumeFile = new IntroductionVideoFile(fileName);
 			}else if(FileType.RESUME_DOC.equals(fileType)){
-				resumeFile = new IntroductionVideoFile(fileName);
+				resumeFile = new com.resume.files.ResumeFile(fileName);
 				
 			}else if(FileType.PHOTO.equals(fileType)){
-				resumeFile = new IntroductionVideoFile(fileName);
+				resumeFile = new PhotoFile(fileName);
 				
 			}else if(FileType.CERTIFICATION.equals(fileType)){
-				resumeFile = new IntroductionVideoFile(fileName);
+				resumeFile = new CertificationFile(fileName);
 				
 			}else if(FileType.FLIGHT_TICKET.equals(fileType)){
-				resumeFile = new IntroductionVideoFile(fileName);
+				resumeFile = new FlightFile(fileName);
 				
 			}
 			if(null != resumeFile){

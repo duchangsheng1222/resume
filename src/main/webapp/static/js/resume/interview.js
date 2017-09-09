@@ -78,6 +78,25 @@ var interview = {
 						$('.'+classAry[step]+' .num').addClass('bigNow');
 						$('.'+classAry[step]+' .num').next('em').addClass('bigNowEm');
 					}
+					if(step >=3 ){
+						$('#finishUpload').remove();
+					}
+					if(step >= 9){
+						$(".nine em input").remove();
+						$(".nine em a").remove();
+						
+					}
+					if(null != flow.arriedDate){
+						$('.nine .i2').html('Last expected date of arrival to China ' + new Date().Format("yyyy-MM-dd"));
+						var countDown = lastDate - new Date().getTime();
+						if(countDown < 0){
+							$('.ten #countDown').html('Count down 0 days');
+						}else{
+							$('.ten #countDown').html("Count down " + Math.ceil(countDown/24/60/60/1000) + " days");
+						}
+					}
+					
+					
 					if(null != flow.visaDate){
 						$("#up12").val(new Date(flow.visaDate).Format("yyyy-MM-dd"));
 					}
@@ -100,6 +119,7 @@ var interview = {
 			success : function(data){
 				if(data.status == 1){
 					var fileMap = new Map();
+					var videoMap = new Map();
 					var datas = new Array();
 					for (var i = 0; i < data.data.length; i++) {
 						var interview = data.data[i];
@@ -123,14 +143,25 @@ var interview = {
 						}
 						
 						var videoDown = "-";
-						if(null != interview.video){
-							if("0" == interview.video.downloaded){
-								
-								videoDown = "<a href='javascript:void(0);' style='color:blue;' onclick='download(\'video_"+interview.resumeId+"\',\'"+
-										interview.video.fileAddress+"\');' id='video_"+interview.resumeId+"'>download new</a>";
-							}else{
-								videoDown = "<a href='javascript:void(0);' onclick='download(\'video_"+interview.resumeId+"\',\'"+interview.video.fileAddress+"\');' id='video_"+interview.resumeId+"'>download</a>";
+						if(null != interview.resumeInfo.videos){
+							var downloadHtml = "";
+							for (var j = 0; j < interview.resumeInfo.videos.length; j++) {
+								var file = interview.resumeInfo.videos[j];
+								downloadHtml += ("<p><a href='javascript:void(0);' onclick='interview.download(null,"+file.id+")'>"+file.fileName+"</a></p>");
 							}
+							if(interview.resumeInfo.videos.length > 1){
+								videoMap.put(interview.resumeId,downloadHtml);
+								videoDown = "<a href='javascript:void(0);' data-reveal-id='myVideoDownload' resumeId="+interview.resumeId+">download new</a>";
+							}else{
+								videoDown = "<a href='javascript:void(0);'  onclick='interview.download(this,"+interview.resumeInfo.videos[0].id+")'>download</a>";
+							}
+//							if("0" == interview.resumeInfo.videos.downloaded){
+//								
+//								videoDown = "<a href='javascript:void(0);' style='color:blue;' onclick='download(\'video_"+interview.resumeId+"\',\'"+
+//										interview.video.fileAddress+"\');' id='video_"+interview.resumeId+"'>download new</a>";
+//							}else{
+//								videoDown = "<a href='javascript:void(0);' onclick='download(\'video_"+interview.resumeId+"\',\'"+interview.video.fileAddress+"\');' id='video_"+interview.resumeId+"'>download</a>";
+//							}
 							
 						}
 						
@@ -254,7 +285,24 @@ var interview = {
 		    }
 		});
 	},
-	
+	getFiles : function(resumeId,type,callback){
+		
+		$.ajax({
+			url:interview.baseUrl + "/upload/files/"+ resumeId +"/"+type,
+			type:"POST",
+			dataType:"json",
+			success : function(data){
+				if(data.status == 1){
+					callback(data.data);
+				}else{
+					alert(data.message);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+		    }
+		});
+	},
 	download : function(element,id){
 		if(null != element){
 			element.innerHTML = "download";
@@ -288,7 +336,7 @@ function reveiveVisa(resumeId){
 function uploadFlight(resumeId){
 	var place = $("#place").val();
 	var flightDate = $("#flightDate").val();
-	interview.finishStep(resumeId,12,null,null,place,flightDate);
+	interview.finishStep(resumeId,13,null,null,place,flightDate);
 }
 
 function checkNull(val){

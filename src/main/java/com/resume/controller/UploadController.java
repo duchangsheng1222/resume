@@ -69,6 +69,17 @@ public class UploadController extends AbstractController{
 		resp.setData(docs);
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
+	@ResponseBody
+	@RequestMapping(value="/files/{resumeId}/{type}",method=RequestMethod.POST)
+	public ResponseModel getFiles(@PathVariable("resumeId")Long resumeId,@PathVariable("type")Integer type){
+		log.info("@ upload/files/list resumeId:{}",new Object[]{resumeId});
+		BaseResponse resp = new BaseResponse();
+		
+		List<ResumeFile> docs = resumeFileService.getResumeFileByResumeIdAndType(resumeId, type);
+		
+		resp.setData(docs);
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
 
 	
 	@RequestMapping(value="/resume",method=RequestMethod.POST)
@@ -204,12 +215,12 @@ public class UploadController extends AbstractController{
 					.getFile("video");
 			MultipartFile certificationFiledata = ((MultipartHttpServletRequest) request)
 					.getFile("certification");
-			if(null != filedata){
+			if(null != filedata && filedata.getSize() != 0){
 				try {
 					List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.INTRODUCTION_VIDEO.getCode());
 					if(null != videos && videos.size() >= 3){
 						model.addAttribute("error", "Upload up to three files at most");
-						return "redirect:/upload/"+resumeId+"/doc";
+						return "redirect:/interview/page";
 					}
 					String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
 					String fileName = iso2Utf8(filedata.getOriginalFilename());
@@ -227,14 +238,14 @@ public class UploadController extends AbstractController{
 					model.addAttribute("resumeId", resumeId);
 					return "redirect:/interview/page";
 				}
-			}else if(null != certificationFiledata){
+			}else if(null != certificationFiledata && certificationFiledata.getSize() != 0){
 				try {
 					List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.CERTIFICATION.getCode());
 					if(null != videos && videos.size() >= 3){
 						model.addAttribute("error", "Upload up to three files at most");
 						return "redirect:/upload/"+resumeId+"/doc";
 					}
-					String filePath = generateResumeFile(filedata,FileType.CERTIFICATION);
+					String filePath = generateResumeFile(certificationFiledata,FileType.CERTIFICATION);
 					String fileName = iso2Utf8(certificationFiledata.getOriginalFilename());
 					if (filePath != null) {
 						saveFile(resumeId,fileName, user, filePath,FileType.CERTIFICATION);
@@ -309,24 +320,28 @@ public class UploadController extends AbstractController{
 		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
-	@ResponseBody
-	@RequestMapping("/ticket")
-	public ResponseModel uploadFlightTicket(Model model, HttpServletRequest request,
+	@RequestMapping(value="/ticket",method=RequestMethod.POST)
+	public String uploadFlightTicket(Model model, HttpServletRequest request,
 			HttpServletResponse response,Long resumeId) {
 		log.info("@ upload/certification resumeId:{}",new Object[]{resumeId});
 		BaseResponse resp = new BaseResponse();
 		if(null == resumeId){
-			return resp.fail("resumeId is not be null");
+			model.addAttribute("error","resumeId is not be null");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
 		if(null == resumeInfo){
-			return resp.fail("resume not exists");
+			model.addAttribute("error","resume not exists");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		//获取当前登录用户
 		User user = (User)SecurityContextUtil.getUserDetails();
 		if(user.getId() != resumeInfo.getCreatorId()){
-			
-			return resp.fail("this is not your resume");
+			model.addAttribute("error","this is not your resume");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
@@ -337,19 +352,26 @@ public class UploadController extends AbstractController{
 				if (filePath != null) {
 					saveFile(resumeId,fileName, user, filePath,FileType.FLIGHT_TICKET);
 				} else {
-					return resp.fail("please choose flight ticket file");
+					model.addAttribute("error","please choose flight ticket file");
+					model.addAttribute("resumeId", resumeId);
+					return "redirect:/interview/page";
 				}
 				
 			} catch (IOException e) {
 				log.error("简历上传失败", e);
-				return resp.fail("flight ticket upload failure");
+				model.addAttribute("error","flight ticket upload failure");
+				model.addAttribute("resumeId", resumeId);
+				return "redirect:/interview/page";
 			}
 		}else{
 			log.error("请求中不包含文件");
-			return resp.fail("please choose flight ticket file");
+			model.addAttribute("error","please choose flight ticket file");
+			model.addAttribute("resumeId", resumeId);
+			return "redirect:/interview/page";
 		}
 		
-		return resp.success(BaseResponse.SUCCESS_MESSAGE);
+		model.addAttribute("resumeId", resumeId);
+		return "redirect:/interview/page";
 	}
 	
 	@RequestMapping("/{id}/download")

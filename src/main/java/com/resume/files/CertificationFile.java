@@ -9,7 +9,7 @@ public class CertificationFile extends BaseFile{
 	@Override
 	protected String getModulePath() {
 		
-		return "/files/resume/photo/";
+		return "/files/resume/certification/";
 	}
 
 }

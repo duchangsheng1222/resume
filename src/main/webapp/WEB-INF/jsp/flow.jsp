@@ -23,7 +23,10 @@
 		
  */		
  		interview.baseUrl = "${pageContext.request.contextPath }";
- 
+ 		var error = "${param.error}";
+ 		if(error && error != null){
+ 			alert(error);
+ 		}
 		var stepHeightArray = [ parseInt($('.one').height()), parseInt($('.two').height()), parseInt($('.three').height()), parseInt($('.four').height()),
 				 parseInt($('.five').height()), parseInt($('.six').height()),
 						 parseInt($('.seven').height()), parseInt($('.eight').height()),
@@ -32,6 +35,8 @@
 		var resumeId = "${resumeId}";
 		interview.findByResumeId(resumeId, stepHeightArray);
 		checkFile(resumeId);
+		interview.getFiles(resumeId, 1, listVideo);
+		interview.getFiles(resumeId, 4, listCertifications);
 		//第12步、13步的日历
 		layui.use('laydate', function(){
 			var laydate = layui.laydate;
@@ -69,37 +74,72 @@
 			var filePath=$(this).val();
 	        var arr=filePath.split('\\');
 	        var fileName=arr[arr.length-1];
-			$('#up1Label').append("&nbsp;&nbsp;&nbsp;"+fileName);
+			$('#up1Label').html("&nbsp;&nbsp;&nbsp;"+fileName);
 		})
 		
 		$('#up2').change(function(){
 			var filePath=$(this).val();
 	        var arr=filePath.split('\\');
 	        var fileName=arr[arr.length-1];
-			$('#up2Label').append("&nbsp;&nbsp;&nbsp;"+fileName);
+			$('#up2Label').html("&nbsp;&nbsp;&nbsp;"+fileName);
 		})
+		
+		$("#finishUpload").on("click",function(){
+			interview.finishStep(resumeId, 3);
+		});
 		
 		//第13步上传文件
 		$('#up13Input').change(function(){
 			var filePath=$(this).val();
 	        var arr=filePath.split('\\');
 	        var fileName=arr[arr.length-1];
-			$('#up13label').append("&nbsp;&nbsp;&nbsp;"+fileName);
+			$('#up13label').html("&nbsp;&nbsp;&nbsp;"+fileName);
 		})
 		
 		$('#uploadVideoBtn').click(function(){
+			var video = $("#up1").val();
+			if("" == video){
+				alert("please choose file");
+				return ;
+			}
 			$("#threeForm").submit();
 		});
 		
 		$('#uploadCerBtn').click(function(){
+			var video = $("#up2").val();
+			if("" == video){
+				alert("please choose file");
+				return;
+			}
 			$("#threeForm").submit();
 		});
 		
 		
 	});
 	
-	function uploadVideo(){
+	function listVideo(data){
+		$("#up1P").html("");
+		for (var i = 0; i < data.length; i++) {
+			var file = data[i];
+			$("#up1P").append('<i><img onclick="deleteFile('+file.id+',\"video\")" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
+		}
+	}
+	function listCertifications(data){
+		$("#up2P").html("");
+		for (var i = 0; i < data.length; i++) {
+			var file = data[i];
+			$("#up2P").append('<i><img onclick="deleteFile('+file.id+',\"certification\")" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
+		}
 		
+	}
+	
+	function uploadFlightFile(){
+		var flight = $("#up13Input").val();
+		if("" == flight){
+			alert("please choose a file");
+			return ;
+		}
+		$("#thirteenForm").submit();
 	}
 	
 	function toInfoPage(resumeId){
@@ -109,6 +149,29 @@
 	function toUploadPage(resumeId){
 		window.location.href = "${pageContext.request.contextPath }/upload/"+resumeId+"/doc";
 		
+	}
+	
+	function deleteFile(id,type){
+		$.ajax({
+			url : "${pageContext.request.contextPath }/upload/"+id+"/delete",
+			type : "POST",
+			dataType : "json",
+			success : function(data){
+				if(data.status == 1){
+					if("video" == type){
+						
+						interview.getFiles(resumeId, 1, listVideo);
+					}else{
+						
+						interview.getFiles(resumeId, 4, listCertifications);
+						
+					}
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+		    }
+		});
 	}
 	
 	function checkFile(resumeId){
@@ -200,12 +263,12 @@
 								<i class="i2 i8"><i class="i21">Submit introduction video </i>
 								<input type="hidden" name="resumeId" value="${resumeId }">
 								<span id="uploadVideoBtn">upload</span><input type="file" name="video" id="up1" value="upload" /><label id="up1Label" for="up1"></label></i>
-								<p id="up1P"><i><img src="${pageContext.request.contextPath }/static/img/del.png"/>小电影.avi</i></p>
+								<p id="up1P"></p>
 								
 								<i class="i2"><i class="i22">Submit certificates</i> 
-								<span  id="uploadCerBtn">upload</span><input type="file" name="certificates" id="up2" value="upload" /><label  id="up2Label" for="up2"></label></i>
-								<p id="up2P">小电影2.avi</p>
-								<input id="btb" type="button" name="" id="finishUpload" value="Finish upload"/>
+								<span  id="uploadCerBtn">upload</span><input type="file" name="certification" id="up2" value="upload" /><label  id="up2Label" for="up2"></label></i>
+								<p id="up2P"></p>
+								<input  type="button" name="" id="finishUpload" value="Finish upload"/>
 						</em>
 						</form>
 					</div>
@@ -270,7 +333,7 @@
 						<div class="gou"></div><span class="num">09<i></i></span>
 						<em>
 							<i>Waiting for the job offer</i>
-							<i class="i2">Last expected date of arrival to China 123456</i>
+							<i class="i2"></i>
 							<input type="button" name="" onclick="accepted(1,${resumeId});" id="" value="Accept the job offer" /><a href="javascript:void(0);" onclick="accepted(0,${resumeId});">Decline</a>
 						</em>
 					</div>
@@ -285,7 +348,7 @@
 						<div class="gou"></div><span class="num">10<i></i></span>
 						<em>
 							<i>Offer accepted</i>
-							<i>Count down <i>68</i> days</i>
+							<i id="countDown"></i>
 							<i class="i2">Preparing visa material</i>
 						</em>
 					</div>
@@ -326,13 +389,16 @@
 					<div class="icon iconBan"></div>
 					<div class="rightDetail">
 						<div class="gou"></div><span class="num">13<i></i></span>
+						<form id="thirteenForm" action="${pageContext.request.contextPath }/upload/ticket" method="post"  enctype="multipart/form-data">
 						<em>
 							<i>Determine China arrival date</i>
-							<i class="i2"><i class="i22">Fight ticket image upload</i><span class="inutspanBox"><input type="file" name="" id="up13Input" value="upload" /><label id="up13label" for="up13Input"></label><span>upload</span></span></i>
+							<input type="hidden" name="resumeId" value="${resumeId }"/>
+							<i class="i2"><i class="i22">Fight ticket image upload</i><span class="inutspanBox"><input type="file" name="flightTicket" id="up13Input" value="upload" /><label id="up13label" for="up13Input"></label><span onclick="uploadFlightFile();">upload</span></span></i>
 							<i class="i2 i3"><i class="i21">Fight landing place</i><span class="inutspanBox"><input type="text" name="" id="up13Place" value="" /></span></i>
 							<i class="i2 i3"><i class="i21">Fight landing date</i><span class="inutspanBox"><input type="text" name="" id="up13" value="" /></span></i>
-							<input id="subt" type="button" onclick="" value="submit"/>
+							<input id="subt" type="button" onclick="uploadFlight(${resumeId});" value="submit"/>
 						</em>
+						</form>
 					</div>
 				</div>
 				

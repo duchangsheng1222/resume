@@ -531,6 +531,7 @@ body,html{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color:#000;
 }
 /*14*/
 .fourteen{
@@ -601,7 +602,7 @@ body,html{
 .three .i2 input{
 	float: right;
 }
-.three .rightDetail #btb{
+.three .rightDetail #finishUpload{
 	width: 100px;
 	height: 22px;
 	border: 0;
@@ -650,6 +651,7 @@ body,html{
 #up1P i,#up2P i{
 	position: relative;
 	display: inline;
+	margin-right: 15px;
 }
 .three .rightDetail em{
 	width: 650px;

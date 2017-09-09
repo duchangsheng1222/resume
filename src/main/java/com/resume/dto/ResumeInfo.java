@@ -93,7 +93,7 @@ public class ResumeInfo implements Serializable {
 	
 	private List<ResumeFile> resumeFiles;
 	
-	private ResumeFile video;
+	private List<ResumeFile> videos;
 	
 	private UserInfo userInfo;
 
@@ -241,12 +241,12 @@ public class ResumeInfo implements Serializable {
 		this.resumeFiles = resumeFiles;
 	}
 
-	public ResumeFile getVideo() {
-		return video;
+	public List<ResumeFile> getVideos() {
+		return videos;
 	}
 
-	public void setVideo(ResumeFile video) {
-		this.video = video;
+	public void setVideos(List<ResumeFile> videos) {
+		this.videos = videos;
 	}
 
 	public String getAge() {

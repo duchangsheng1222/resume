@@ -37,6 +37,7 @@
 		checkFile(resumeId);
 		interview.getFiles(resumeId, 1, listVideo);
 		interview.getFiles(resumeId, 4, listCertifications);
+		interview.getFiles(resumeId, 3, listFlightTicket);
 		//第12步、13步的日历
 		layui.use('laydate', function(){
 			var laydate = layui.laydate;
@@ -133,6 +134,15 @@
 		
 	}
 	
+	function listFlightTicket(data){
+		$("#up13P").html("");
+		for (var i = 0; i < data.length; i++) {
+			var file = data[i];
+			$("#up13P").append('<i><img onclick="deleteFile('+file.id+',\'ticket\');" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
+		}
+		
+	}
+	
 	function uploadFlightFile(){
 		var flight = $("#up13Input").val();
 		if("" == flight){
@@ -161,6 +171,9 @@
 					if("video" == type){
 						
 						interview.getFiles("${resumeId}", 1, listVideo);
+					}else if("ticket" == type){
+						interview.getFiles("${resumeId}", 3, listFlightTicket);
+						
 					}else{
 						
 						interview.getFiles("${resumeId}", 4, listCertifications);
@@ -394,6 +407,7 @@
 							<i>Determine China arrival date</i>
 							<input type="hidden" name="resumeId" value="${resumeId }"/>
 							<i class="i2"><i class="i22">Fight ticket image upload</i><span class="inutspanBox"><input type="file" name="flightTicket" id="up13Input" value="upload" /><label id="up13label" for="up13Input"></label><span onclick="uploadFlightFile();">upload</span></span></i>
+							<p id="up13P"></p>
 							<i class="i2 i3"><i class="i21">Fight landing place</i><span class="inutspanBox"><input type="text" name="" id="up13Place" value="" /></span></i>
 							<i class="i2 i3"><i class="i21">Fight landing date</i><span class="inutspanBox"><input type="text" name="" id="up13" value="" /></span></i>
 							<input id="subt" type="button" onclick="uploadFlight(${resumeId});" value="submit"/>

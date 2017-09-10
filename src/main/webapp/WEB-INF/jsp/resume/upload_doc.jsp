@@ -11,8 +11,8 @@
 		<script src="${pageContext.request.contextPath }/static/js/resume/upload.js"></script>
 		<script type="text/javascript">
 		$(function(){
-			var error = "${error}";
-			if(error && "${error}" != error && "" != error){
+			var error = "${param.error}";
+			if(error && null != error){
 				alert(error);
 			}
 			

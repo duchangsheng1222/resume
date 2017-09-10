@@ -47,7 +47,7 @@
 	</select>
 
 	<select id="queryByResumeId"  parameterType="long" resultType="InterviewFlowPo">
-		select id,resume_id,step,received,accepted,arrived_date,refused,visa_date
+		select id,resume_id,step,received,accepted,arrived_date,refused,visa_date,place,flight_date 
 		from t_interview_flow
 		where resume_id=#{resumeId}
 		

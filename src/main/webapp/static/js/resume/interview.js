@@ -86,6 +86,9 @@ var interview = {
 						$(".nine em a").remove();
 						
 					}
+					if(step >= 13){
+						$("#subt").remove();
+					}
 					if(null != flow.arriedDate){
 						$('.nine .i2').html('Last expected date of arrival to China ' + new Date().Format("yyyy-MM-dd"));
 						var countDown = lastDate - new Date().getTime();
@@ -99,6 +102,15 @@ var interview = {
 					
 					if(null != flow.visaDate){
 						$("#up12").val(new Date(flow.visaDate).Format("yyyy-MM-dd"));
+					}
+					
+					if(null != flow.place){
+						$("#up13Place").val(flow.place);
+					}
+					
+					if(null != flow.flightDate){
+						$("#up13").val(new Date(flow.flightDate).Format("yyyy-MM-dd"));
+						
 					}
 					
 				}else{
@@ -186,7 +198,7 @@ var interview = {
 								checkNull(interview.resumeInfo.phone),
 								checkNull(interview.resumeInfo.userInfo.email),
 								checkNull(interview.resumeInfo.citizenship),
-								checkNull(interview.resumeInfo.cducation),
+								checkNull(interview.resumeInfo.education),
 								checkNull(interview.resumeInfo.country),
 								
 								resumeDown,videoDown,message,
@@ -346,8 +358,8 @@ function reveiveVisa(resumeId){
 }
 
 function uploadFlight(resumeId){
-	var place = $("#place").val();
-	var flightDate = $("#flightDate").val();
+	var place = $("#up13Place").val();
+	var flightDate = $("#up13").val();
 	interview.finishStep(resumeId,13,null,null,place,flightDate);
 }
 
@@ -407,10 +419,15 @@ function showMoreInfo(resumeId,step){
 				}else{
 					$("#d_count_down").html(Math.ceil(countDown/24/60/60/1000) + " days");
 				}
-				
-				$("#d_vis_date").html(checkNull(flow.visaDate));
+				if(null != flow.visaDate){
+					$("#d_visa_date").html(new Date(flow.visaDate).Format("yyyy-MM-dd"));
+				}
 //				$("#d_vis_date").html(checkNull(flow.visaDate));
-				
+				var flightDate = "";
+				if(null != flow.flightDate){
+					flightDate = new Date(flow.flightDate).Format("yyyy-MM-dd");
+				}
+				$("#d_flight").html(checkNull(flow.place) + " " + flightDate);
 				
 				$("#pre").on('click',function(){
 					backward(resumeId, step);

@@ -645,10 +645,18 @@ body,html{
 	width: 485px;
 	font-size: 14px;
 }
+#up13P{
+	height: 30px;
+	margin-top: 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 14px;
+}
 .rightDetail{
 	width: 850px;
 }
-#up1P i,#up2P i{
+#up1P i,#up2P i,#up13P i{
 	position: relative;
 	display: inline;
 	margin-right: 15px;
@@ -672,7 +680,7 @@ body,html{
 	font-size: 14px;
 }
 
-#up1P i img,#up2P i img{
+#up1P i img,#up2P i img,#up13P i img{
 	position: absolute;
 	display: block;
 	width: 15px;

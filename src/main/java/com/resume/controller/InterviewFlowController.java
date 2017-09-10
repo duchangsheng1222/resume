@@ -79,6 +79,13 @@ public class InterviewFlowController extends AbstractController{
 			return resp.fail("This is the first step");
 		}
 		
+		//检查是否是12步
+		if(null != arrivedDate){
+			if(12 != flow.getStep()){
+				step = flow.getStep();
+			}
+		}
+		
 		User user = (User)SecurityContextUtil.getUserDetails();
 		InterviewFlow interviewFlow = new InterviewFlow();
 		interviewFlow.setUpdaterId(user.getId());

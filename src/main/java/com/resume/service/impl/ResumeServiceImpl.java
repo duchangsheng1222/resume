@@ -112,7 +112,7 @@ public class ResumeServiceImpl implements ResumeService {
 		List<ResumeFile> resumeVideos = resumeFileService.getResumeFileByResumeIdsAndType(resumeIds, FileType.INTRODUCTION_VIDEO.getCode());
 		Map<Long, List<ResumeFile>> videoMap = new HashMap<Long, List<ResumeFile>>();
 		for (ResumeFile resumeFile : resumeVideos) {
-			List<ResumeFile> list = map.get(resumeFile.getResumeId());
+			List<ResumeFile> list = videoMap.get(resumeFile.getResumeId());
 			if(null == list){
 				list = new ArrayList<ResumeFile>();
 			}

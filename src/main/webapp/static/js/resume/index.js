@@ -62,7 +62,7 @@ window.onload=function(){
 			move(aImg[nowIndex],'opacity',100);
 		}
 	}
-	var timer=setInterval(jianbian,2000);
+//	var timer=setInterval(jianbian,2000);
 }
 
 /*lun3 teaching*/

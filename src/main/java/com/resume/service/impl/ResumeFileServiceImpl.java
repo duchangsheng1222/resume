@@ -46,6 +46,12 @@ public class ResumeFileServiceImpl implements ResumeFileService {
 	}
 	
 	@Override
+	public void downloadFile(long id) {
+		resumeFileDao.downloadFile(id);
+		
+	}
+	
+	@Override
 	public ResumeFile queryById(long id) {
 		ResumeFilePo resumeFilePo = resumeFileDao.queryById(id);
 		return BeanUtil.createCopy(resumeFilePo, ResumeFile.class);

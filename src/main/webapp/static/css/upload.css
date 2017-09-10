@@ -81,13 +81,13 @@ body,html{
 .alone #em2{
 	margin-right: 30px;
 }
-.filecl{
-	text-align: center;
-	margin-bottom: 15px
-}
-.filecl span{
-	color: red;
-}
+/* .filecl{ */
+/* 	text-align: center; */
+/* 	margin-bottom: 15px */
+/* } */
+/* .filecl span{ */
+/* 	color: red; */
+/* } */
 .center{
 	width: 64%;
 	height: 35px;
@@ -167,8 +167,32 @@ body,html{
 	height:15px;
 }
 
+#resumeDoc,#photo{
+	height: 30px;
+	margin-left: 60px;
+	margin-top: 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 485px;
+	font-size: 14px;
+}
+#resumeDoc i,#photo i{
+	position: relative;
+	display: inline;
+	margin-right: 15px;
+}
 
-
+#resumeDoc i img,#photo i img{
+	position: absolute;
+	display: block;
+	width: 15px;
+	height: 15px;
+	right: -15px;
+	top: 0;
+	cursor: pointer;
+	z-index: 2;
+}
 
 
 

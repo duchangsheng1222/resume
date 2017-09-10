@@ -121,14 +121,14 @@
 		$("#up1P").html("");
 		for (var i = 0; i < data.length; i++) {
 			var file = data[i];
-			$("#up1P").append('<i><img onclick="deleteFile('+file.id+',\"video\")" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
+			$("#up1P").append('<i><img onclick="deleteFile('+file.id+',\'video\');" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
 		}
 	}
 	function listCertifications(data){
 		$("#up2P").html("");
 		for (var i = 0; i < data.length; i++) {
 			var file = data[i];
-			$("#up2P").append('<i><img onclick="deleteFile('+file.id+',\"certification\")" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
+			$("#up2P").append('<i><img onclick="deleteFile('+file.id+',\'certification\');" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
 		}
 		
 	}
@@ -160,10 +160,10 @@
 				if(data.status == 1){
 					if("video" == type){
 						
-						interview.getFiles(resumeId, 1, listVideo);
+						interview.getFiles("${resumeId}", 1, listVideo);
 					}else{
 						
-						interview.getFiles(resumeId, 4, listCertifications);
+						interview.getFiles("${resumeId}", 4, listCertifications);
 						
 					}
 				}

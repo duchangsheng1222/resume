@@ -7,13 +7,13 @@
 <mapper namespace="com.resume.dao.ResumeFileDao">
 	
 	<select id="queryByResumeIdAndType" resultType="ResumeFilePo">
-		select id, resume_id,user_id, file_address,file_name, file_type, type, deleted
+		select id, resume_id,user_id, file_address,file_name, file_type, type, deleted,downloaded
 		from t_resume_file
 		where resume_id = #{resumeId} and type=#{type} and deleted='0'
 	</select>
 	
 	<select id="queryByResumeIdsAndType" resultType="ResumeFilePo">
-		select id, resume_id,user_id, file_address, file_name,file_type, type, deleted
+		select id, resume_id,user_id, file_address, file_name,file_type, type, deleted,downloaded
 		from t_resume_file
 		where 
 			resume_id in
@@ -34,9 +34,12 @@
 	<update id="deleteFile" parameterType="long">
 		update t_resume_file set deleted='1' where id=#{id}
 	</update>
+	<update id="downloadFile" parameterType="long">
+		update t_resume_file set downloaded='1' where id=#{id}
+	</update>
 	
 	<select id="queryById" parameterType="long" resultType="ResumeFilePo">
-		select id, resume_id,user_id, file_address,file_name, file_type, type, deleted
+		select id, resume_id,user_id, file_address,file_name, file_type, type, deleted,downloaded
 		from t_resume_file
 		where id = #{id}
 	</select>

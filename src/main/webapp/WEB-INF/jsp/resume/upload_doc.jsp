@@ -53,7 +53,11 @@
 			$('#finish').on('click',function(){
 				window.location.href = "${pageContext.request.contextPath }/interview/page";
 			});
+			fileList();
 			
+		});
+		
+		function fileList(){
 			$.ajax({
 				url : "${pageContext.request.contextPath }/upload/files/list",
 				type : "POST",
@@ -61,13 +65,16 @@
 				data:{resumeId:"${resumeId}"},
 				success : function(data){
 					if(data.status == 1){
-						 if(data.data.length > 1){
+						$("#resumeDoc").html("");
+						$("#photo").html("");
+						 if(data.data.length >= 1){
 							 for (var i = 0; i < data.data.length; i++) {
-								if(0 == data.data[i].type){
-									$("#resumeDoc").append("<span>"+data.data[i].fileName+"</span>");
-								}else if(2 == data.data[i].type){
+								 var file = data.data[i];
+								if(0 == file.type){
+									$("#resumeDoc").append('<i><img onclick="deleteFile('+file.id+',\'doc\');" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
+								}else if(2 == file.type){
 									
-									$("#photo").append("<span>"+data.data[i].fileName+"</span>");
+									$("#photo").append('<i><img onclick="deleteFile('+file.id+',\'photo\');" src="${pageContext.request.contextPath }/static/img/del.png"/>'+file.fileName+'</i>');
 								}
 							}
 						 }
@@ -77,7 +84,23 @@
 					 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
 			    }
 			});
-		});
+		}
+		
+		function deleteFile(id,type){
+			$.ajax({
+				url : "${pageContext.request.contextPath }/upload/"+id+"/delete",
+				type : "POST",
+				dataType : "json",
+				success : function(data){
+					if(data.status == 1){
+						fileList();
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status+"-"+XMLHttpRequest.readyState + "-" + textStatus);
+			    }
+			});
+		}
 		</script>
 	</head>
 	<body>

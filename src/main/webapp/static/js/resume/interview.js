@@ -127,33 +127,45 @@ var interview = {
 								"Citizenship","Education","Education country",
 								"Resume","Video","Message","Backward","Forward","");
 						
-						var resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' data-animation='none'>download new</a>";
+						var resumeDown = "-";
 						if(null != interview.resumeInfo.resumeFiles){
 							var downloadHtml = "";
+							var hasNewFile = false;
 							for (var j = 0; j < interview.resumeInfo.resumeFiles.length; j++) {
 								var file = interview.resumeInfo.resumeFiles[j];
 								downloadHtml += ("<p><a href='javascript:void(0);' onclick='interview.download(null,"+file.id+")'>"+file.fileName+"</a></p>");
+								if(file.downloaded == 0){
+									hasNewFile = true;
+								}
 							}
+							var style = hasNewFile ? "style='color:blue;'" : "style='color:black;'";
+							var con = hasNewFile ? "download new" : "download";
 							if(interview.resumeInfo.resumeFiles.length > 1){
 								fileMap.put(interview.resumeId,downloadHtml);
-								resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' resumeId="+interview.resumeId+">download new</a>";
+								resumeDown = "<a href='javascript:void(0);' data-reveal-id='myDownload' " + style +" resumeId="+interview.resumeId+">"+con+"</a>";
 							}else{
-								resumeDown = "<a href='javascript:void(0);'  onclick='interview.download(this,"+interview.resumeInfo.resumeFiles[0].id+")'>download</a>";
+								resumeDown = "<a href='javascript:void(0);'  " + style +"   onclick='interview.download(this,"+interview.resumeInfo.resumeFiles[0].id+")'>"+con+"</a>";
 							}
 						}
 						
 						var videoDown = "-";
-						if(null != interview.resumeInfo.videos){
+						if(null != interview.resumeInfo.videos && interview.resumeInfo.videos.length != 0){
 							var downloadHtml = "";
+							var hasNewFile = false;
 							for (var j = 0; j < interview.resumeInfo.videos.length; j++) {
 								var file = interview.resumeInfo.videos[j];
 								downloadHtml += ("<p><a href='javascript:void(0);' onclick='interview.download(null,"+file.id+")'>"+file.fileName+"</a></p>");
+								if(file.downloaded == 0){
+									hasNewFile = true;
+								}
 							}
+							var style = hasNewFile ? "style='color:blue;'" : "style='color:black;'";
+							var con = hasNewFile ? "download new" : "download";
 							if(interview.resumeInfo.videos.length > 1){
 								videoMap.put(interview.resumeId,downloadHtml);
-								videoDown = "<a href='javascript:void(0);' data-reveal-id='myVideoDownload' resumeId="+interview.resumeId+">download new</a>";
+								videoDown = "<a href='javascript:void(0);' data-reveal-id='myVideoDownload'  " + style +" resumeId="+interview.resumeId+">"+con+"</a>";
 							}else{
-								videoDown = "<a href='javascript:void(0);'  onclick='interview.download(this,"+interview.resumeInfo.videos[0].id+")'>download</a>";
+								videoDown = "<a href='javascript:void(0);'  " + style +"   onclick='interview.download(this,"+interview.resumeInfo.videos[0].id+")'>"+con+"</a>";
 							}
 //							if("0" == interview.resumeInfo.videos.downloaded){
 //								
@@ -190,7 +202,7 @@ var interview = {
 					$('a[data-reveal-id]').on('click', function(e) {
 						e.preventDefault();
 						var modalLocation = $(this).attr('data-reveal-id');
-						$('#downloadContent').html(fileMap.get($(this).attr('resumeId')));
+						$('#'+modalLocation + " .content").html(fileMap.get($(this).attr('resumeId')));
 						$('#'+modalLocation).reveal($(this).data());
 					});
 
@@ -306,7 +318,7 @@ var interview = {
 	download : function(element,id){
 		if(null != element){
 			element.innerHTML = "download";
-			element.css("color","black");
+			element.style.color = "black";
 		}
 		window.open(interview.baseUrl + "/upload/" + id +"/download" );
 	}

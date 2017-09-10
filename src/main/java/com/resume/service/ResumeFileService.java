@@ -34,6 +34,11 @@ public interface ResumeFileService {
 	 * @param id
 	 */
 	void deleteFile(long id);
+	/**
+	 * 标记下载过文件
+	 * @param id
+	 */
+	void downloadFile(long id);
 
 	ResumeFile queryById(long id);
 

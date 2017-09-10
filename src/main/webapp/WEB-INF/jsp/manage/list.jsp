@@ -163,7 +163,16 @@ var list=new QueryList("line_list","");
 		
 		<div id="myDownload" class="reveal-modal">
 			
-			<div id="downloadContent">
+			<div id="downloadContent" class="content">
+				
+			</div>
+			
+			<a class="close-reveal-modal close-reveal">&#215;</a>
+
+		</div>
+		<div id="myVideoDownload" class="reveal-modal">
+			
+			<div id="downloadContent" class="content">
 				
 			</div>
 			

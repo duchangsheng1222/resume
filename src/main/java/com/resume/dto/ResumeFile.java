@@ -22,6 +22,8 @@ public class ResumeFile implements Serializable{
 	
 	private String deleted = "0";
 	
+	private String downloaded;
+	
 	private ResumeInfo resumeInfo;
 
 	public long getId() {
@@ -94,6 +96,14 @@ public class ResumeFile implements Serializable{
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getDownloaded() {
+		return downloaded;
+	}
+
+	public void setDownloaded(String downloaded) {
+		this.downloaded = downloaded;
 	}
 	
 	

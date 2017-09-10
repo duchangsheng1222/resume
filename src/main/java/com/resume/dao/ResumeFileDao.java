@@ -30,5 +30,11 @@ public interface ResumeFileDao {
 	 */
 	void deleteFile(@Param("id")long id);
 	
+	/**
+	 * 标记下载过文件
+	 * @param id
+	 */
+	void downloadFile(@Param("id")long id);
+	
 	ResumeFilePo queryById(@Param("id")long id);
 }

@@ -324,7 +324,6 @@ public class UploadController extends AbstractController{
 	public String uploadFlightTicket(Model model, HttpServletRequest request,
 			HttpServletResponse response,Long resumeId) {
 		log.info("@ upload/certification resumeId:{}",new Object[]{resumeId});
-		BaseResponse resp = new BaseResponse();
 		if(null == resumeId){
 			model.addAttribute("error","resumeId is not be null");
 			model.addAttribute("resumeId", resumeId);
@@ -379,13 +378,17 @@ public class UploadController extends AbstractController{
 		
 		ResumeFile resumeFile = resumeFileService.queryById(id);
 		if(null == resumeFile){
-			return "";
+			model.addAttribute("error", "the file is not exists");
+			return "redirect:/error.jsp";
 		}
+		//标记下载文件
+		resumeFileService.downloadFile(id);
+		
 		return "redirect:" + resumeFile.getFileAddress();
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/{id}/delete",method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id}/delete",method=RequestMethod.POST)
 	public ResponseModel delete(Model model,@PathVariable("id")Long id){
 		
 		BaseResponse resp = new BaseResponse();

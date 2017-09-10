@@ -16,6 +16,8 @@ public class ResumeFilePo {
 	
 	private String deleted;
 	
+	private String downloaded;
+	
 	private long userId;
 
 	public long getId() {
@@ -81,6 +83,15 @@ public class ResumeFilePo {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	
 
+	public String getDownloaded() {
+		return downloaded;
+	}
+
+	public void setDownloaded(String downloaded) {
+		this.downloaded = downloaded;
+	}
+
+	
+    
 }

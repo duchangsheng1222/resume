@@ -664,6 +664,11 @@ body,html{
 .three .rightDetail em{
 	width: 650px;
 }
+.three .rightDetail .baiNow{
+	width:50px;
+	margin-top:0;
+	color: #707070;
+}
 .three .i8{
 	margin-top: 10px;
 }
@@ -689,4 +694,55 @@ body,html{
 	top: 0;
 	cursor: pointer;
 	z-index: 2;
+}
+
+
+
+/*====================上传文件样式======================= */
+#threeForm{
+	position:relative;
+}
+.uploadBox{
+	width: 320px;
+	height: 48px;
+	background: #f5f5f5;
+	border: 3px solid #e5e5e5;
+	position: absolute;
+	right: -100px;
+	top: 20px;
+	z-index:111;
+}
+.uploadBox .up{
+	font-size: 10px;
+	color: #707070;
+	width: 304px;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 12px;
+}
+.uploadBox .up span{
+	float: left;
+	margin-right: 20px;
+}
+.uploadBox .up em{
+	float: left;
+}
+.uploadBox .up i{
+	float: right;
+	cursor: pointer;
+	margin-right: 15px;
+}
+.uploadBox .down{
+	width: 304px;
+	height: 3px;
+	margin: 0 auto;
+	background: #fff;
+	margin-top: 10px;
+	overflow: hidden;
+}
+.uploadBox .downCenter{
+	display: block;
+	width: 0;
+	height: 100%;
+	background: #0099ff;
 }

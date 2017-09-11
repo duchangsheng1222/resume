@@ -28,7 +28,7 @@ var list=new QueryList("line_list","");
 				"<span id='theducation' class='thorder'>Education</span>","Education country",
 				"Resume","Video","Message","Backward","Forward","");
 		
-		list.fill=true;
+		list.fill=false;
 	    list.getData = function (){
 	    	interview.list(fillTable);
 		

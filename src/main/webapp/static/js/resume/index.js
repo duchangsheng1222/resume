@@ -36,7 +36,7 @@ $(function(){
 		
 		/*第二屏  lun2 who*/
 		var lun2DownWidth=$('.lun2Box').find('.down').width();
-		var lun2DownHeight=Math.round(lun2DownWidth*0.5);
+		var lun2DownHeight=Math.round(lun2DownWidth*0.45);
 		$('.lun2Box').find('.down').height(lun2DownHeight+'px');
 		
 		

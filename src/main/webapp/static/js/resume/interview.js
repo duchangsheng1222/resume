@@ -429,6 +429,15 @@ function showMoreInfo(resumeId,step){
 				}
 				$("#d_flight").html(checkNull(flow.place) + " " + flightDate);
 				
+				var flightFileDown = "-";
+				if(null != flow.flightTicket){
+					var style = hasNewFile ? "style='color:blue;'" : "style='color:black;'";
+					var con = hasNewFile ? "download new" : "download";
+					flightFileDown = "<a href='javascript:void(0);'  " + style +"   onclick='interview.download(this,"+flow.flightTicket.id+")'>"+con+"</a>";
+				}
+				
+				$("#d_ticket").html(flightFileDown);
+				
 				$("#pre").on('click',function(){
 					backward(resumeId, step);
 					$(".close-reveal").click();

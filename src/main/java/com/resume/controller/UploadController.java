@@ -220,8 +220,17 @@ public class UploadController extends AbstractController{
 					List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.INTRODUCTION_VIDEO.getCode());
 					if(null != videos && videos.size() >= 3){
 						model.addAttribute("error", "Upload up to three files at most");
+						model.addAttribute("resumeId", resumeId);
 						return "redirect:/interview/page";
 					}
+					
+					if(filedata.getSize() > 100*1024*1024){
+						model.addAttribute("error", "Upload up to 100M at most");
+						model.addAttribute("resumeId", resumeId);
+						return "redirect:/interview/page";
+						
+					}
+					
 					String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
 					String fileName = iso2Utf8(filedata.getOriginalFilename());
 					if (filePath != null) {
@@ -346,6 +355,12 @@ public class UploadController extends AbstractController{
 			MultipartFile filedata = ((MultipartHttpServletRequest) request)
 					.getFile("flightTicket");
 			try {
+				List<ResumeFile> tickets = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.FLIGHT_TICKET.getCode());
+				if(null != tickets && tickets.size() >= 1){
+					model.addAttribute("error","You have already uploaded your ticket");
+					model.addAttribute("resumeId", resumeId);
+					return "redirect:/interview/page";
+				}
 				String filePath = generateResumeFile(filedata,FileType.FLIGHT_TICKET);
 				String fileName = iso2Utf8(filedata.getOriginalFilename());
 				if (filePath != null) {

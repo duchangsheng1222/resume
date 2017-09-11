@@ -22,6 +22,24 @@
 		}
 		
  */		
+ 	var BigHeavy=1000;
+	var nowHeavy = 0;
+	var timer=setInterval(function(){
+		
+		var numb=nowHeavy/BigHeavy;
+		var baifenbi=numb*100+"%";
+		if(numb>=1){
+			$('.baiNow').html("100%");
+			$('.downCenter').width(304);
+			clearInterval(timer);
+			$(".uploadBox").css("display","none");
+		}else{
+			$('.baiNow').html(baifenbi);
+			$('.downCenter').width(304*numb);
+		}
+		nowHeavy+=50;
+	},1000);
+ 
  		interview.baseUrl = "${pageContext.request.contextPath }";
  		var error = "${param.error}";
  		if(error && error != null){
@@ -271,7 +289,17 @@
 					<div class="rightDetail">
 						<div class="gou"></div><span class="num">03<i></i></span>
 						<form id="threeForm" action="${pageContext.request.contextPath }/upload/video" method="post"  enctype="multipart/form-data">
+						<div class="uploadBox">
+							<p class="up">
+								<span>小电影.avi</span>
+								<em class="baiNow">88%</em>
+							</p>
+							<p class="down">
+								<span class="downCenter"></span>
+							</p>
+						</div>
 						<em>
+						
 							<i>Submit introduction video</i>
 								<i class="i2 i8"><i class="i21">Submit introduction video </i>
 								<input type="hidden" name="resumeId" value="${resumeId }">

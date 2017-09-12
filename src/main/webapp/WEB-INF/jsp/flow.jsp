@@ -14,6 +14,8 @@
 		<title>Status</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/js/layui/layui.css"/>
 	<script type="text/javascript">
+	
+	var timer= null;
 	$(function(){
 		//获取上边进度条的高度	
 /* 		if(true){
@@ -22,23 +24,7 @@
 		}
 		
  */		
- 	var BigHeavy=1000;
-	var nowHeavy = 0;
-	var timer=setInterval(function(){
-		
-		var numb=nowHeavy/BigHeavy;
-		var baifenbi=numb*100+"%";
-		if(numb>=1){
-			$('.baiNow').html("100%");
-			$('.downCenter').width(304);
-			clearInterval(timer);
-			$(".uploadBox").css("display","none");
-		}else{
-			$('.baiNow').html(baifenbi);
-			$('.downCenter').width(304*numb);
-		}
-		nowHeavy+=50;
-	},1000);
+ 
  
  		interview.baseUrl = "${pageContext.request.contextPath }";
  		var error = "${param.error}";
@@ -118,23 +104,105 @@
 		$('#uploadVideoBtn').click(function(){
 			var video = $("#up1").val();
 			if("" == video){
-				alert("please choose file");
+				alert("please choose a file");
 				return ;
 			}
-			$("#threeForm").submit();
+			
+			var files = document.getElementById("up1").files;
+			if(files[0].size > 100*1024*1024){
+// 				alert("Upload up to 100M at most");
+// 				return ;
+			}
+			
+			showProgress(files[0].name);
+			$("#fileType3").val("video");
+			uploadFile();
+			
 		});
+		
+		  
 		
 		$('#uploadCerBtn').click(function(){
 			var video = $("#up2").val();
 			if("" == video){
-				alert("please choose file");
+				alert("please choose a file");
 				return;
 			}
+			$("#fileType3").val("certification");
 			$("#threeForm").submit();
 		});
 		
 		
 	});
+	
+	function uploadFile() {  
+        var fd = new FormData();  
+        fd.append("video", document.getElementById('up1').files[0]);  
+        fd.append("fileType", document.getElementById('fileType3').value);  
+        fd.append("resumeId", document.getElementById('resumeId3').value);  
+        var xhr = new XMLHttpRequest();  
+        xhr.upload.addEventListener("progress", uploadProgress, false);  
+        xhr.addEventListener("load", uploadComplete, false);  
+        xhr.addEventListener("error", uploadFailed, false);  
+        xhr.addEventListener("abort", uploadCanceled, false);  
+        xhr.open("POST", "${pageContext.request.contextPath }/upload/intro/video");//修改成自己的接口  
+        xhr.send(fd);  
+  }  
+  function uploadProgress(evt) {  
+    if (evt.lengthComputable) {  
+      var percentComplete = Math.round(evt.loaded * 100 / evt.total);  
+      getProgress(percentComplete); 
+    }  
+    else {  
+      console.log("else");  
+    }  
+  }  
+  function uploadComplete(evt) {  
+    /* 服务器端返回响应时候触发event事件*/  
+   // alert(evt.target.responseText);
+    var data = JSON.parse(evt.target.responseText);
+    if(data.status == 1){
+    	$("#up1").val("");
+    	$('#up1Label').html("");
+	    interview.getFiles("${resumeId}", 1, listVideo);
+    }
+  }  
+  function uploadFailed(evt) {  
+    alert("There was an error attempting to upload the file.");  
+  }  
+  function uploadCanceled(evt) {  
+    alert("The upload has been canceled by the user or the browser dropped the connection.");  
+  } 
+  
+  function cancel(xhr){
+	  if(null != xhr){
+		  xhr.abort();
+	  }
+	  hideProgress();
+  }
+	
+	function showProgress(fileName){
+		$(".uploadBox").css("display","block");
+		$(".uploadBox .up span").html(fileName);
+	}
+	
+	function hideProgress(){
+		$(".uploadBox").css("display","none");
+	}
+	
+	function getProgress(numb){
+		var baifenbi=numb+"%";
+		if(numb>=100){
+			$('.baiNow').html("100%");
+			$('.downCenter').width(304);
+			clearInterval(timer);
+			hideProgress();
+		}else{
+			$('.baiNow').html(Math.round(baifenbi));
+			$('.downCenter').width(304*numb/100);
+		}
+				
+	}
 	
 	function listVideo(data){
 		$("#up1P").html("");
@@ -291,8 +359,8 @@
 						<form id="threeForm" action="${pageContext.request.contextPath }/upload/video" method="post"  enctype="multipart/form-data">
 						<div class="uploadBox">
 							<p class="up">
-								<span>小电影.avi</span>
-								<em class="baiNow">88%</em>
+								<span></span>
+								<em class="baiNow"></em>
 							</p>
 							<p class="down">
 								<span class="downCenter"></span>
@@ -302,7 +370,8 @@
 						
 							<i>Submit introduction video</i>
 								<i class="i2 i8"><i class="i21">Submit introduction video </i>
-								<input type="hidden" name="resumeId" value="${resumeId }">
+								<input type="hidden" name="resumeId" value="${resumeId }" id="resumeId3">
+								<input type="hidden" name="fileType" value="video" id="fileType3">
 								<span id="uploadVideoBtn">upload</span><input type="file" name="video" id="up1" value="upload" /><label id="up1Label" for="up1"></label></i>
 								<p id="up1P"></p>
 								

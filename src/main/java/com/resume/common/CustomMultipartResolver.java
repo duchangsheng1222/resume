@@ -1,23 +1,21 @@
 package com.resume.common;
 
-import java.util.HashMap;  
-import java.util.List;  
-import java.util.Map;  
-  
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.http.HttpServletRequest;    
-    
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileItem;    
-import org.apache.commons.fileupload.FileUpload;    
-import org.apache.commons.fileupload.FileUploadBase;    
-import org.apache.commons.fileupload.FileUploadException;  
-import org.apache.commons.fileupload.ProgressListener;  
-import org.apache.commons.fileupload.servlet.ServletFileUpload;    
-import org.springframework.web.multipart.MaxUploadSizeExceededException;    
-import org.springframework.web.multipart.MultipartException;    
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;    
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUpload;
+import org.apache.commons.fileupload.FileUploadBase;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.ProgressListener;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
     
 public class CustomMultipartResolver extends CommonsMultipartResolver {    
         
@@ -25,18 +23,20 @@ public class CustomMultipartResolver extends CommonsMultipartResolver {
       
     @Override      
     public MultipartParsingResult parseRequest(HttpServletRequest request)      
-            throws MultipartException {      
+            throws MultipartException {  
+    	
+    	final HttpSession session = request.getSession();
         String encoding = determineEncoding(request);      
         FileUpload fileUpload = prepareFileUpload(encoding);    
-        final String para = request.getParameter("flag");         
         ProgressListener progressListener = new ProgressListener() {  
             public void update(long pBytesRead, long pContentLength, int pItems) {  
                 float tmp = (float)pBytesRead;  
-                float percentage = tmp/pContentLength*100;  
-                if (percentage >= 100) {  
-                    progressMap.put(para, "100");  
+                float percentage = tmp/pContentLength;  
+                System.out.println("11" + "," + percentage);
+                if (percentage >= 1) {
+                	session.setAttribute("videoFile", 1);
                 } else {  
-                    progressMap.put(para, percentage + "");  
+                	session.setAttribute("videoFile", percentage);
                 }  
             }  
         };  

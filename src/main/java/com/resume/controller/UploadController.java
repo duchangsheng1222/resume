@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import com.resume.files.FlightFile;
 import com.resume.files.IntroductionVideoFile;
 import com.resume.files.PhotoFile;
 import com.resume.response.BaseResponse;
+import com.resume.response.ProgressResponse;
 import com.resume.response.ResponseModel;
 import com.resume.service.ResumeFileService;
 import com.resume.service.ResumeService;
@@ -187,10 +189,87 @@ public class UploadController extends AbstractController{
 		return "redirect:/upload/"+resumeId+"/doc";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/check/condition",method=RequestMethod.POST)
+	public ResponseModel checkeVideoCondition(Long resumeId){
+		BaseResponse resp = new BaseResponse();
+		if(null == resumeId){
+			return resp.fail("resumeId is not be null");
+		}
+		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
+		if(null == resumeInfo){
+			return resp.fail("resume not exists");
+		}
+		//获取当前登录用户
+		User user = (User)SecurityContextUtil.getUserDetails();
+		if(user.getId() != resumeInfo.getCreatorId()){
+			
+			return resp.fail("this is not your resume");
+		}
+		
+		List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.INTRODUCTION_VIDEO.getCode());
+		if(null != videos && videos.size() >= 3){
+			return resp.fail("Upload up to three files at most");
+		}
+		
+		return  resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/intro/video",method=RequestMethod.POST)
+	public ResponseModel introVideo(Model model, HttpServletRequest request,
+			HttpServletResponse response,Long resumeId,String fileType){
+		BaseResponse resp = new BaseResponse();
+		if(null == resumeId){
+			return resp.fail("resumeId is not be null");
+		}
+		ResumeInfo resumeInfo = resumeService.getResumeById(resumeId);
+		if(null == resumeInfo){
+			return resp.fail("resume not exists");
+		}
+		//获取当前登录用户
+		User user = (User)SecurityContextUtil.getUserDetails();
+		if(user.getId() != resumeInfo.getCreatorId()){
+			
+			return resp.fail("this is not your resume");
+		}
+		
+		List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.INTRODUCTION_VIDEO.getCode());
+		if(null != videos && videos.size() >= 3){
+			return resp.fail("Upload up to three files at most");
+		}
+		
+		if (request instanceof MultipartHttpServletRequest) {
+			MultipartFile filedata = ((MultipartHttpServletRequest) request)
+					.getFile("video");
+			if(null != filedata && filedata.getSize() != 0 && "video".equals(fileType)){
+				try {
+					
+					
+					String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
+					String fileName = iso2Utf8(filedata.getOriginalFilename());
+					if (filePath != null) {
+						saveFile(resumeId,fileName, user, filePath,FileType.INTRODUCTION_VIDEO);
+					} else {
+						return resp.fail("please choose video file");
+					}
+					
+				} catch (IOException e) {
+					log.error("简历上传失败", e);
+					return resp.fail("video upload failure");
+				}
+			}
+		}	
+		
+		return  resp.success(BaseResponse.SUCCESS_MESSAGE);
+	}
+	
+	
+	
 	@RequestMapping(value="/video",method=RequestMethod.POST)
 	public String uploadPhoto(Model model, HttpServletRequest request,
-			HttpServletResponse response,Long resumeId) {
-		log.info("@ upload/video resumeId:{}",new Object[]{resumeId});
+			HttpServletResponse response,Long resumeId,String fileType) {
+		log.info("@ upload/video resumeId:{} fileType:{}",new Object[]{resumeId,fileType});
 		if(null == resumeId){
 			model.addAttribute("error","resumeId is not be null");
 			model.addAttribute("resumeId", resumeId);
@@ -211,43 +290,9 @@ public class UploadController extends AbstractController{
 			return "redirect:/interview/page";
 		}
 		if (request instanceof MultipartHttpServletRequest) {
-			MultipartFile filedata = ((MultipartHttpServletRequest) request)
-					.getFile("video");
 			MultipartFile certificationFiledata = ((MultipartHttpServletRequest) request)
 					.getFile("certification");
-			if(null != filedata && filedata.getSize() != 0){
-				try {
-					List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.INTRODUCTION_VIDEO.getCode());
-					if(null != videos && videos.size() >= 3){
-						model.addAttribute("error", "Upload up to three files at most");
-						model.addAttribute("resumeId", resumeId);
-						return "redirect:/interview/page";
-					}
-					
-					if(filedata.getSize() > 100*1024*1024){
-						model.addAttribute("error", "Upload up to 100M at most");
-						model.addAttribute("resumeId", resumeId);
-						return "redirect:/interview/page";
-						
-					}
-					
-					String filePath = generateResumeFile(filedata,FileType.INTRODUCTION_VIDEO);
-					String fileName = iso2Utf8(filedata.getOriginalFilename());
-					if (filePath != null) {
-						saveFile(resumeId,fileName, user, filePath,FileType.INTRODUCTION_VIDEO);
-					} else {
-						model.addAttribute("error","please choose video file");
-						model.addAttribute("resumeId", resumeId);
-						return "redirect:/interview/page";
-					}
-					
-				} catch (IOException e) {
-					log.error("简历上传失败", e);
-					model.addAttribute("error","video upload failure");
-					model.addAttribute("resumeId", resumeId);
-					return "redirect:/interview/page";
-				}
-			}else if(null != certificationFiledata && certificationFiledata.getSize() != 0){
+			if(null != certificationFiledata && certificationFiledata.getSize() != 0  && "certification".equals(fileType)){
 				try {
 					List<ResumeFile> videos = resumeFileService.getResumeFileByResumeIdAndType(resumeId, FileType.CERTIFICATION.getCode());
 					if(null != videos && videos.size() >= 3){
@@ -284,6 +329,21 @@ public class UploadController extends AbstractController{
 		}
 		
 		return "redirect:/interview/page";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getProgress",method=RequestMethod.POST)
+	public ResponseModel getProgress(Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		ProgressResponse resp = new ProgressResponse();
+		HttpSession session = request.getSession();
+		Object percent = session.getAttribute("videoFile");
+		log.error("percent:" + percent);
+		if(null == percent){
+			return resp.fail("There are no files being uploaded");
+		}
+		resp.setPercent(percent);
+		return resp.success(BaseResponse.SUCCESS_MESSAGE);
 	}
 	
 	@ResponseBody

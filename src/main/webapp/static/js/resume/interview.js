@@ -214,7 +214,13 @@ var interview = {
 					$('a[data-reveal-id]').on('click', function(e) {
 						e.preventDefault();
 						var modalLocation = $(this).attr('data-reveal-id');
-						$('#'+modalLocation + " .content").html(fileMap.get($(this).attr('resumeId')));
+						if("myVideoDownload" == modalLocation){
+							
+							$('#'+modalLocation + " .content").html(videoMap.get($(this).attr('resumeId')));
+						}else{
+							
+							$('#'+modalLocation + " .content").html(fileMap.get($(this).attr('resumeId')));
+						}
 						$('#'+modalLocation).reveal($(this).data());
 					});
 
@@ -431,6 +437,7 @@ function showMoreInfo(resumeId,step){
 				
 				var flightFileDown = "-";
 				if(null != flow.flightTicket){
+					var hasNewFile = flow.flightTicket == 0;
 					var style = hasNewFile ? "style='color:blue;'" : "style='color:black;'";
 					var con = hasNewFile ? "download new" : "download";
 					flightFileDown = "<a href='javascript:void(0);'  " + style +"   onclick='interview.download(this,"+flow.flightTicket.id+")'>"+con+"</a>";

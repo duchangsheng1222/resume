@@ -711,6 +711,7 @@ body,html{
 	right: -100px;
 	top: 20px;
 	z-index:111;
+	display: none;
 }
 .uploadBox .up{
 	font-size: 10px;
@@ -719,6 +720,9 @@ body,html{
 	margin: 0 auto;
 	overflow: hidden;
 	margin-top: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .uploadBox .up span{
 	float: left;

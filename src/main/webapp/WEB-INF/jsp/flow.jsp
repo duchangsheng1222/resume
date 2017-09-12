@@ -110,8 +110,8 @@
 			
 			var files = document.getElementById("up1").files;
 			if(files[0].size > 100*1024*1024){
-// 				alert("Upload up to 100M at most");
-// 				return ;
+				alert("Upload up to 100M at most");
+				return ;
 			}
 			
 			showProgress(files[0].name);

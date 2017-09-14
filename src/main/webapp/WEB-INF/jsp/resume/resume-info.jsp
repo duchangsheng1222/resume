@@ -37,6 +37,12 @@
 							<input type="text" name="position" id="position" required="required" value="" />
 						</div>
 					</div>
+					<div class="box5">
+					<div class="obtain">
+							<p>Recommended by</p>
+							<input type="text" name="recommended" id="recommended" value="" />
+					</div>
+					</div>
 					
 					<!--==第二行==-->
 					<div class="box2">
@@ -147,12 +153,7 @@
 							<input type="text" name="location" id="location" value="" />
 						</div>
 					</div>
-					<div class="box5">
-					<div class="obtain">
-							<p>Recommended by</p>
-							<input type="text" name="recommended" id="recommended" value="" />
-					</div>
-					</div>
+				
 					<!-- 第8行  年龄段-->
 					<div class="age">
 						<p>Expected teaching age group of students.(Can be multiple choice)</p>
